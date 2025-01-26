@@ -11,15 +11,15 @@ import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SettingComponent } from './components/setting/setting.component';
 
 const routes: Routes = [
-  {path: '',redirectTo:'**', pathMatch:'full'},
+  {path: '',redirectTo:'home', pathMatch:'full'},
   {path:'home', component: AdminHomepageComponent},
-  {path:'blogs', component: SubjectsComponent},
-  {path:'setting', component: SettingComponent},
-  {path:'31/migration', component: MigrationComponent, canActivate: [AuthGuard]},
   {path:'about', component:AboutComponent },
-  {path:'33/manage-students', component: StudentsComponent, canActivate: [AuthGuard]},
   {path: 'login', component: AdminLoginComponent},
-  {path: '**',component: AdminHomepageComponent}
+  {path: '**',component: AdminHomepageComponent},
+  {path:'setting', component: SettingComponent, canActivate: [AuthGuard]},
+  // {path:'blogs', component: SubjectsComponent},
+  // {path:'31/migration', component: MigrationComponent, canActivate: [AuthGuard]},
+  // {path:'33/manage-students', component: StudentsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
