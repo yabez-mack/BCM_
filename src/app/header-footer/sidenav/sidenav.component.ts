@@ -205,12 +205,15 @@ export class SidenavComponent implements OnInit {
         icon: 'fa fa-key',
         module_name: 'About',
       });
-      this.modules?.push({
-        module_id: '',
-        routeLink: '#/setting',
-        icon: 'fa fa-key',
-        module_name: 'Setting',
-      });
+      if(this.token){
+
+        this.modules?.push({
+          module_id: '',
+          routeLink: '#/setting',
+          icon: 'fa fa-key',
+          module_name: 'Setting',
+        });
+      }
       
 
     this._auth.onMenuStatus().subscribe((res: any) => {

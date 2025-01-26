@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../auth.service';
 import { EncryptionService } from '../encrypt.service';
 import Swal from 'sweetalert2';
+import { NavbarComponent } from '../header-footer/navbar/navbar.component';
 
 @Component({
   selector: 'app-admin-login',
@@ -18,7 +19,9 @@ export class AdminLoginComponent implements OnInit {
     private router: Router,
     private _auth: AuthService,
     private service: CookieService,
-    private encrypt: EncryptionService
+    private encrypt: EncryptionService,
+    private navbar:NavbarComponent
+
   ) {}
 
   adminLogin = this._myFB.group({
@@ -53,6 +56,9 @@ export class AdminLoginComponent implements OnInit {
        if (res.status == 'success') {         
          this.service.set('token',res.token)
          this.service.set('user_id',res.user)
+         this.service.set('full_name',res.full_name)
+         this.navbar.set_username(res.full_name)
+         
          this.router.navigate(['/home']);
        } else {
          Swal.fire({title:res.message,icon:'error'});
