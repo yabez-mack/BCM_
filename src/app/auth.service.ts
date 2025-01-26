@@ -66,31 +66,31 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
 
   dashboard_images(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_image_casrol`,
+      `http://13.51.234.210:8000/lyric/get_image_casrol`,
       input
     );
   }
   submit_dashboard_images(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/set_image_casrol`,
+      `http://13.51.234.210:8000/lyric/set_image_casrol`,
       input
     );
   }
   submit_user(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/create_user`,
+      `http://13.51.234.210:8000/lyric/create_user`,
       input
     );
   }
   check_login(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/validate_user`,
+      `http://13.51.234.210:8000/lyric/validate_user`,
       input
     );
   }
   validate_token(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/validate_token`,
+      `http://13.51.234.210:8000/lyric/validate_token`,
       input
     );
   }

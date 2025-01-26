@@ -423,7 +423,7 @@ h6{
 }
 
 .sidenav-nav-closed>li>a{
-    margin-right: 22px;
+    /* margin-right: 22px; */
 }
 .btn-close {
     padding: 18px 0 17px 0;

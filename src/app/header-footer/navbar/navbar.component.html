@@ -3,13 +3,13 @@
   style="background: whitesmoke;border-radius: 0px;"
 >
   <div class="container-fluid">
-    <div class="navbar-wrapper">
+    <!-- <div class="navbar-wrapper">
       
       <a class="navbar-brand" style="color:tomato;min-height: 25px;" href="#pablo">{{ '' }}</a>
-    </div>
+    </div> -->
+    <!-- [class.ml-auto]="!menuStatus" -->
     <div
       class="col-1 col-md-1 header__pan toggle header-mobile"
-      [class.ml-auto]="!menuStatus"
       (click)="SideNavToggle()"
     >
       <div>
@@ -19,10 +19,24 @@
           data-class="closed-sidebar"
         >
           <span class="hamburger-box">
-            <i style="font-size: 20px;" class="fal fa-bars"></i>
+            <i style="font-size: 25px;
+    color: lightcoral;" class="fal fa-bars"></i>
           </span>
         </a>
+       
       </div>
+    </div>
+    <div>
+      <a
+      type="button"
+      class="hamburger close-sidebar-btn hamburger--elastic"
+      data-class="closed-sidebar"
+    >
+      <span class="hamburger-box">
+        <i style="font-size: 25px;
+color: lightcoral;" class="fas fa-sign-in-alt"></i>
+      </span>
+    </a>
     </div>
     <!-- <button class="navbar-toggler" type="button" (click)="collapse()"
           [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">

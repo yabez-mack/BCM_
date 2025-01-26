@@ -187,12 +187,12 @@ export class SidenavComponent implements OnInit {
         icon: 'fa fa-user',
         module_name: 'Home',
       });
-      this.modules?.push({
-        module_id: '',
-        routeLink: '#/blogs',
-        icon: 'fa fa-key',
-        module_name: 'Blogs',
-      });
+      // this.modules?.push({
+      //   module_id: '',
+      //   routeLink: '#/blogs',
+      //   icon: 'fa fa-key',
+      //   module_name: 'Blogs',
+      // });
       this.modules?.push({
         module_id: '',
         routeLink: '#/contact',
