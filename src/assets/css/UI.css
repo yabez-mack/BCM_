@@ -1,0 +1,92 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+.single-welcome-slide .background-curve,
+.uza-about-us-area .about-bg-pattern img,
+.uza-portfolio-area .portfolio-bg-curve,
+.uza-blog-area .blog-bg-curve,
+.breadcrumb-bg-curve{
+    -webkit-animation: bounce 7s infinite alternate;
+}
+.welcome-text h5{
+    font-weight:100 !important;
+    letter-spacing:1px;
+}
+.h-95{
+    height:97%!important;
+}
+.uza-contact-form p{
+    /*font-size: 13px;*/
+    font-size: 15px;
+    /*color: #ccc;*/
+    color: #231f1f;
+    position: relative;
+    /*top: -10px;*/
+    top: 12px;
+    line-height: 18px;
+    left: 10px;
+}
+.error{
+    color: red;
+    position: relative;
+    /*left: 15px;*/
+    top: 5px;
+    font-weight: bold;
+}
+.contact-heading h6{
+    line-height:22px;
+    margin:20px 0px;
+}
+.left-top-bg-pattern{
+    position: absolute;
+    width: 40%;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    height: 100%;
+    top:40%;
+    -webkit-animation: bounce 7s infinite alternate;
+}
+.left-top-bg-pattern img{
+    height: 100%;
+    width: auto;
+}
+.right-bottom-bg-pattern{
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    height: auto;
+    width: auto;
+    bottom: -330%;
+    -webkit-animation: bounce 7s infinite alternate;
+}
+.terms-conditions-cont{
+    margin-bottom:30px;
+}
+.terms-conditions-cont ul{
+    margin-left:40px;
+}
+.terms-conditions-cont ul li{
+    line-height: 2;
+    color: #707070;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: justify;
+    text-indent:-13px;
+}
+.terms-conditions-cont ul li i{
+    color:#1583e9;
+    margin-right:10px;
+}
+.list_item_container img{
+    width:30px;
+    height:30px;
+    padding:2px;
+    border:1px#eee solid;
+    border-radius:50px;
+    float:left;
+    display:block;
+    position:relative;
+    top:-4px;
+}

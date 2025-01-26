@@ -1,0 +1,101 @@
+<div class="app-main__inner">
+    <div class="divider mt-0 mb-1"></div>
+    <div class="row ml-0" style="margin: 0px;">
+      <div class="col-12 col-md-12" >
+        <div class="card  mt-2">
+          <ul class="body-tabs ml-2 body-tabs-layout nav">
+            <!-- style="width: 100px; padding: 8px 5px;height:100%;display: flex;justify-content: center;align-items: center;" -->
+            <li class="nav-item mr-1 ml-1 mt-2">
+              <a
+                id="tab-1"
+                role="tab"
+                data-bs-toggle="tab"
+                data-bs-target="#migrate_subject"
+                class="btn-pill btn-wide active btn btn-outline-primary btn-m"
+                >SUBJECTS</a
+              >
+            </li>
+            <li class="nav-item mr-1 ml-1 mt-2">
+              <a
+                id="tab-1"
+                role="tab"
+                data-bs-toggle="tab"
+                data-bs-target="#migrate_class"
+                class="btn-pill btn-wide btn btn-outline-primary btn-m"
+                >CLASSES</a
+              >
+            </li>
+          </ul>
+  
+          <div class="tab-content ml-2 mt-2 main-card mb-3">
+            <!-- [ngClass]="state=='student_manage'?'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active':'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show'" -->
+            <div
+              id="migrate_subject"
+              class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active"
+              role="tabpanel"
+              style="padding-right: 0px !important"
+            >
+            <div class="divider mt-0"></div>
+              <ul class="body-tabs body-tabs-layout nav">
+                <!-- style="width: 100px; padding: 8px 5px;height:100%;display: flex;justify-content: center;align-items: center;" -->
+                <li class="nav-item mr-1 ml-1 mt-2">
+                  <a
+                    id="tab-1"
+                    role="tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#service"
+                    class="btn-pill btn-wide active btn btn-outline-primary btn-m"
+                    >SERVICE</a
+                  >
+                </li>
+                <li class="nav-item mr-1 ml-1 mt-2">
+                  <a
+                    id="tab-1"
+                    role="tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#excel_bulk"
+                    class="btn-pill btn-wide btn btn-outline-primary btn-m"
+                    >BULK EXCEL</a
+                  >
+                </li>
+              </ul>
+              <div class="tab-content mt-2 main-card mb-3">
+                <!-- [ngClass]="state=='student_manage'?'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active':'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show'" -->
+                <div
+                  id="service"
+                  class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active"
+                  role="tabpanel"
+                  style="padding-right: 0px !important"
+                >
+                  <div class="card-body">
+                    <div class="card-title">Select School</div>
+                  </div>
+                </div>
+                <div
+                  id="excel_bulk"
+                  class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show"
+                  role="tabpanel"
+                  style="padding-right: 0px !important"
+                >
+                  <div class="card-body">
+                    <div class="card-title">Select School2</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              id="migrate_class"
+              class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show"
+              role="tabpanel"
+              style="padding-right: 0px !important"
+            >
+              <div class="card-body">
+                <div class="card-title">Promote Student</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

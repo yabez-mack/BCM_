@@ -1,0 +1,270 @@
+<div class="app-main__inner">
+  <div class="divider mt-0 mb-1"></div>
+  <div class="row ml-0" style="margin: 0px">
+    <div class="col-12 col-md-12">
+      <div class="card mt-2">
+        <ul class="body-tabs ml-2 body-tabs-layout nav">
+          <!-- style="width: 100px; padding: 8px 5px;height:100%;display: flex;justify-content: center;align-items: center;" -->
+          <li class="nav-item mr-1 ml-1 mt-2">
+            <a
+              href="https://schoolknot.com/bulk-upload-optional-subjects.php"
+              class="btn-pill btn-wide btn btn-outline-primary btn-m"
+              style="color: black"
+              >UPLOAD SUBJECTS</a
+            >
+          </li>
+          <li class="nav-item mr-1 ml-1 mt-2">
+            <a
+              id="tab-1"
+              role="tab"
+              data-bs-toggle="tab"
+              data-bs-target="#upload_chapters"
+              class="btn-pill btn-wide active btn btn-outline-primary btn-m"
+              >UPLOAD CHAPTERS</a
+            >
+          </li>
+          <li class="nav-item mr-1 ml-1 mt-2">
+            <a
+              id="tab-1"
+              role="tab"
+              data-bs-toggle="tab"
+              data-bs-target="#upload_topics"
+              class="btn-pill btn-wide btn btn-outline-primary btn-m"
+              >UPLOAD TOPICS</a
+            >
+          </li>
+        </ul>
+
+        <div class="tab-content ml-2 mt-2 main-card mb-3">
+          <!-- [ngClass]="state=='student_manage'?'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active':'col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show'" -->
+          <div
+            id="upload_chapters"
+            class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show active"
+            role="tabpanel"
+            style="padding-right: 0px !important"
+          >
+            <div class="divider mt-0"></div>
+
+            <div>
+              <div class="card-body">
+                <div class="card-title">Select School</div>
+                <form
+                  [formGroup]="school_search_form"
+                  class="col-md-12 mt-n2"
+                  style="display: flex; padding: 0px"
+                >
+                  <ng-autocomplete
+                    class="col-md-3_5"
+                    [data]="schoolsList"
+                    formControlName="school"
+                    [searchKeyword]="keyword"
+                    placeholder="Enter School Name"
+                    (selected)="selected_school($event)"
+                    [itemTemplate]="list"
+                    style="padding: 0px"
+                  >
+                  </ng-autocomplete>
+
+                  <ng-template #list let-item>
+                    <a [innerHTML]="item.school_name"></a>
+                  </ng-template>
+                </form>
+              </div>
+              <div class="second-tab-2 mt-n4 mb-4 card-body">
+                <div class="card-title mt-n2">SAMPLE SHEET</div>
+                <div>
+                  <a
+                    href="https://schoolknot.com/excel_templates/template_bulk_upload_subject_chapters.xlsx"
+                    target="_blank"
+                    class="btn btn-success"
+                    style="width: max-content"
+                  >
+                    <img
+                      class="msexcel"
+                      src="https://schoolknot.com/req_excel.png"
+                      style="margin-top: -5px"
+                    />
+                    DOWNLOAD SAMPLE EXCEL
+                  </a>
+                </div>
+                <div *ngIf="school_id" class="card-title mb-1 mt-2">
+                  Add Chapters
+                </div>
+                <form
+                  *ngIf="school_id"
+                  [formGroup]="bulk_chapter_form"
+                  class="display_flex ml-n2"
+                >
+                  <input
+                    (input)="bulk_chapters($event)"
+                    type="file"
+                    formControlName="file"
+                    class="ml-3 col-md-3"
+                  />
+                </form>
+              </div>
+              <div class="card-body" *ngIf="tableData.length > 0">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                    align-items: center;
+                  "
+                >
+                  <div class="card-title">Chapter List</div>
+                </div>
+
+                <table class="table ec-table">
+                  <tr>
+                    <th>S.No</th>
+                    <th *ngFor="let item of tableTitle">{{ item }}</th>
+                    <!-- <th>Status</th> -->
+                  </tr>
+                  <tr *ngFor="let item of tableData; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td *ngFor="let items of item; let j = index">
+                      <!-- <div *ngIf="j==3" [ngClass]="items==true?'green':'red'">
+                            {{items==true?'VALID':'INVALID'}}
+
+                          </div> -->
+                      <div>
+                        {{ items }}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <div class="row ml-0">
+                  <button
+                    (click)="bulk_upload_subject_chapter()"
+                    class="btn btn-success"
+                    style="width: max-content"
+                  >
+                    SUBMIT
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="upload_subjects"
+            class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show"
+            role="tabpanel"
+            style="padding-right: 0px !important"
+          >
+            <div class="card-body">
+              <!-- <div class="card-title">Promote Student</div> -->
+            </div>
+          </div>
+          <div
+            id="upload_topics"
+            class="col-12 col-md-12 ml-n3 tab-pane tabs-animation fade show"
+            role="tabpanel"
+            style="padding-right: 0px !important"
+          >
+            <div>
+              <div class="card-body">
+                <div class="card-title">Select School</div>
+                <form
+                  [formGroup]="school_search_form1"
+                  class="col-md-12 mt-n2"
+                  style="display: flex; padding: 0px"
+                >
+                  <ng-autocomplete
+                    class="col-md-3_5"
+                    [data]="schoolsList"
+                    formControlName="school"
+                    [searchKeyword]="keyword"
+                    placeholder="Enter School Name"
+                    (selected)="selected_school1($event)"
+                    [itemTemplate]="list"
+                    style="padding: 0px"
+                  >
+                  </ng-autocomplete>
+
+                  <ng-template #list let-item>
+                    <a [innerHTML]="item.school_name"></a>
+                  </ng-template>
+                </form>
+              </div>
+              <div class="second-tab-2 mt-n4 mb-4 card-body">
+                <div class="card-title mt-n2">SAMPLE SHEET</div>
+                <div>
+                  <a
+                    href="https://schoolknot.com/excel_templates/template_bulk_upload_subject_chapters.xlsx"
+                    target="_blank"
+                    class="btn btn-success"
+                    style="width: max-content"
+                  >
+                    <img
+                      class="msexcel"
+                      src="https://schoolknot.com/req_excel.png"
+                      style="margin-top: -5px"
+                    />
+                    DOWNLOAD SAMPLE EXCEL
+                  </a>
+                </div>
+                <div *ngIf="school_id1" class="card-title mb-1 mt-2">
+                  Add Topics
+                </div>
+                <form
+                  *ngIf="school_id1"
+                  [formGroup]="bulk_topic_form"
+                  class="display_flex ml-n2"
+                >
+                  <input
+                    (input)="bulk_topic($event)"
+                    type="file"
+                    formControlName="file"
+                    class="ml-3 col-md-3"
+                  />
+                </form>
+              </div>
+              <div class="card-body" *ngIf="tableData1.length > 0">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: row;
+                    align-items: center;
+                  "
+                >
+                  <div class="card-title">Topics List</div>
+                </div>
+
+                <table class="table ec-table">
+                  <tr>
+                    <th>S.No</th>
+                    <th *ngFor="let item of tableTitle1">{{ item }}</th>
+                    <!-- <th>Status</th> -->
+                  </tr>
+                  <tr *ngFor="let item of tableData1; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td *ngFor="let items of item; let j = index">
+                      <!-- <div *ngIf="j==3" [ngClass]="items==true?'green':'red'">
+                                  {{items==true?'VALID':'INVALID'}}
+      
+                                </div> -->
+                      <div>
+                        {{ items }}
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <div class="row ml-0">
+                  <button
+                    (click)="bulk_upload_subject_topic()"
+                    class="btn btn-success"
+                    style="width: max-content"
+                  >
+                    SUBMIT
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

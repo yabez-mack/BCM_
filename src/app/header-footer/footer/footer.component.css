@@ -1,0 +1,26 @@
+.footer {
+    width: 100%;
+    padding: 8px 8px;
+    background: tomato;
+    /* position: absolute; */
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+ 
+}
+.col-md-5 {
+    float: left;
+    position: relative;
+    width: 50%;
+}
+.copy-rights {
+    font-size: 13px;
+    color: #fff;
+}
+.mobile-disnone {
+    text-align: right;
+}
+
+.col-md-7 {
+    float: right;
+}

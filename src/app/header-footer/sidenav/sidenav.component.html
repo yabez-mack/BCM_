@@ -1,0 +1,68 @@
+<div
+  class="sidenav"
+  [ngClass]="collapsed ? 'sidenav-collapsed' : 'not-collapsed'"
+>
+  <div style="height: 40px"></div>
+  <div style="height: 100vh; overflow-y: hidden; overflow-x: hidden">
+    <ul
+      [ngClass]="collapsed ? 'sidenav-nav-open' : 'sidenav-nav-closed'"
+      (click)="getPosition($event)"
+    >
+      <li
+        class="sidenav-nav-item"
+        *ngFor="let data of modules; let j = index"
+        style="margin-bottom: 2px"
+      >
+        <a
+          class="col sidenav-nav-link-open"
+          [ngClass]="
+            activeRoute ==  data.routeLink.split('#')[1]
+                ? 'active'
+                : ''
+              
+          "
+          [href]="data.routeLink"
+          (click)="check_active()"
+          style="height: 46px; padding-bottom: 12.5px; padding-top: 12.5px"
+          routerLinkActive="active"
+        >
+          <i
+            class=""
+            [id]="data.module_id"
+            (click)="accordion(data.module_id)"
+            [ngClass]="
+            activeRoute ==  data.routeLink.split('#')[1]
+                ? 'sidenav-link-icon2'
+                : 'sidenav-link-icon'
+              
+          "
+          >
+            <span
+              style="
+                width: 30px;
+
+                height: 30px;
+                margin-right: 1.5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+              id="margin-right"
+              [class]="data.icon"
+            ></span>
+            <span 
+            [ngClass]="
+            activeRoute ==  data.routeLink.split('#')[1]
+                ? 'sidenav-link-text2'
+                : 'sidenav-link-text'
+              
+          "
+             *ngIf="collapsed" @fadeInOut
+              >{{ data.module_name }}
+            </span>
+          </i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

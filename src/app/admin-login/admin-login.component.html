@@ -1,0 +1,36 @@
+<div class="body_login" >
+  <div class="card">
+    <span class="card-title">
+      MEMBER LOGIN
+    </span>
+    <form [formGroup]="adminLogin" style="display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;">
+
+      <input
+      formControlName="username"
+    style="width: 300px;"
+
+      class="border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+    placeholder="Enter Username"
+    />
+    <input
+    type="password"
+    formControlName="password"
+    style="width: 300px;"
+    class="border border-gray-300 p-2 m-3 rounded-lg focus:outline-none focus:border-blue-500"
+    placeholder="Enter Password"
+    />
+    <button
+    (click)="loginAdmin()"
+    style="width: 300px;"
+    class="button bg-rose-500 text-white m-2 p-2 hover:bg-rose-700 focus:outline-none"
+  >
+    SUBMIT
+  </button>
+</form>
+
+  </div>
+
+</div>

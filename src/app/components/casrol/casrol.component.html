@@ -1,0 +1,19 @@
+<div class="carousel-container1" (mouseenter)="pause()" (mouseleave)="resume()">
+    <div class="carousel-wrapper1" [ngStyle]="{ 'transform': 'translateX(' + transformPosition + '%)' }">
+        
+      <div class="carousel-item1" *ngFor="let image of images; let i = index" style="background: #484848;border-radius: 8px;">
+        <img [src]="image.image" [alt]="image.title" style="width: 100%;height:400px;opacity: 0.7;border-radius: 8px;object-fit: cover;
+    object-position: top;">
+      </div>
+    </div>
+  
+    <!-- Previous and Next Buttons -->
+    <button class="prev" (click)="moveToPrevious()">❮</button>
+    <button class="next" (click)="moveToNext()">❯</button>
+  
+    <!-- Indicators -->
+    <div class="indicators1">
+      <span *ngFor="let image of images; let i = index" (click)="moveToImage(i)" [class.active]="i === currentIndex"></span>
+    </div>
+  </div>
+  

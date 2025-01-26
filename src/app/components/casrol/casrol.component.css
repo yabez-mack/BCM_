@@ -1,0 +1,63 @@
+.carousel-container1 {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-wrapper1 {
+    display: flex;
+    transition: transform 0.8s ease;
+  }
+  
+  .carousel-item1 {
+    min-width: 100%;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Previous and Next Buttons */
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  /* indicators1 */
+  .indicators1 {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+  }
+  
+  .indicators1 span {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .indicators1 span.active {
+    background-color: #717171;
+  }

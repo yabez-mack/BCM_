@@ -1,0 +1,64 @@
+/*
+body{
+    size: A4;
+}
+body:left{
+    margin-left: 3cm;
+}
+body:right{
+    margin-left:4cm ;
+}
+*/
+
+.thead td{
+    width: 1980px;  
+    text-align: center;
+} 
+
+
+/*
+.tbody{
+    vertical-align:middle !important;
+    position: absolute;
+    margin-left: 60px;
+    margin-top: 30px;
+}
+.tbody  td{
+    text-align: left;
+    position: relative;
+}
+*/
+.table3{
+    border-collapse: collapse;
+    margin:0% 1%;
+}
+
+.table3  tbody tr td{
+    border: 1px solid #000;
+    width: 15%;
+    padding: 10px;
+    margin: 0px;
+    text-align: center;
+}
+.table3 thead tr td{
+    border: 1px solid #000;
+    width: 15%;
+    padding: 10px;
+    margin: 0px; 
+    font-weight: bold;
+    text-align: center;
+}
+
+.table3 thead, .table3 tbody{
+    padding: 0px;
+    margin: 0px;
+}
+
+.sign ul{
+    list-style: none;
+    margin-top: 5%;
+}
+.sign ul li{
+    float: left;
+    margin-right: 26%;
+}

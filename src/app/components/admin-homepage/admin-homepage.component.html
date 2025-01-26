@@ -1,0 +1,28 @@
+<!-- <app-navbar></app-navbar>
+<app-sidenav></app-sidenav> -->
+<div
+  class="app-main__inner"
+  style="display: contents"
+  [ngClass]="{ 'display-area-shrink': sideNavStatus }"
+>
+  <div class="divider mt-0 mb-2"></div>
+  <div class="card-body mt-2">
+    <app-casrol></app-casrol>
+    </div>
+  <div class="card-body mt-2" style="display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      grid-gap: 20px;">
+    <div *ngFor="let item of program_data" class="max-w-xs rounded overflow-hidden shadow-md">
+      <img class="w-full" [src]="item.image" alt="No Image" style="min-height: 200px;height: 220px">
+      <div class="px-6 py-4">
+        <div class="font-bold text-xl mb-3">{{item.title}}</div>
+        <p class="text-gray-700 text-base" style="min-height: 40px;">
+          {{item.detail}}
+        </p>
+      </div>
+     
+    </div>
+    
+  </div>
+</div>

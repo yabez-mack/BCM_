@@ -1,0 +1,106 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+  <div class="row" style="width: 100%; margin-left: 50px">
+    <div
+      class="col-1 col-md-1 header__pan toggle header-mobile"
+      (click)="SideNavToggle()"
+      [class.ml-auto]="!menuStatus"
+      >
+      <div>
+        <a
+          type="button"
+          class="hamburger close-sidebar-btn hamburger--elastic"
+          data-class="closed-sidebar"
+        >
+          <span class="hamburger-box">
+            <i class="fal fa-bars"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      class="col mobile header-mobile"
+      [ngClass]="menuStatus ? 'eight' : 'eight_collapse'"
+    >
+      <div class="form-group has-feedback has-search" *ngIf="global_search">
+        
+      </div>
+    </div>
+    <div class="col-10 col-md-fourhalf navbar-custom-menu header-mobile" style="justify-content: end;">
+      <ul
+        class="col nav navbar-nav  righ-divss-menu mobile-nav"
+        style="
+          display: contents;
+          justify-content: center;
+          flex-direction: row;
+          margin-left: 0px;
+        "
+      >
+        <li
+          class="col-7 col-md-5 no-space nav-item"
+          style="justify-content: center; display: flex; margin-left: 0px"
+        >
+          <a routerLink="/admin/homepage" class="nav-link">
+            <img src="assets/images/logo-white.png" style="height: 45px" />
+          </a>
+        </li>
+        <li *ngIf="!(user_type == 1 || user_type == 13)"
+          class="col-2 col-md-3 no-space nav-item dropdown"
+          style="margin-left: 13px"
+        >
+          <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src="assets/images/student_profile.png" style="height: 40px" />
+        </a>
+        <ul
+          class="dropdown-menu col-12"
+          aria-labelledby="navbarDropdown"
+          style="margin-left: -82px; min-width: 147px;"
+        >
+          <li style="width: max-content;">
+            <a
+              class="dropdown-item"
+              href="https://schoolknot.com/view-employee.php"
+              >My Profile</a
+            >
+          </li>
+          <li style="width: max-content;">
+            <a
+              class="dropdown-item"
+              href="https://schoolknot.com/admin-dashboard-ang/#/28/change-password"
+              >Change Password</a
+            >
+          </li>
+          <li style="width: max-content;">
+            <a class="dropdown-item" (click)="logout($event)">
+              <!-- <i class="fal fa-sign-out signout-font" aria-hidden="true"></i> -->
+              Logout
+            </a>
+          </li>
+        </ul>
+        </li>
+        <li
+          class="col-4 col-md-4"
+          *ngIf="(user_type == 1 || user_type == 13)"
+        >
+          <a (click)="logout($event)" class="logo-out">
+            <i class="fal fa-sign-out signout-font" aria-hidden="true"
+              ><span style="cursor: pointer;" class="log-txt">Logout</span></i
+            >
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- </div> -->
+  </div>
+</nav>
+<mat-progress-bar
+  *ngIf="this._auth.getLoading()"
+  mode="indeterminate"
+  style="z-index: 99999"
+></mat-progress-bar>
