@@ -35,7 +35,8 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   isLoggedIn() {
     // let l = localStorage.getItem('logged_in');
     let l = this.service.get('token');
-    if (l == '1') {
+    if (l) {
+      
       return true;
     } else {
       return false;
