@@ -67,31 +67,31 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
 
   dashboard_images(input: any) {
     return this._http.post<any>(
-      `http://89.116.121.240:8000/lyric/get_image_casrol`,
+      `http://srv708149.hstgr.cloud:8000/lyric/get_image_casrol`,
       input
     );
   }
   submit_dashboard_images(input: any) {
     return this._http.post<any>(
-      `http://89.116.121.240:8000/lyric/set_image_casrol`,
+      `http://srv708149.hstgr.cloud:8000/lyric/set_image_casrol`,
       input
     );
   }
   submit_user(input: any) {
     return this._http.post<any>(
-      `http://89.116.121.240:8000/lyric/create_user`,
+      `http://srv708149.hstgr.cloud:8000/lyric/create_user`,
       input
     );
   }
   check_login(input: any) {
     return this._http.post<any>(
-      `http://89.116.121.240:8000/lyric/validate_user`,
+      `http://srv708149.hstgr.cloud:8000/lyric/validate_user`,
       input
     );
   }
   validate_token(input: any) {
     return this._http.post<any>(
-      `http://89.116.121.240:8000/lyric/validate_token`,
+      `http://srv708149.hstgr.cloud:8000/lyric/validate_token`,
       input
     );
   }
