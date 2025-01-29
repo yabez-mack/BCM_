@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postbuild": "cp -r dist/* /var/www/BCM_/ && sudo chown -R www-data:www-data /var/www/BCM_"
   },
   "private": true,
   "dependencies": {
