@@ -38,7 +38,6 @@ export class AppComponent implements OnInit {
   login_page: boolean = false;
   onActivate(item: any) {
     let page = item.constructor.name;
-   
     if (page == 'AdminLoginComponent') {
       this.login_page = true;
     } else {
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    if (this.url?.indexOf('masterLogin') !== -1) {
+    if (this.url?.indexOf('login') !== -1) {
       this.login_page = true;
       
     } else {

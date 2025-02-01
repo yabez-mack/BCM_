@@ -184,7 +184,7 @@ export class SidenavComponent implements OnInit {
       this.modules?.push({
         module_id: '',
         routeLink: '#/home',
-        icon: 'fa fa-user',
+        icon: 'fa fa-house',
         module_name: 'Home',
       });
       // this.modules?.push({
@@ -196,15 +196,24 @@ export class SidenavComponent implements OnInit {
       this.modules?.push({
         module_id: '',
         routeLink: '#/contact',
-        icon: 'fa fa-key',
+        icon: 'fa fa-user',
         module_name: 'Contacts',
       });
       this.modules?.push({
         module_id: '',
         routeLink: '#/about',
-        icon: 'fa fa-key',
+        icon: 'fa fa-address-card',
         module_name: 'About',
       });
+      if(this.token){
+
+        this.modules?.push({
+          module_id: '',
+          routeLink: '#/apps',
+          icon: 'fa fa-mobile-button',
+          module_name: 'Mobile App',
+        });
+      }
       if(this.token){
 
         this.modules?.push({

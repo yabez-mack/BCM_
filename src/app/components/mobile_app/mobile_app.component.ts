@@ -7,11 +7,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-setting',
-  templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.css'],
+  selector: 'app-mobile_app',
+  templateUrl: './mobile_app.component.html',
+  styleUrls: ['./mobile_app.component.css'],
 })
-export class SettingComponent implements OnInit {
+export class MobileAppComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private _fb: FormBuilder,
@@ -37,13 +37,52 @@ export class SettingComponent implements OnInit {
   user_form = this._fb.group({
     username: [''],
     password: [''],
-    confirm_password: [''],
     full_name: [''],
     user_id: [''],
     status: ['1'],
     user_type: ['1'],
     image: [''],
   });
+  lyrics_form = this._fb.group({
+    song: [''],
+    name: [''],
+    serial_no: [''],
+    artist: [''],
+    language: [''],
+    album: [''],
+    image: [''],
+    video_url: [''],
+  });
+
+  submit_lyrics() {
+    let body = {
+      name: this.lyrics_form.value.name,
+      song: this.lyrics_form.value.song,
+      serial_no: this.lyrics_form.value.serial_no,
+      artist: this.lyrics_form.value.artist,
+      image: this.lyrics_form.value.image,
+      index: this.lyrics_form.value.serial_no,
+      album: this.lyrics_form.value.album,
+      language: this.lyrics_form.value.language,
+      video_url: this.lyrics_form.value.video_url,
+    };
+    if (!body.name) {
+      Swal.fire({ title: 'Please Enter Song Name', icon: 'info' });
+    } else if (!body.serial_no) {
+      Swal.fire({ title: 'Please Enter Song No.', icon: 'info' });
+    } else if (!body.song) {
+      Swal.fire({ title: 'Please Enter Lyrics', icon: 'info' });
+    } else {
+      this._auth.set_songs(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.lyrics_form.reset()
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
   submit_user() {
     let body = {
       username: this.user_form.value.username,
@@ -63,11 +102,7 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Enter Password', icon: 'info' });
     } else if (!body.full_name) {
       Swal.fire({ title: 'Please Enter Full Name', icon: 'info' });
-    } 
-     else if (!(this.user_form.value.confirm_password==this.user_form.value.password)) {
-      Swal.fire({ title: "Password Didn't Match", icon: 'info' });
-    } 
-    else {
+    } else {
       this._auth.submit_user(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });

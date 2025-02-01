@@ -51,8 +51,6 @@ export class NavbarComponent implements OnInit {
   menuStatus: boolean = true;
   screenWidth: number = 0;
   collapsed: boolean = true;
-  module_access: any;
-  global_search: boolean = false;
   user_type: any;
 
   token: any;
@@ -76,16 +74,28 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
-  set_username(item:any){
-this.full_name=item
+  set_username(item: any, token: any) {
+    this.full_name = item;
+    this.token = token;
+  }
+  logout(){
+    
   }
   ngOnInit() {
-
+    if (this.service.get('token')) {
       this.token = this.service.get('token');
-      if(this.service.get('full_name')){
+    }
+    // if (!this.token) {
+    //   this.token = this.service.get('token');
+    // }
+    if (this.service.get('full_name')) {
       this.full_name = this.service.get('full_name');
-      }
-   
+    }
+    // if(!this.full_name){
+    //   this.full_name = this.service.get('full_name');
+
+    // }
+
     this._auth.onMenuStatus().subscribe((res: any) => {
       if (this.screenWidth <= 768) {
         this.menuStatus = true;

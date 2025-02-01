@@ -33,8 +33,10 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
     return this.loader;
   }
   isLoggedIn() {
-    // let l = localStorage.getItem('logged_in');
+    // let l = sessionStorage.getItem('token');
     let l = this.service.get('token');
+    // console.log(l)
+
     if (l) {
       
       return true;
@@ -92,6 +94,12 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   validate_token(input: any) {
     return this._http.post<any>(
       `https://api.bcmmovement.in/lyric/validate_token`,
+      input
+    );
+  }
+  set_songs(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/add_song`,
       input
     );
   }

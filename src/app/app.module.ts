@@ -18,21 +18,13 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { SearchfilterPipe } from './searchfilter.pipe';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { StudentsComponent } from './components/students/students.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { UserManagementComponent } from './components/user-management/user-management.component';
-import { SmsGatewayComponent } from './components/sms-gateway/sms-gateway.component';
-import { SchoolsComponent } from './components/schools/schools.component';
-import { FeesComponent } from './components/fees/fees.component';
-import { SupportComponent } from './components/support/support.component';
-import { MigrationComponent } from './components/migration/migration.component';
 import { AboutComponent } from './components/about/about.component';
-import { LogoutComponent } from './logout/logout.component';
-import { SubjectsComponent } from './components/subjects/subjects.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CasrolComponent } from './components/casrol/casrol.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
 
 
 
@@ -43,18 +35,10 @@ import { MatTabsModule } from '@angular/material/tabs';
     myRoutings,
     SearchByFilterPipe,
     SearchByFilterPipe,
-    StudentsComponent,
-    UserManagementComponent,
-    SmsGatewayComponent,
-    SchoolsComponent,
-    FeesComponent,
-    SupportComponent,
-    MigrationComponent,
     AboutComponent,
-    LogoutComponent,
-    SubjectsComponent,
     CasrolComponent,
     SettingComponent,
+    MobileAppComponent,
   
 
   ],
