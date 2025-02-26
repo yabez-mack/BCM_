@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -33,32 +34,51 @@ export class AppComponent implements OnInit {
     }
     return styleClass;
   }
-  constructor(public _auth: AuthService) {}
+  constructor(public _auth: AuthService,private router: Router, private activatedRoute: ActivatedRoute) {}
+  activeComponent: any;
   url: any=window.location.href;;
   login_page: boolean = false;
-  onActivate(item: any) {
+  onActivate(item?: any) {
     let page = item.constructor.name;
-    console.log(page)
-    console.log(this.url)
+    // console.log(page)
+    // console.log(this.url)
     // if (page == 'AdminLoginComponent') {
     //   this.login_page = true;
     // } else {
     //   this.login_page = false;
     // }
-    if (this.url?.indexOf('login') !== -1) {
-      this.login_page = true;
+    // if (this.url?.indexOf('login') !== -1) {
+    //   this.login_page = true;
       
-    } else {
-      this.login_page = false;
-    }
+    // } else {
+    //   this.login_page = false;
+    // }
+    this.router.events.subscribe(() => {
+      const currentRoute = this.activatedRoute.snapshot.firstChild;
+      if (currentRoute) {
+        this.activeComponent = currentRoute.component?.name;
+        // console.log('Active component:', this.activeComponent);
+        if(this.activeComponent=='AdminLoginComponent'){
+          this.login_page = true;
+          
+        }
+        else{
+          
+          this.login_page = false;
+        }
+      }
+    });
+    
+
   }
   ngOnInit(): void {
-    console.log(this.url)
-    if (this.url?.indexOf('login') !== -1) {
-      this.login_page = true;
+    // console.log(this.url)
+    // this.onActivate()
+    // if (this.url?.indexOf('login') !== -1) {
+    //   this.login_page = true;
       
-    } else {
-      this.login_page = false;
-    }
+    // } else {
+    //   this.login_page = false;
+    // }
   }
 }
