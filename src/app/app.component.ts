@@ -48,12 +48,13 @@ export class AppComponent implements OnInit {
     // } else {
     //   this.login_page = false;
     // }
-    // if (this.url?.indexOf('login') !== -1) {
-    //   this.login_page = true;
+    this.url=window.location.href
+    if (this.url?.indexOf('login') !== -1) {
+      this.login_page = true;
       
-    // } else {
-    //   this.login_page = false;
-    // }
+    } else {
+      this.login_page = false;
+    }
     // this.router.events.subscribe(() => {
     //   const currentRoute = this.activatedRoute.snapshot.firstChild;
     //   if (currentRoute) {
@@ -62,26 +63,27 @@ export class AppComponent implements OnInit {
        
     //   }
     // });
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      const currentRoute = this.activatedRoute.snapshot.firstChild;
-      const activeComponent = currentRoute ? currentRoute.component?.name : 'Unknown';
-      // this.activeComponentChanged.emit(activeComponent);
-      console.log('Active Component:', activeComponent);
-      if(activeComponent=='AdminLoginComponent'){
-        this.login_page = true;
+    // this.router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd)
+    // ).subscribe(() => {
+    //   const currentRoute = this.activatedRoute.snapshot.firstChild;
+    //   const activeComponent = currentRoute ? currentRoute.component?.name : 'Unknown';
+    //   // this.activeComponentChanged.emit(activeComponent);
+    //   console.log('Active Component:', activeComponent);
+    //   if(activeComponent=='AdminLoginComponent'){
+    //     this.login_page = true;
         
-      }
-      else{
+    //   }
+    //   else{
         
-        this.login_page = false;
-      }
-    });
+    //     this.login_page = false;
+    //   }
+    // });
     
 
   }
   ngOnInit(): void {
+    this.onActivate()
     // console.log(this.url)
     // this.onActivate()
     // if (this.url?.indexOf('login') !== -1) {
