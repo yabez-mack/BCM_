@@ -34,10 +34,11 @@ export class AppComponent implements OnInit {
     return styleClass;
   }
   constructor(public _auth: AuthService) {}
-  url: any;
+  url: any=window.location.href;;
   login_page: boolean = false;
   onActivate(item: any) {
     let page = item.constructor.name;
+    console.log(page)
     if (page == 'AdminLoginComponent') {
       this.login_page = true;
     } else {
@@ -50,7 +51,6 @@ export class AppComponent implements OnInit {
       
     } else {
       this.login_page = false;
-
     }
   }
 }
