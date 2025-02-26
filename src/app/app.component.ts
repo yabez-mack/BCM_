@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
 }
+import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
   login_page: boolean = false;
   onActivate(item?: any) {
     let page = item.constructor.name;
-    console.log(page)
+    // console.log(page)
     // console.log(this.url)
     // if (page == 'AdminLoginComponent') {
     //   this.login_page = true;
@@ -53,19 +54,28 @@ export class AppComponent implements OnInit {
     // } else {
     //   this.login_page = false;
     // }
-    this.router.events.subscribe(() => {
+    // this.router.events.subscribe(() => {
+    //   const currentRoute = this.activatedRoute.snapshot.firstChild;
+    //   if (currentRoute) {
+    //     this.activeComponent = currentRoute.component?.name;
+    //     // console.log('Active component:', this.activeComponent);
+       
+    //   }
+    // });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
       const currentRoute = this.activatedRoute.snapshot.firstChild;
-      if (currentRoute) {
-        this.activeComponent = currentRoute.component?.name;
-        // console.log('Active component:', this.activeComponent);
-        if(this.activeComponent=='AdminLoginComponent'){
-          this.login_page = true;
-          
-        }
-        else{
-          
-          this.login_page = false;
-        }
+      const activeComponent = currentRoute ? currentRoute.component?.name : 'Unknown';
+      // this.activeComponentChanged.emit(activeComponent);
+      console.log('Active Component:', activeComponent);
+      if(activeComponent=='AdminLoginComponent'){
+        this.login_page = true;
+        
+      }
+      else{
+        
+        this.login_page = false;
       }
     });
     
