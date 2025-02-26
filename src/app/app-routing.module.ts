@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import { AboutComponent } from './components/about/about.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'home', pathMatch:'full'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'login', component: AdminLoginComponent},
   {path:'setting', component: SettingComponent,canActivate: [AuthGuard]},
   {path:'apps', component: MobileAppComponent,canActivate: [AuthGuard]},
+  {path:'employees', component: EmployeeComponent,canActivate: [AuthGuard]},
   {path: '**',component: AdminHomepageComponent},
   // {path:'blogs', component: SubjectsComponent},
   // {path:'31/migration', component: MigrationComponent, canActivate: [AuthGuard]},

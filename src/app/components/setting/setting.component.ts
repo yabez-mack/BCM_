@@ -44,6 +44,19 @@ export class SettingComponent implements OnInit {
     user_type: ['1'],
     image: [''],
   });
+  branch_form = this._fb.group({
+    branch_name: [''],
+    status: ['1'],   
+  });
+  designation_form = this._fb.group({
+    designation: [''],
+    status: ['1'],   
+  });
+  field_form = this._fb.group({
+    branch_id: [''],
+    field_name: [''],
+    status: ['1'],   
+  });
   submit_user() {
     let body = {
       username: this.user_form.value.username,
@@ -117,6 +130,88 @@ export class SettingComponent implements OnInit {
       });
     }
   }
+  submit_branch() {
+    let body = {
+      branch_name: this.branch_form.value.branch_name,
+      status: this.branch_form.value.status,
+      token: this.token,
+    };
+    if (!body.token) {
+      Swal.fire({ title: 'Please Login', icon: 'info' });
+    }  else if (!body.branch_name) {
+      Swal.fire({ title: 'Please Enter Branch Name', icon: 'info' });
+    } else {
+      this._auth.add_branch(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.branch_form.patchValue({
+            branch_name: '',
+            status: '1',
+            
+          });
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
+  submit_designation() {
+    let body = {
+      designation: this.designation_form.value.designation,
+      status: this.designation_form.value.status,
+      token: this.token,
+    };
+    if (!body.token) {
+      Swal.fire({ title: 'Please Login', icon: 'info' });
+    }  else if (!body.designation) {
+      Swal.fire({ title: 'Please Enter Designation', icon: 'info' });
+    } else {
+      this._auth.add_branch(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.branch_form.patchValue({
+            branch_name: '',
+            status: '1',
+            
+          });
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
+  submit_field() {
+    let body = {
+      field_name: this.field_form.value.field_name,
+      branch_id: this.field_form.value.branch_id,
+      status: this.field_form.value.status,
+      token: this.token,
+    };
+    if (!body.token) {
+      Swal.fire({ title: 'Please Login', icon: 'info' });
+    } 
+     else if (!body.branch_id) {
+      Swal.fire({ title: 'Please Select Branch', icon: 'info' });
+    }
+     else if (!body.field_name) {
+      Swal.fire({ title: 'Please Enter Field Name', icon: 'info' });
+    }
+     else {
+      this._auth.add_mission_field(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.field_form.patchValue({
+            field_name: '',
+            branch_id: '',
+            status: '1',
+            
+          });
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
   submit_dashboard_program() {
     let body = {
       title: this.dashboard_program_form.value.title,
@@ -151,6 +246,18 @@ export class SettingComponent implements OnInit {
   }
   token: any = '';
   user_id: any = '';
+  branch_list:any[]=[]
+  get_branch(){
+    let body={
+      token:this.service.get('token')
+    }
+    this._auth.get_branch(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+        this.branch_list=res.data
+      }
+    })
+
+  }
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
@@ -169,6 +276,8 @@ export class SettingComponent implements OnInit {
           // window.location.reload()
         }
       });
+    this.get_branch()
+
     }
   }
 }

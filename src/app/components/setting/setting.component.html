@@ -84,7 +84,7 @@
         <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-orange-400 dark:text-gray-200">Create User</h2>
         <form [formGroup]="user_form" class="  flex flex-wrap space-x-4">
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Uername
+            Username
           </div>
           <input
             formControlName="username"
@@ -138,7 +138,92 @@
         </form>
       </div>
   </mat-tab>
-  <!-- <mat-tab label="Third">
-    
-  </mat-tab> -->
+  <mat-tab label="Employee">
+    <div class="card-body">
+      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-orange-400 dark:text-gray-200">BRANCH</h2>
+      <form [formGroup]="branch_form" class="  flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+          Branch Name
+        </div>
+        <input
+          formControlName="branch_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Branch Name"
+        />       
+        <div class="w-1/1 mt-3 flex justify-center">
+
+          <button
+            (click)="submit_branch()"
+            class="button bg-blue-500 text-white m-2 p-2 hover:bg-blue-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
+        </div>
+      </form>
+    </div>
+    <hr class="border-t border-gray-300 my-2" />
+
+    <div class="card-body">
+      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-orange-400 dark:text-gray-200">MISSION FIELD</h2>
+      <form [formGroup]="field_form" class="  flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+          Branch
+        </div>
+        <select
+          formControlName="branch_id"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+         
+        >
+        <option  value="" disabled>Select Branch</option>
+        <option *ngFor="let item of branch_list" [value]="item.id">{{item.branch_name}}</option>
+
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+          Field Name
+        </div>
+        <input
+          formControlName="field_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Title"
+        />
+        
+        <div class="w-1/1 mt-3 flex justify-center">
+
+        <button
+          (click)="submit_field()"
+          class="button bg-blue-500 text-white m-2 p-2 hover:bg-blue-700 focus:outline-none"
+        >
+          SUBMIT
+        </button>
+        </div>
+      </form>
+    </div>
+    <hr class="border-t border-gray-300 my-2" />
+
+    <div class="card-body">
+      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-orange-400 dark:text-gray-200">DESIGNATION</h2>
+      <form [formGroup]="designation_form" class="  flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+          Designation
+        </div>
+        <input
+        formControlName="designation"
+        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        placeholder="Enter Title"
+      />
+       
+        
+        <div class="w-1/1 mt-3 flex justify-center">
+
+        <button
+          (click)="submit_field()"
+          class="button bg-blue-500 text-white m-2 p-2 hover:bg-blue-700 focus:outline-none"
+        >
+          SUBMIT
+        </button>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+
 </mat-tab-group>

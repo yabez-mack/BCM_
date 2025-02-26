@@ -25,6 +25,7 @@ import { CasrolComponent } from './components/casrol/casrol.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 
 
@@ -39,6 +40,7 @@ import { MobileAppComponent } from './components/mobile_app/mobile_app.component
     CasrolComponent,
     SettingComponent,
     MobileAppComponent,
+    EmployeeComponent
   
 
   ],

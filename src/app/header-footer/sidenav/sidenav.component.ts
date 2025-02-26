@@ -193,6 +193,27 @@ export class SidenavComponent implements OnInit {
       //   icon: 'fa fa-key',
       //   module_name: 'Blogs',
       // });
+      if(this.token){
+        this.modules?.push({
+          module_id: '',
+          routeLink: '#/employees',
+          icon: 'fa-solid fa-user-tie',
+          module_name: 'Employee',
+        });
+        this.modules?.push({
+          module_id: '',
+          routeLink: '#/apps',
+          icon: 'fa fa-mobile-button',
+          module_name: 'Mobile App',
+        });
+        this.modules?.push({
+          module_id: '',
+          routeLink: '#/setting',
+          icon: 'fa fa-key',
+          module_name: 'Setting',
+        });
+       
+      }
       this.modules?.push({
         module_id: '',
         routeLink: '#/contact',
@@ -205,24 +226,8 @@ export class SidenavComponent implements OnInit {
         icon: 'fa fa-address-card',
         module_name: 'About',
       });
-      if(this.token){
-
-        this.modules?.push({
-          module_id: '',
-          routeLink: '#/apps',
-          icon: 'fa fa-mobile-button',
-          module_name: 'Mobile App',
-        });
-      }
-      if(this.token){
-
-        this.modules?.push({
-          module_id: '',
-          routeLink: '#/setting',
-          icon: 'fa fa-key',
-          module_name: 'Setting',
-        });
-      }
+      
+     
       
 
     this._auth.onMenuStatus().subscribe((res: any) => {
