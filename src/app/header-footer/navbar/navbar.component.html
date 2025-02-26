@@ -20,7 +20,7 @@
         >
           <span class="hamburger-box">
             <i
-              style="font-size: 25px; color: lightcoral"
+              style="font-size: 25px; color: #561a7a"
               class="fal fa-bars"
             ></i>
           </span>
@@ -37,21 +37,42 @@
       >
         <span class="hamburger-box">
           <i
-            style="font-size: 25px; color: lightcoral"
+            style="font-size: 25px; color: #561a7a"
             class="fas fa-sign-in-alt"
           ></i>
         </span>
       </a>
-     
-      
+
       <div *ngIf="token" class="relative inline-block text-left">
-        <button (click)="setdropdown()" id="dropdownButton1" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          {{full_name?full_name==undefined||full_name!='undefined'?'Admin':full_name:'Admin'}}
+        <button
+          (click)="setdropdown()"
+          id="dropdownButton1"
+          class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        >
+          {{
+            full_name
+              ? full_name == undefined || full_name != "undefined"
+                ? "Admin"
+                : full_name
+              : "Admin"
+          }}
         </button>
-        
-        <div id="dropdownMenu1" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
+
+        <div
+          id="dropdownMenu1"
+          class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden"
+        >
           <div class="py-1">
-            <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+            <a
+              (click)="logout()"
+              style="
+                cursor: pointer;
+                text-decoration: none;
+                color: darkslategrey;
+              "
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >Logout</a
+            >
           </div>
         </div>
       </div>

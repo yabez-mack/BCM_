@@ -115,13 +115,13 @@ app-header {
 }
 ::-webkit-scrollbar {
   width: 10px;
-  background-color: antiquewhite;
+  background-color: #f4d7fa;
   border-radius: 6px;
   min-height: 4px;
 }
 ::-webkit-scrollbar:hover {
   width: 5px;
-  background-color: antiquewhite;
+  background-color: #f4d7fa;
   border-radius: 6px;
   min-height: 4px;
 }
@@ -133,19 +133,19 @@ app-header {
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ff9582;
+  background: #561a7a;
   border-radius: 10px;
   max-height: 40px !important;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff9582;
+  background: #561a7a;
   border-radius: 10px;
   min-height: 40px;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff9582;
+  background: #561a7a;
   min-height: 40px;
 }
 .cdk-overlay-container {

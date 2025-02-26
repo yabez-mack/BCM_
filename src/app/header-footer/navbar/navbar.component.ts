@@ -79,6 +79,9 @@ export class NavbarComponent implements OnInit {
     this.token = token;
   }
   logout(){
+    this.service.deleteAll()
+    this.router.navigate(['/login']);
+
     
   }
   ngOnInit() {
