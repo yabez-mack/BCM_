@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    console.log(this.url)
     if (this.url?.indexOf('login') !== -1) {
       this.login_page = true;
       
