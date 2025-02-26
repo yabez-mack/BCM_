@@ -37,13 +37,19 @@ export class AppComponent implements OnInit {
   url: any=window.location.href;;
   login_page: boolean = false;
   onActivate(item: any) {
-    let page = item.constructor.name;
-    console.log(page)
+    // let page = item.constructor.name;
+    // console.log(page)
     // if (page == 'AdminLoginComponent') {
     //   this.login_page = true;
     // } else {
     //   this.login_page = false;
     // }
+    if (this.url?.indexOf('login') !== -1) {
+      this.login_page = true;
+      
+    } else {
+      this.login_page = false;
+    }
   }
   ngOnInit(): void {
     if (this.url?.indexOf('login') !== -1) {
@@ -52,6 +58,5 @@ export class AppComponent implements OnInit {
     } else {
       this.login_page = false;
     }
-    console.log(this.url?.indexOf('login') !== -1)
   }
 }
