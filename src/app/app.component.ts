@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   login_page: boolean = false;
   onActivate(item?: any) {
     let page = item.constructor.name;
-    // console.log(page)
+    console.log(page)
     // console.log(this.url)
     // if (page == 'AdminLoginComponent') {
     //   this.login_page = true;
