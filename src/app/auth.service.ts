@@ -157,6 +157,12 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
       input
     );
   }
+  get_latest_song_no(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/get_latest_song_no`,
+      input
+    );
+  }
 
 
 

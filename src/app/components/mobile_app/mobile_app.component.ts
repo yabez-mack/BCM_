@@ -77,119 +77,32 @@ export class MobileAppComponent implements OnInit {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
           this.lyrics_form.reset()
+          this.get_song_no()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
       });
     }
   }
-  submit_user() {
-    let body = {
-      username: this.user_form.value.username,
-      password: this.user_form.value.password,
-      full_name: this.user_form.value.full_name,
-      user_id: this.user_id,
-      status: this.user_form.value.status,
-      user_type: this.user_form.value.user_type,
-      image: this.user_form.value.image,
-      token: this.token,
-    };
-    if (!body.token) {
-      Swal.fire({ title: 'Please Login', icon: 'info' });
-    } else if (!body.username) {
-      Swal.fire({ title: 'Please Enter User Name', icon: 'info' });
-    } else if (!body.password) {
-      Swal.fire({ title: 'Please Enter Password', icon: 'info' });
-    } else if (!body.full_name) {
-      Swal.fire({ title: 'Please Enter Full Name', icon: 'info' });
-    } else {
-      this._auth.submit_user(body).subscribe((res: any) => {
-        if (res.status == 'success') {
-          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
-          this.user_form.patchValue({
-            full_name: '',
-            image: '',
-            password: '',
-            status: '1',
-            user_type: '1',
-            username: '',
-          });
-        } else {
-          Swal.fire({ title: res.message, icon: 'error' });
-        }
-      });
-    }
-  }
-  submit_dashboard_casrol() {
-    let body = {
-      title: this.dashboard_casrol_form.value.title,
-      image_url: this.dashboard_casrol_form.value.url,
-      status: this.dashboard_casrol_form.value.status,
-      detail: this.dashboard_casrol_form.value.detail,
-      type: this.dashboard_casrol_form.value.type,
-      token: this.token,
-    };
-    if (!body.token) {
-      Swal.fire({ title: 'Please Login', icon: 'info' });
-    } else if (!body.title) {
-      Swal.fire({ title: 'Please Enter Title', icon: 'info' });
-    } else if (!body.image_url) {
-      Swal.fire({ title: 'Please Enter URL', icon: 'info' });
-    } else {
-      this._auth.submit_dashboard_images(body).subscribe((res: any) => {
-        if (res.status == 'success') {
-          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
-          this.dashboard_casrol_form.patchValue({
-            detail: '',
-            status: '1',
-            title: '',
-            type: '1',
-            url: '',
-          });
-        } else {
-          Swal.fire({ title: res.message, icon: 'error' });
-        }
-      });
-    }
-  }
-  submit_dashboard_program() {
-    let body = {
-      title: this.dashboard_program_form.value.title,
-      image_url: this.dashboard_program_form.value.url,
-      status: this.dashboard_program_form.value.status,
-      detail: this.dashboard_program_form.value.detail,
-      type: this.dashboard_program_form.value.type,
-      token: this.token,
-    };
-    if (!body.token) {
-      Swal.fire({ title: 'Please Login', icon: 'info' });
-    } else if (!body.title) {
-      Swal.fire({ title: 'Please Enter Title', icon: 'info' });
-    } else if (!body.image_url) {
-      Swal.fire({ title: 'Please Enter URL', icon: 'info' });
-    } else {
-      this._auth.submit_dashboard_images(body).subscribe((res: any) => {
-        if (res.status == 'success') {
-          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
-          this.dashboard_program_form.patchValue({
-            detail: '',
-            status: '1',
-            title: '',
-            type: '2',
-            url: '',
-          });
-        } else {
-          Swal.fire({ title: res.message, icon: 'error' });
-        }
-      });
-    }
-  }
+  
+  
   token: any = '';
   user_id: any = '';
+  get_song_no(){
+    let body={
+      token:this.service.get('token')
+    }
+    this._auth.get_latest_song_no(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+        this.lyrics_form.patchValue({serial_no:res.data})
+      }
+    })
+  }
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
     if (this.token) {
+      this.get_song_no()
       let body1 = { token: this.token };
       this._auth.validate_token(body1).subscribe((res: any) => {
         if (res.status == 'success') {
