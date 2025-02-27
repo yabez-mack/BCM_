@@ -105,55 +105,55 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   set_employee(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_employee`,
+      `https://api.bcmmovement.in/lyric/add_employee`,
       input
     );
   }
   get_latest_employee_id(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_latest_employee_id`,
+      `https://api.bcmmovement.in/lyric/get_latest_employee_id`,
       input
     );
   }
   get_employees(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_employees`,
+      `https://api.bcmmovement.in/lyric/get_employees`,
       input
     );
   }
   get_branch(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_branch`,
+      `https://api.bcmmovement.in/lyric/get_branch`,
       input
     );
   }
   get_designation(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_designation`,
+      `https://api.bcmmovement.in/lyric/get_designation`,
       input
     );
   }
   get_field(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_fields`,
+      `https://api.bcmmovement.in/lyric/get_fields`,
       input
     );
   }
   add_branch(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_branch`,
+      `https://api.bcmmovement.in/lyric/add_branch`,
       input
     );
   }
   add_mission_field(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_mission_field`,
+      `https://api.bcmmovement.in/lyric/add_mission_field`,
       input
     );
   }
   add_designation(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_designation`,
+      `https://api.bcmmovement.in/lyric/add_designation`,
       input
     );
   }
