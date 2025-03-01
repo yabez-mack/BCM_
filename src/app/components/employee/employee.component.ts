@@ -266,6 +266,9 @@ export class EmployeeComponent implements OnInit {
     else if(item==3){
       return "Resigned"
     }
+    else if(item==4){
+      return "Deceased"
+    }
     else{
       return '-'
     }

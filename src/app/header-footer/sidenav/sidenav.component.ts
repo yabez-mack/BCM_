@@ -209,7 +209,7 @@ export class SidenavComponent implements OnInit {
         this.modules?.push({
           module_id: '',
           routeLink: '#/field-report',
-          icon: 'fa fa-mobile-button',
+          icon: 'fa-solid fa-file-lines',
           module_name: 'Field Report',
         });
         this.modules?.push({
