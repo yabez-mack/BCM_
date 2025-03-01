@@ -7,7 +7,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities; */
-
+@font-face {
+  font-family: 'Noto Sans Tamil';
+  src: url('assets/fonts/NotoSansTamil-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 select,
 input {
   height: 34px !important;
@@ -15,6 +20,10 @@ input {
 .button {
   border-radius: 8px;
   min-width: 90px;
+}
+.button-small {
+  border-radius: 8px;
+  min-width: 50px;
 }
 .loader {
   display: flex;
@@ -75,6 +84,9 @@ input {
     margin-left: 0px !important;
     background-color: white !important;
   }
+}
+.ql-editor {
+  font-family: 'Noto Sans Tamil', sans-serif;
 }
 app-header {
   position: fixed;

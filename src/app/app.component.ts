@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   url: any=window.location.href;;
   login_page: boolean = false;
   onActivate(item?: any) {
-    let page = item.constructor.name;
+    // let page = item.constructor.name;
     // console.log(page)
     // console.log(this.url)
     // if (page == 'AdminLoginComponent') {

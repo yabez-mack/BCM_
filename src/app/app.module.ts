@@ -26,6 +26,9 @@ import { SettingComponent } from './components/setting/setting.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
 import { EmployeeComponent } from './components/employee/employee.component';
+import { FieldReportComponent } from './components/field_report/field_report.component';
+import { QuillModule } from 'ngx-quill'
+
 
 
 
@@ -40,7 +43,8 @@ import { EmployeeComponent } from './components/employee/employee.component';
     CasrolComponent,
     SettingComponent,
     MobileAppComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    FieldReportComponent
   
 
   ],
@@ -63,8 +67,8 @@ import { EmployeeComponent } from './components/employee/employee.component';
     AutocompleteLibModule,
     NgbModule,
     MatTabsModule, 
-   
-
+    QuillModule.forRoot(),
+    
   ],
   providers: [CookieService, DatePipe,{provide: LocationStrategy, useClass:HashLocationStrategy},
   {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}],

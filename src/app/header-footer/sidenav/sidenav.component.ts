@@ -208,6 +208,12 @@ export class SidenavComponent implements OnInit {
         });
         this.modules?.push({
           module_id: '',
+          routeLink: '#/field-report',
+          icon: 'fa fa-mobile-button',
+          module_name: 'Field Report',
+        });
+        this.modules?.push({
+          module_id: '',
           routeLink: '#/setting',
           icon: 'fa fa-key',
           module_name: 'Setting',

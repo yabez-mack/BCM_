@@ -1,0 +1,159 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="All Reports">
+    <div class="card-body">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        REPORT LIST
+      </h2>
+      <div class="flex flex-wrap space-x-4">
+        <div class="w-full">
+          <table
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">Registation Number</th>
+              <th scope="col" class="px-6 py-3">Full Name</th>
+              <th scope="col" class="px-6 py-3">Designation</th>
+              <th scope="col" class="px-6 py-3">Month/Year</th>
+              <th scope="col" class="px-6 py-3">DOB</th>
+              <th scope="col" class="px-6 py-3">Father Name</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+              <!-- <th scope="col" class="text-center px-6 py-3">Status</th> -->
+            </tr>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+              *ngFor="let item of report_list"
+            >
+              <td scope="col" class="px-6 py-3">{{ item.reg_id }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.name }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.designation_name }}</td>
+              <!-- <td scope="col" class="px-6 py-3">{{ item.branch_name }}</td> -->
+              <td scope="col" class="px-6 py-3">{{ conv_month(item.month)+'/'+item.year_name }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.date_of_birth|date:'dd-MMM-yyyy' }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.father_name }}</td>
+              <td>
+                <div>
+            <button class="button-small bg-blue-500 text-white m-2 p-1 hover:bg-blue-700 focus:outline-none" (click)="print(item)">print</button>
+
+                </div>
+              </td>
+              <!-- <td scope="col" class="text-center px-6 py-3">{{ conv_status(item.status) }}</td> -->
+            </tr>
+          </table>
+         
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Create Report">
+    <div class="card-body">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        FIELD REPORT
+      </h2>
+      <form
+        [formGroup]="field_report_form"
+        class="flex flex-wrap space-x-4"
+      >
+
+        <div class="w-full mt-3 flex items-center justify-start">Select Detail</div>
+        <select
+          formControlName="employee_id"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+         
+        >
+        <option  value="" disabled>Select Employee</option>
+        <option *ngFor="let item of employees_list" [value]="item.id">{{item.name}}</option>
+
+        </select>
+        <select
+        formControlName="year"
+        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+       
+      >
+      <option  value="" disabled>Select Year</option>
+      <option *ngFor="let item of year_list" [value]="item.id">{{item.year}}</option>
+
+      </select>
+        <select
+          formControlName="month"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+         
+        >
+        <option  value="" disabled>Select Month</option>
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+
+        </select>
+        <div class="w-full mt-3 flex items-center justify-start" >New Followers</div>
+        <div class="w-full">
+
+          <input
+          type="number"
+          formControlName="new_followers"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+         
+        />
+        </div>
+      
+        <div class="w-full mt-3 mb-2 flex items-center justify-start" >Obstacles</div>
+        <quill-editor
+        formControlName="obstacles"
+          class="w:full mb-5"
+          [modules]="tools"
+          [format]="'text'"
+          style="min-height: 70px"
+          placeholder="Insert text here ..."
+        >
+        </quill-editor>
+        <div class="w-full mt-5 mb-2 flex items-center justify-start" >Testimony</div>
+        <quill-editor
+        formControlName="testimony"
+          class="w:full mb-5"
+          [modules]="tools"
+          [format]="'text'"
+          style="min-height: 70px"
+          placeholder="Insert text here ..."
+        >
+        </quill-editor>
+       
+        <div class="w-full flex mt-5 mb-2 items-center justify-start">
+          Prayer Request
+        </div>
+        <quill-editor
+        formControlName="prayer_request"
+          class="w:full mb-4"
+          [modules]="tools"
+          [format]="'text'"
+          style="min-height: 70px"
+          placeholder="Insert text here ..."
+        >
+        </quill-editor>
+
+        <div class="w-1/1 mt-5 flex justify-center">
+          <button
+            (click)="submit_field()"
+            class="button bg-blue-500 text-white m-2 p-2 hover:bg-blue-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-tab>
+  
+</mat-tab-group>

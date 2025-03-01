@@ -166,11 +166,11 @@ export class SettingComponent implements OnInit {
     }  else if (!body.designation) {
       Swal.fire({ title: 'Please Enter Designation', icon: 'info' });
     } else {
-      this._auth.add_branch(body).subscribe((res: any) => {
+      this._auth.add_designation(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
-          this.branch_form.patchValue({
-            branch_name: '',
+          this.designation_form.patchValue({
+           designation:'',
             status: '1',
             
           });
