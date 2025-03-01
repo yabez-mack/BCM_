@@ -105,7 +105,7 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   set_employee(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000//lyric/add_employee`,
+      `https://api.bcmmovement.in//lyric/add_employee`,
       input
     );
   }
@@ -153,25 +153,25 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   add_designation(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_designation`,
+      `https://api.bcmmovement.in/lyric/add_designation`,
       input
     );
   }
   get_year(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_year`,
+      `https://api.bcmmovement.in/lyric/get_year`,
       input
     );
   }
   add_field_report(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/add_field_report`,
+      `https://api.bcmmovement.in/lyric/add_field_report`,
       input
     );
   }
   get_field_report(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_field_report`,
+      `https://api.bcmmovement.in/lyric/get_field_report`,
       input
     );
   }
