@@ -12,13 +12,16 @@
           placeholder="Enter Title"
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-          Image URL
+          Image
         </div>
+      
         <input
-          formControlName="url"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Image URL"
-        />
+        formControlName="file"
+                                (change)="onChangeImage($event)"
+                                type="file"
+                                class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+
+                              />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
           Details
         </div>

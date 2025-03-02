@@ -75,7 +75,7 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   submit_dashboard_images(input: any) {
     return this._http.post<any>(
-      `https://api.bcmmovement.in/lyric/set_image_casrol`,
+      `http://127.0.0.1:8000/lyric/set_image_casrol`,
       input
     );
   }

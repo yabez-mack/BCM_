@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -26,11 +27,14 @@ export class SettingComponent implements OnInit {
     detail: [''],
     type: ['1'],
     status: ['1'],
+    file: [''],
+
   });
   dashboard_program_form = this._fb.group({
     title: [''],
     url: [''],
     detail: [''],
+    file: [''],
     type: ['2'],
     status: ['1'],
   });
@@ -101,7 +105,8 @@ export class SettingComponent implements OnInit {
   submit_dashboard_casrol() {
     let body = {
       title: this.dashboard_casrol_form.value.title,
-      image_url: this.dashboard_casrol_form.value.url,
+      file_name: this.file_name,
+      file: this.base64code4image,
       status: this.dashboard_casrol_form.value.status,
       detail: this.dashboard_casrol_form.value.detail,
       type: this.dashboard_casrol_form.value.type,
@@ -111,9 +116,7 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.title) {
       Swal.fire({ title: 'Please Enter Title', icon: 'info' });
-    } else if (!body.image_url) {
-      Swal.fire({ title: 'Please Enter URL', icon: 'info' });
-    } else {
+    }  else {
       this._auth.submit_dashboard_images(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
@@ -123,7 +126,10 @@ export class SettingComponent implements OnInit {
             title: '',
             type: '1',
             url: '',
+            file:''
           });
+          this.base64code4image=''
+          this.file_name=''
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -216,7 +222,7 @@ export class SettingComponent implements OnInit {
   submit_dashboard_program() {
     let body = {
       title: this.dashboard_program_form.value.title,
-      image_url: this.dashboard_program_form.value.url,
+      image_url: this.dashboard_program_form.value.url,     
       status: this.dashboard_program_form.value.status,
       detail: this.dashboard_program_form.value.detail,
       type: this.dashboard_program_form.value.type,
@@ -238,12 +244,77 @@ export class SettingComponent implements OnInit {
             title: '',
             type: '2',
             url: '',
+            file:''
           });
+          
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
       });
     }
+  }
+  base64code4image:any=''
+  file_name:any=''
+  file_type:any=''
+  onChangeImage = ($event: any) => {
+    this.base64code4image = '';
+    const files = $event.target.files;
+
+
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name = item.name;
+        this.file_type = item.type.split('/')[1];
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase64(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL:any=''
+  convertToBase64(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image) {
+        this.base64code4image =
+          this.base64code4image + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image = d.split('base64,')[1];
+      }
+    });
+  }
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subscriber.next(filereader.result);
+      subscriber.complete();
+    };
+    filereader.onerror = () => {
+      subscriber.error();
+      subscriber.complete();
+    };
   }
   token: any = '';
   user_id: any = '';
