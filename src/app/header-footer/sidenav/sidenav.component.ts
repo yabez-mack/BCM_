@@ -74,11 +74,9 @@ export class SidenavComponent implements OnInit {
   path2: any;
   menuStatus: boolean = true;
   school_id: any;
-  logo: any;
   imageUrl: any;
   sch_nm: any;
   global_newdashboard: any;
-  name: any;
   name_: any;
   username: string = '';
   user_type: any;
@@ -132,6 +130,25 @@ export class SidenavComponent implements OnInit {
   }
   token:any=''
   ngOnInit(): void {
+    this.screenWidth = window.innerWidth;   
+    this._auth.onMenuStatus().subscribe((res: any) => {
+      this.collapsed = res;
+      this.menuStatus = res;
+      this.onToggleSideNav.emit({
+        collapsed: this.collapsed,
+        screenWidth: this.screenWidth,
+      });
+    });
+    if (this.screenWidth <= 768) {
+      this._auth.onMenuStatus().subscribe((res: any) => {
+        this.collapsed = res;
+        this.menuStatus = res;
+        this.onToggleSideNav.emit({
+          collapsed: this.collapsed,
+          screenWidth: this.screenWidth,
+        });
+      });
+    }
     this.router.events.pipe(
       filter((event:any) => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -141,24 +158,6 @@ export class SidenavComponent implements OnInit {
       this.activeRoute = window.location.href?.split('/#')[1];
 
     }
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 768) {
-      this.collapsed = false;
-      this.onToggleSideNav.emit({
-        collapsed: this.collapsed,
-        screenWidth: this.screenWidth,
-      });
-    }
-    this.name = '';
-    this.logo = '';
-    this.school_name = '';
-    let value = window.location.href?.split('#/')[1].split('/');
-    this.path2 = value[0];
-    this.path = value[1];
-
-    const body = {
-      master_employee_id: atob(this.service.get('staff_id')),
-    };
     this.token=this.service.get('token')
     if(this.token)
       {
@@ -236,24 +235,7 @@ export class SidenavComponent implements OnInit {
      
       
 
-    this._auth.onMenuStatus().subscribe((res: any) => {
-      this.collapsed = res;
-      this.menuStatus = res;
-      this.onToggleSideNav.emit({
-        collapsed: this.collapsed,
-        screenWidth: this.screenWidth,
-      });
-    });
-    if (this.screenWidth <= 768) {
-      this._auth.onMenuStatus().subscribe((res: any) => {
-        this.collapsed = res;
-        this.menuStatus = res;
-        this.onToggleSideNav.emit({
-          collapsed: this.collapsed,
-          screenWidth: this.screenWidth,
-        });
-      });
-    }
+    
   }
 
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();

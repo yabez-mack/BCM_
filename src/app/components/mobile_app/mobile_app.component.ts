@@ -53,6 +53,18 @@ export class MobileAppComponent implements OnInit {
     image: [''],
     video_url: [''],
   });
+  lyrics_form_edit = this._fb.group({
+    id: [''],
+    song: [''],
+    name: [''],
+    serial_no: [''],
+    artist: [''],
+    language: [''],
+    album: [''],
+    image: [''],
+    video_url: [''],
+  });
+  searchLyrics: any = '';
 
   submit_lyrics() {
     let body = {
@@ -98,6 +110,54 @@ export class MobileAppComponent implements OnInit {
       }
     })
   }
+  song_list:any[]=[]
+  edit_song(item:any){
+    
+    this.lyrics_form_edit.patchValue({album:item.album,artist:item.artist,id:item.id,image:item.image,language:item.language,name:item.name,serial_no:item.serial_no,song:item.song,video_url:item.video_url});
+    // let height=(<HTMLTextAreaElement>document.getElementById('edit_song_lyrics')).scrollHeight
+  }
+  update_song(){
+    let body = {
+      id: this.lyrics_form_edit.value.id,
+      name: this.lyrics_form_edit.value.name,
+      song: this.lyrics_form_edit.value.song,
+      serial_no: this.lyrics_form_edit.value.serial_no,
+      artist: this.lyrics_form_edit.value.artist,
+      image: this.lyrics_form_edit.value.image,
+      index: this.lyrics_form_edit.value.serial_no,
+      album: this.lyrics_form_edit.value.album,
+      language: this.lyrics_form_edit.value.language,
+      video_url: this.lyrics_form_edit.value.video_url,
+    };
+    if (!body.name) {
+      Swal.fire({ title: 'Please Enter Song Name', icon: 'info' });
+    } else if (!body.serial_no) {
+      Swal.fire({ title: 'Please Enter Song No.', icon: 'info' });
+    } else if (!body.song) {
+      Swal.fire({ title: 'Please Enter Lyrics', icon: 'info' });
+    } else {
+      this._auth.update_song(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.lyrics_form_edit.reset()
+          this.get_songs();
+          (<HTMLElement>document.getElementById('close_edit_song')).click()
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
+  get_songs(){
+    let body={
+      token:this.service.get('token')
+    }
+    this._auth.get_songs(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+       this.song_list=res.data
+      }
+    })
+  }
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
@@ -117,6 +177,7 @@ export class MobileAppComponent implements OnInit {
           // window.location.reload()
         }
       });
+      this.get_songs()
     }
   }
 }

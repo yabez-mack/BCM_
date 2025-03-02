@@ -1,18 +1,82 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="Songs List">
+    <div class="card-body">
+      <div class="flex flex-wrap justify-between space-x-4">
+        <h2
+          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        >
+          SONG LIST
+        </h2>
+        <input
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          style="justify-self: flex-end"
+          placeholder=" Enter Search Text"
+          [(ngModel)]="searchLyrics"
+        />
+      </div>
+      <div class="flex flex-wrap space-x-4">
+        <div class="w-full">
+          <table
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">Song No</th>
+              <th scope="col" class="px-6 py-3">Song Name</th>
+              <th scope="col" class="px-6 py-3">Album</th>
+              <th scope="col" class="px-6 py-3">Artist</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+              *ngFor="let item of song_list | search : searchLyrics"
+            >
+              <td scope="col" class="px-6 py-3">{{ item.serial_no }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.name }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.album }}</td>
+              <td scope="col" class="px-6 py-3">{{ item.artist }}</td>
+              <td scope="col" class="px-6 py-3">
+                <button
+                  class="button-small bg-sky-500 text-white p-1 hover:bg-sky-700 focus:outline-none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#edit_song"
+                  (click)="edit_song(item)"
+                >
+                  Edit
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
   <mat-tab label="Create">
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-orange-400 dark:text-gray-200">Create Lyrics</h2>
-      <form [formGroup]="lyrics_form" class=" flex flex-wrap space-x-4">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-400 dark:text-gray-200"
+      >
+        Create Lyrics
+      </h2>
+      <form
+        [formGroup]="lyrics_form"
+        class="flex flex-wrap"
+        style="grid-gap: 3%"
+      >
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Song No.
         </div>
         <input
-        type="number"
-        formControlName="serial_no"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        placeholder="Enter Song No."
+          type="number"
+          formControlName="serial_no"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Song No."
         />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Song Name</div>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Song Name
+        </div>
         <input
           formControlName="name"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
@@ -38,13 +102,13 @@
           Artist Name
         </div>
         <input
-        formControlName="artist"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        placeholder="Enter Artist Name"
-      />
-      <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-        Language
-      </div>
+          formControlName="artist"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Artist Name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Language
+        </div>
         <input
           formControlName="language"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
@@ -58,7 +122,7 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Video URL"
         />
-       
+
         <textarea
           formControlName="song"
           class="w-1/1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
@@ -69,29 +133,142 @@
             margin-left: 9px;
             padding: 5px 4px;
             min-height: 80px;
-            "
-            >
+          "
+        >
             <!-- margin-bottom: -13px; -->
             <!-- width: 333px; -->
             <!-- min-width: 157px; -->
         </textarea>
         <div class="mt-3 w-1/1 flex items-center justify-center">
-
           <button
-  
             (click)="submit_lyrics()"
-            class="button bg-blue-500 text-white ml-2 p-2 hover:bg-blue-700 focus:outline-none"
-            style="margin-left: 15px;"
+            class="button bg-indigo-500 text-white ml-2 p-2 hover:bg-indigo-700 focus:outline-none"
+            style="margin-left: 15px"
           >
             SUBMIT
           </button>
         </div>
       </form>
     </div>
-    
   </mat-tab>
-  <!-- <mat-tab label="List">
-    
-  </mat-tab>
-  <mat-tab label="Third"> </mat-tab> -->
 </mat-tab-group>
+
+<div
+  class="modal fade"
+  id="edit_song"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-lg w-90"
+    style="max-width: 95%"
+    role="document"
+  >
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: mediumpurple;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 600;">
+        <span class="modal-title fs-5">Edit Song</span>
+        <button
+          type="button"
+          class="btn-close"
+          id="close_edit_song"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form
+          [formGroup]="lyrics_form_edit"
+          class="flex flex-wrap"
+          style="grid-gap: 3%"
+        >
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Song No.
+          </div>
+          <input
+            type="number"
+            formControlName="serial_no"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Song No."
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Song Name
+          </div>
+          <input
+            formControlName="name"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Song Name"
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Image URL
+          </div>
+          <input
+            formControlName="image"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Image Url"
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Album Name
+          </div>
+          <input
+            formControlName="album"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Album Name"
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Artist Name
+          </div>
+          <input
+            formControlName="artist"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Artist Name"
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Language
+          </div>
+          <input
+            formControlName="language"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter language"
+          />
+          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+            Youtube Video URL
+          </div>
+          <input
+            formControlName="video_url"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Video URL"
+          />
+
+          <textarea
+            id="edit_song_lyrics"
+            formControlName="song"
+            class="w-1/1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            placeholder="Enter Song"
+            style="
+              height: 35px;
+              margin-top: 8px;
+              margin-left: 9px;
+              padding: 5px 4px;
+              min-height: 80px;
+            "
+          >
+          </textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="update_song()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

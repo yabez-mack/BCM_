@@ -1,14 +1,23 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
   <mat-tab label="All Reports">
     <div class="card-body">
-      <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
-      >
-        REPORT LIST
-      </h2>
+      <div class="flex flex-wrap justify-between space-x-4">
+        <h2
+          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        >
+          FIELD REPORTS
+        </h2>
+        <input
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          style="justify-self: flex-end"
+          placeholder=" Enter Search Text"
+          [(ngModel)]="searchReport"
+        />
+      </div>
       <div class="flex flex-wrap space-x-4">
         <div class="w-full">
           <table
+          *ngIf="report_list.length==0"
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
           >
             <tr
@@ -21,11 +30,32 @@
               <th scope="col" class="px-6 py-3">DOB</th>
               <th scope="col" class="px-6 py-3">Father Name</th>
               <th scope="col" class="px-6 py-3">Action</th>
-              <!-- <th scope="col" class="text-center px-6 py-3">Status</th> -->
             </tr>
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              *ngFor="let item of report_list"
+            >
+              <td scope="col" colspan="7" class="px-6 py-3">No Records Found</td>
+              
+            </tr>
+          </table>
+          <table
+          *ngIf="report_list.length>0"
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">Registation Number</th>
+              <th scope="col" class="px-6 py-3">Full Name</th>
+              <th scope="col" class="px-6 py-3">Designation</th>
+              <th scope="col" class="px-6 py-3">Month/Year</th>
+              <th scope="col" class="px-6 py-3">DOB</th>
+              <th scope="col" class="px-6 py-3">Father Name</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+              *ngFor="let item of report_list|search:searchReport"
             >
               <td scope="col" class="px-6 py-3">{{ item.reg_id }}</td>
               <td scope="col" class="px-6 py-3">{{ item.name }}</td>
@@ -34,13 +64,10 @@
               <td scope="col" class="px-6 py-3">{{ conv_month(item.month)+'/'+item.year_name }}</td>
               <td scope="col" class="px-6 py-3">{{ item.date_of_birth|date:'dd-MMM-yyyy' }}</td>
               <td scope="col" class="px-6 py-3">{{ item.father_name }}</td>
-              <td>
-                <div>
-            <button class="button-small bg-blue-500 text-white m-2 p-1 hover:bg-blue-700 focus:outline-none" (click)="print(item)">print</button>
+              <td scope="col" class="px-6 py-3">
+            <button class="button-small bg-stone-950 text-white p-1 hover:bg-stone-700 focus:outline-none" (click)="print(item)">Print</button>
 
-                </div>
               </td>
-              <!-- <td scope="col" class="text-center px-6 py-3">{{ conv_status(item.status) }}</td> -->
             </tr>
           </table>
          
@@ -147,7 +174,7 @@
         <div class="w-1/1 mt-5 flex justify-center">
           <button
             (click)="submit_field()"
-            class="button bg-blue-500 text-white m-2 p-2 hover:bg-blue-700 focus:outline-none"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
           >
             SUBMIT
           </button>

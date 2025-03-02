@@ -147,8 +147,9 @@ export class SettingComponent implements OnInit {
           this.branch_form.patchValue({
             branch_name: '',
             status: '1',
-            
+          
           });
+          this.get_branch()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }

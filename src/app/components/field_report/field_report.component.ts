@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { jsPDF } from 'jspdf';
   styleUrls: ['./field_report.component.css'],
 })
 
-export class FieldReportComponent implements OnInit {
+export class FieldReportComponent implements OnInit , AfterViewInit {
   constructor(
     private _auth: AuthService,
     private _fb: FormBuilder,
@@ -38,7 +38,7 @@ export class FieldReportComponent implements OnInit {
     field_name: [''],
     status: ['1'],   
   });
-  
+  searchReport:any=''
   submit_dashboard_casrol() {
     let body = {
       // title: this.dashboard_casrol_form.value.title,
@@ -114,6 +114,7 @@ export class FieldReportComponent implements OnInit {
             status:'1'
             
           });
+          this.get_field_report()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -210,7 +211,7 @@ export class FieldReportComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ 'font': ['sans-serif', 'serif', 'monospace', 'Noto Sans Tamil','Roboto'] }],
+      [{ 'font': ['sans-serif','Roboto', 'serif', 'monospace', 'Noto Sans Tamil'] }],
       [{ header: 1 }, { header: 2 }], 
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ script: 'sub' }, { script: 'super' }], 
@@ -225,6 +226,11 @@ export class FieldReportComponent implements OnInit {
       ['link', 'image', 'video'], 
     ],
   };
+  ngAfterViewInit(): void {
+    if (this.tools) {
+      this.tools.format('font', 'monospace');
+    }
+  }
   downloadPDF(): void {
     const doc = new jsPDF();
     // const doc = new jsPDF('p', 'mm', 'a4'); 
@@ -304,78 +310,77 @@ export class FieldReportComponent implements OnInit {
               <div style="display:flex;justify-content: space-between;align-items: center;flex-direction: row;">
 
                 <img src="assets/images/mono_old.png" style="width:70px"/>
-                <h2 class="text-center" style="font-family: roboto;">
+                <h2 class="text-center" style="font-family: Roboto;">
                   BASTAR FOR CHRIST MISSIONARY MOVEMENT
                 </h2>
               </div>
               <hr class="border-t-2  border-gray-300" style="margin-top:1rem;margin-bottom: 1rem;">
-              <div class="flex flex-wrap "style="width:100%;display:flex;flex-wrap: wrap">
-                <div  style="width:30%;margin-bottom: 0.5rem;">
+              <div class="flex flex-wrap "style="width:100%;display:flex;flex-wrap: wrap;font-size:20px">
+                <div  style="width:45%;margin-bottom: 1rem;">
                   Missionary Name
                 </div>
-                <div  style="width:10%">
+                <div  style="width:5%">
                   :
                   </div>
-                <div style="width: 60%;
+                <div style="width: 50%;
                 word-break: break-all;
                 line-break: auto;
-                margin-bottom: 0.5rem;">
+                margin-bottom: 1rem;">
                 
                  ${item.name}
                 </div>
-                <div  style="width:30%">
+                <div  style="width:45%">
                   Name of the Field 
                 </div>
-                <div  style="width:10%">
+                <div  style="width:5%">
                   :
                   </div>
-                <div style="width: 60%;
+                <div style="width: 50%;
                 word-break: break-all;
                 line-break: auto;
-                margin-bottom: 0.5rem;">
+                margin-bottom: 1rem;">
                 ${item.field_name}
                 </div>
-                <div  style="width:30%">
-                  Obstacles in the Ministry
-                </div>
-                <div  style="width:10%">
-                  :
-                  </div>
-                <div style="width: 60%;
-                word-break: break-all;
-                line-break: auto;
-                margin-bottom: 0.5rem;">
-                ${item.obstacles}
-                </div>
-                <div  style="width:30%;margin-bottom: 0.5rem;">
+                
+                <div  style="width:45%;margin-bottom: 1rem;">
                   Number of People Accepted Christ Last Month
                 </div>
-                <div  style="width:10%">
+                <div  style="width:5%">
                   :
                   </div>
-                <div style="width: 60%;
+                <div style="width: 50%;
                 word-break: break-all;
                 line-break: auto;
-                margin-bottom: 0.5rem;">
+                margin-bottom: 1rem;">
                 ${item.new_followers}
                 </div>
-                <div  style="width:100%;margin-bottom: 0.5rem;">
+                <div  style="width:100%">
+                  Obstacles in the Ministry :
+                </div>
+                
+                <div style="width: 100%;
+                white-space: break-spaces;
+                
+                padding:5px">
+                ${item.obstacles}
+                </div>
+                <div  style="width:100%;">
                  Testimony :
                 </div>
                 
                 <div style="width: 100%;
                 white-space: break-spaces;
-                margin-bottom: 0.5rem;">
+                padding:5px">
                 ${testimony}
                 </div>
-                <div  style="width:100%;margin-bottom: 0.5rem;">
+                <div  style="width:100%;">
                  Prayer Request :
                 </div>
                 
-                <div style="width: 100%;
+                <div style="width: 90%;
                 white-space:pre-wrap;
 
-                margin-bottom: 0.5rem;">
+                padding:5px">
                 ${prayer_request}
                 </div>
 

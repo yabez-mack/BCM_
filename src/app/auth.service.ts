@@ -103,9 +103,21 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
       input
     );
   }
+  get_songs(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/get_songs`,
+      input
+    );
+  }
+  update_song(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/update_song`,
+      input
+    );
+  }
   set_employee(input: any) {
     return this._http.post<any>(
-      `https://api.bcmmovement.in//lyric/add_employee`,
+      `https://api.bcmmovement.in/lyric/add_employee`,
       input
     );
   }
@@ -178,6 +190,12 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   get_latest_song_no(input: any) {
     return this._http.post<any>(
       `https://api.bcmmovement.in/lyric/get_latest_song_no`,
+      input
+    );
+  }
+  update_employee(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/update_employee`,
       input
     );
   }
