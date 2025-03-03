@@ -59,7 +59,24 @@
               *ngFor="let item of employee_list | search:searchEmployee"
             >
               <td scope="col" class="px-6 py-3">{{ item.reg_id }}</td>
-              <td scope="col" class="px-6 py-3">{{ item.name }}</td>
+              <td scope="col" class="px-2 py-2">
+                <div class="flex flex-wrap align-items-center space-x-2" style="padding: 0px;">
+
+                  <img
+                  class=""
+                style="width: 50px; border-radius: 50%; height: 50px"
+                src="{{
+                  item.image
+                    ?  item.image
+                    : 'assets/images/student_profile.png'
+                }}"
+              />
+              <span>
+                
+                {{ item.name }}
+              </span>
+            </div>
+            </td>
               <td scope="col" class="px-6 py-3">{{ item.designation_name }}</td>
               <!-- <td scope="col" class="px-6 py-3">{{ item.branch_name }}</td> -->
               <td scope="col" class="px-6 py-3">{{ item.field_name }}</td>
@@ -333,21 +350,27 @@
         <option value="4">Deceased</option>
       </select>
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Image URL
+          Image
         </div>
         <input
           formControlName="image"
+          (change)="onChangeImage($event)"
+          type="file"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Image Url"
+
         />
+       
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Family Image URL
+          Family Image
         </div>
         <input
           formControlName="family_image"
+          (change)="onChangeImage2($event)"
+          type="file"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Family Image Url"
+
         />
+
         <div class="w-1/1 mt-3 flex justify-center">
           <button
             (click)="submit_user()"
@@ -632,20 +655,24 @@
           <option value="4">Deceased</option>
         </select>
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Image URL
+            Image
           </div>
           <input
             formControlName="image"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Image Url"
+            (change)="onChangeImage3($event)"
+          type="file"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+
           />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Family Image URL
+            Family Image
           </div>
           <input
             formControlName="family_image"
+            (change)="onChangeImage4($event)"
+            type="file"
             class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Family Image Url"
+  
           />
           
         </form>

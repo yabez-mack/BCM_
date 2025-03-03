@@ -33,7 +33,24 @@
               *ngFor="let item of song_list | search : searchLyrics"
             >
               <td scope="col" class="px-6 py-3">{{ item.serial_no }}</td>
-              <td scope="col" class="px-6 py-3">{{ item.name }}</td>
+              <td scope="col" class="px-2 py-2">
+                <div class="flex flex-wrap align-items-center space-x-2" style="padding: 0px;">
+
+                  <img
+                  class=""
+                style="width: 50px; border-radius: 50%; height: 50px"
+                src="{{
+                  item.image
+                    ?  item.image
+                    : 'assets/images/student_profile.png'
+                }}"
+              />
+              <span>
+                
+                {{ item.name }}
+              </span>
+            </div>
+            </td>
               <td scope="col" class="px-6 py-3">{{ item.album }}</td>
               <td scope="col" class="px-6 py-3">{{ item.artist }}</td>
               <td scope="col" class="px-6 py-3">

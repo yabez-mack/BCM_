@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -133,9 +134,11 @@ export class EmployeeComponent implements OnInit {
       child_5: this.user_form.value.child_5,
       spouse_image: this.user_form.value.spouse_image,
       signature: this.user_form.value.signature,
-      image: this.user_form.value.image,
       comment: this.user_form.value.comment,
-      family_image: this.user_form.value.family_image,
+      image: this.base64code4image,
+      family_image: this.base64code4image2,
+      family_image_name: this.file_name2,
+      image_name: this.file_name,
       branch: this.user_form.value.branch,
       status: this.user_form.value.status,
     };
@@ -222,9 +225,11 @@ export class EmployeeComponent implements OnInit {
       child_5: this.user_form_edit.value.child_5,
       spouse_image: this.user_form_edit.value.spouse_image,
       signature: this.user_form_edit.value.signature,
-      image: this.user_form_edit.value.image,
-      comment: this.user_form_edit.value.comment,
-      family_image: this.user_form_edit.value.family_image,
+      comment: this.user_form_edit.value.comment,     
+      image: this.base64code4image3?this.base64code4image3:this.default_url,
+      family_image: this.base64code4image4?this.base64code4image4:this.default_url2,
+      family_image_name: this.base64code4image4?this.file_name4:'',
+      image_name:  this.base64code4image3?this.file_name3:'',
       branch: this.user_form_edit.value.branch,
       status: this.user_form_edit.value.status,
     };
@@ -283,7 +288,12 @@ export class EmployeeComponent implements OnInit {
       });
     }
   }
+  default_url:any=''
+  default_url2:any=''
   edit_employee(item: any) {
+    console.log(item)
+    this.default_url=item.image
+    this.default_url2=item.family_image
     this.user_form_edit.patchValue({
       address: item.address,
       adhar: item.adhar,
@@ -301,11 +311,11 @@ export class EmployeeComponent implements OnInit {
       designation: item.designation,
       education_qualification: item.education_qualification,
       email: item.email,
-      family_image: item.family_image,
+      // family_image: item.family_image,
       father_name: item.father_name,
       field_name: item.field_name,
       gender: item.gender,
-      image: item.image,
+      // image: item.image,
       language_known: item.language_known,
       martial_status: item.martial_status,
       mother_name: item.mother_name,
@@ -468,6 +478,226 @@ export class EmployeeComponent implements OnInit {
   designation_list: any[] = [];
   branch_list: any[] = [];
   field_list: any[] = [];
+
+  base64code4image:any=''
+    file_name:any=''
+    file_type:any=''
+    onChangeImage = ($event: any) => {
+      this.base64code4image = '';
+      const files = $event.target.files;
+  
+  
+      for (let item of files) {
+        if (
+          (item.type.split('/')[1] == 'png' ||
+            item.type.split('/')[1] == 'jpeg' ||
+            item.type.split('/')[1] == 'jpg' ||
+            item.type.split('/')[1] == 'bmp') &&
+          item.size <= 5000000
+        ) {
+          this.file_name = item.name;
+          this.file_type = item.type.split('/')[1];
+  
+          // ||          item.type.split('/')[1] == 'pdf'
+          this.convertToBase64(item);
+        } else {
+          Swal.fire({
+            title: 'File Error',
+            text: 'Please use Jpeg/Png file less than 5mb',
+            icon: 'error',
+          });
+          $event.target.value = '';
+        }
+      }
+    };
+    imageURL:any=''
+    convertToBase64(file: File) {
+      const observable = new Observable((subscriber: Subscriber<any>) => {
+        this.readFile(file, subscriber);
+      });
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      // //////console.log(file)
+      observable.subscribe((d) => {
+        if (this.base64code4image) {
+          this.base64code4image =
+            this.base64code4image + ',' + d.split('base64,')[1];
+        } else {
+          this.base64code4image = d.split('base64,')[1];
+        }
+      });
+    }
+
+  base64code4image2:any=''
+    file_name2:any=''
+    file_type2:any=''
+    onChangeImage2 = ($event: any) => {
+      this.base64code4image2 = '';
+      const files = $event.target.files;
+  
+  
+      for (let item of files) {
+        if (
+          (item.type.split('/')[1] == 'png' ||
+            item.type.split('/')[1] == 'jpeg' ||
+            item.type.split('/')[1] == 'jpg' ||
+            item.type.split('/')[1] == 'bmp') &&
+          item.size <= 5000000
+        ) {
+          this.file_name2 = item.name;
+          
+  
+          // ||          item.type.split('/')[1] == 'pdf'
+          this.convertToBase642(item);
+        } else {
+          Swal.fire({
+            title: 'File Error',
+            text: 'Please use Jpeg/Png file less than 5mb',
+            icon: 'error',
+          });
+          $event.target.value = '';
+        }
+      }
+    };
+    imageURL2:any=''
+    convertToBase642(file: File) {
+      const observable = new Observable((subscriber: Subscriber<any>) => {
+        this.readFile(file, subscriber);
+      });
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL2 = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      // //////console.log(file)
+      observable.subscribe((d) => {
+        if (this.base64code4image2) {
+          this.base64code4image2 =
+            this.base64code4image2 + ',' + d.split('base64,')[1];
+        } else {
+          this.base64code4image2 = d.split('base64,')[1];
+        }
+      });
+    }
+
+  base64code4image3:any=''
+    file_name3:any=''
+    file_type3:any=''
+    onChangeImage3 = ($event: any) => {
+      this.base64code4image3 = '';
+      const files = $event.target.files;
+  
+  
+      for (let item of files) {
+        if (
+          (item.type.split('/')[1] == 'png' ||
+            item.type.split('/')[1] == 'jpeg' ||
+            item.type.split('/')[1] == 'jpg' ||
+            item.type.split('/')[1] == 'bmp') &&
+          item.size <= 5000000
+        ) {
+          this.file_name3 = item.name;
+  
+          // ||          item.type.split('/')[1] == 'pdf'
+          this.convertToBase643(item);
+        } else {
+          Swal.fire({
+            title: 'File Error',
+            text: 'Please use Jpeg/Png file less than 5mb',
+            icon: 'error',
+          });
+          $event.target.value = '';
+        }
+      }
+    };
+    imageURL3:any=''
+    convertToBase643(file: File) {
+      const observable = new Observable((subscriber: Subscriber<any>) => {
+        this.readFile(file, subscriber);
+      });
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL3 = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      // //////console.log(file)
+      observable.subscribe((d) => {
+        if (this.base64code4image3) {
+          this.base64code4image3 =
+            this.base64code4image3 + ',' + d.split('base64,')[1];
+        } else {
+          this.base64code4image3 = d.split('base64,')[1];
+        }
+      });
+    }
+
+  base64code4image4:any=''
+    file_name4:any=''
+    onChangeImage4 = ($event: any) => {
+      this.base64code4image4 = '';
+      const files = $event.target.files;
+  
+  
+      for (let item of files) {
+        if (
+          (item.type.split('/')[1] == 'png' ||
+            item.type.split('/')[1] == 'jpeg' ||
+            item.type.split('/')[1] == 'jpg' ||
+            item.type.split('/')[1] == 'bmp') &&
+          item.size <= 5000000
+        ) {
+          this.file_name4 = item.name;
+          
+  
+          // ||          item.type.split('/')[1] == 'pdf'
+          this.convertToBase644(item);
+        } else {
+          Swal.fire({
+            title: 'File Error',
+            text: 'Please use Jpeg/Png file less than 5mb',
+            icon: 'error',
+          });
+          $event.target.value = '';
+        }
+      }
+    };
+    imageURL4:any=''
+    convertToBase644(file: File) {
+      const observable = new Observable((subscriber: Subscriber<any>) => {
+        this.readFile(file, subscriber);
+      });
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL4 = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      // //////console.log(file)
+      observable.subscribe((d) => {
+        if (this.base64code4image4) {
+          this.base64code4image4 =
+            this.base64code4image4 + ',' + d.split('base64,')[1];
+        } else {
+          this.base64code4image4 = d.split('base64,')[1];
+        }
+      });
+    }
+
+     readFile(file: File, subscriber: Subscriber<any>) {
+        const filereader = new FileReader();
+        filereader.readAsDataURL(file);
+        filereader.onload = () => {
+          subscriber.next(filereader.result);
+          subscriber.complete();
+        };
+        filereader.onerror = () => {
+          subscriber.error();
+          subscriber.complete();
+        };
+      }
+
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
