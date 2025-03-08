@@ -39,6 +39,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "jw-angular-pagination": "^1.2.0",
+   "lightgallery": "2.3.0",
     "ng-multiselect-dropdown": "^0.2.14",
     "ng2-img-max": "^2.2.9",
     "ngx-bootstrap": "^10.2.0",

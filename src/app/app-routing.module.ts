@@ -8,12 +8,14 @@ import { SettingComponent } from './components/setting/setting.component';
 import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { FieldReportComponent } from './components/field_report/field_report.component';
+import { GalleryAppComponent } from './components/gallery/gallery.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'home', pathMatch:'full'},
   {path:'home', component: AdminHomepageComponent},
   {path:'about', component:AboutComponent },
   {path: 'login', component: AdminLoginComponent},
+  {path: 'gallery', component: GalleryAppComponent},
   {path:'setting', component: SettingComponent,canActivate: [AuthGuard]},
   {path:'apps', component: MobileAppComponent,canActivate: [AuthGuard]},
   {path:'employees', component: EmployeeComponent,canActivate: [AuthGuard]},

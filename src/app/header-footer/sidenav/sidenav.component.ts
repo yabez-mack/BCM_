@@ -186,6 +186,12 @@ export class SidenavComponent implements OnInit {
         icon: 'fa fa-house',
         module_name: 'Home',
       });
+      this.modules?.push({
+        module_id: '',
+        routeLink: '#/gallery',
+        icon: 'fa-solid fa-image',
+        module_name: 'Gallery',
+      });
       // this.modules?.push({
       //   module_id: '',
       //   routeLink: '#/blogs',

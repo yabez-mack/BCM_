@@ -56,6 +56,15 @@ export class SettingComponent implements OnInit {
     designation: [''],
     status: ['1'],   
   });
+  gallery_list_form = this._fb.group({
+    name: [''],
+    status: ['1'],   
+  });
+  gallery_list_form2 = this._fb.group({
+    gallery_id: [''],
+    file: [''],
+    status: ['1'],   
+  });
   field_form = this._fb.group({
     branch_id: [''],
     field_name: [''],
@@ -130,6 +139,64 @@ export class SettingComponent implements OnInit {
           });
           this.base64code4image=''
           this.file_name=''
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
+  submit_gallery_images() {
+    let images=this.base64code4image3.split(',')
+    let body = {
+      file_name: this.file_name3,
+      file: images,
+      status: this.gallery_list_form2.value.status,
+      gallery_id: this.gallery_list_form2.value.gallery_id,
+      token: this.token,
+    };
+    console.log(body)
+    if (!body.token) {
+      Swal.fire({ title: 'Please Login', icon: 'info' });
+    } else if (body.file.length==0) {
+      Swal.fire({ title: 'Please Select File', icon: 'info' });
+    }  else {
+      this._auth.set_gallery_images(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.gallery_list_form2.patchValue({
+            status: '1',
+            gallery_id: '',           
+            file:''
+          });
+          this.base64code4image3=''
+          this.file_name3=''
+          this.get_gallery_images();
+          
+        } else {
+          Swal.fire({ title: res.message, icon: 'error' });
+        }
+      });
+    }
+  }
+  save_gallery_list() {
+    let body = {
+      name: this.gallery_list_form.value.name,
+      status: this.gallery_list_form.value.status,
+      token: this.token,
+    };
+    if (!body.token) {
+      Swal.fire({ title: 'Please Login', icon: 'info' });
+    } else if (!body.name) {
+      Swal.fire({ title: 'Please Enter Gallery Name', icon: 'info' });
+    }  else {
+      this._auth.submit_gallery_list(body).subscribe((res: any) => {
+        if (res.status == 'success') {
+          Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
+          this.gallery_list_form.patchValue({
+            status: '1',
+            name: '',           
+          });
+          this.get_gallery_list()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -355,6 +422,56 @@ export class SettingComponent implements OnInit {
       }
     });
   }
+  base64code4image3:any=''
+  file_name3:any=''
+  onChangeImage3 = ($event: any) => {
+    this.base64code4image3 = '';
+    const files = $event.target.files;
+
+    this.file_name3=[]
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name3.push(item.name);
+       
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase643(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL3:any=''
+  convertToBase643(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL2 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image3) {
+        this.base64code4image3 =
+          this.base64code4image3 + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image3 = d.split('base64,')[1];
+      }
+    });
+  }
   readFile(file: File, subscriber: Subscriber<any>) {
     const filereader = new FileReader();
     filereader.readAsDataURL(file);
@@ -370,6 +487,7 @@ export class SettingComponent implements OnInit {
   token: any = '';
   user_id: any = '';
   branch_list:any[]=[]
+  gallery_list:any[]=[]
   get_branch(){
     let body={
       token:this.service.get('token')
@@ -379,6 +497,73 @@ export class SettingComponent implements OnInit {
         this.branch_list=res.data
       }
     })
+
+  }
+  get_gallery_list(){
+    let body={
+      token:this.service.get('token')
+    }
+    this._auth.get_gallery_list(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+        this.gallery_list=res.data
+      }
+    })
+
+  }
+  images_list:any[]=[]
+  images_list_filtered:any[]=[]
+  get_gallery_images(){
+    let body={
+      token:this.service.get('token')
+    }
+    this._auth.get_all_gallery_images(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+        this.images_list=res.data
+        this.images_list_filtered=this.images_list.filter((a:any)=>a)
+      }
+    })
+
+  }
+  filter_gallery_id:any=''
+  filter_images(){
+    this.images_list_filtered=this.images_list
+    if(this.filter_gallery_id){
+
+      this.images_list_filtered=this.images_list_filtered.filter((a:any)=>a.gallery_id==this.filter_gallery_id)
+    }
+  }
+  delete_image(item:any){
+    let id=item.image_url.split('.amazonaws.com/')[1]
+    let array=[]
+    let array1=[]
+    array.push(id)
+    array1.push(item.id)
+    let body={
+      token:this.token,
+      image:array,
+      id:array1
+    }
+    Swal.fire({
+      title: 'Delete Image?',
+      text: 'You will not be able to recover!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete!',
+      cancelButtonText: 'No, keep Image',
+    }).then((result) => {
+      if (result.value) {
+        console.log(body)
+        this._auth.delete_gallery_images(body).subscribe((res) => {
+          if (res.status == 'success') {
+            Swal.fire('Deleted!', 'Image Deleted.', 'success');
+          }
+          this.get_gallery_images();
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('', 'Your Image is safe :)', 'info');
+        // this.viewEvents();
+      }
+    });
 
   }
   ngOnInit(): void {
@@ -400,6 +585,8 @@ export class SettingComponent implements OnInit {
         }
       });
     this.get_branch()
+    this.get_gallery_list()
+    this.get_gallery_images()
 
     }
   }

@@ -199,7 +199,36 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
       input
     );
   }
-
+  submit_gallery_list(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/add_gallery_list`,
+      input
+    );
+  }
+  get_gallery_list(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/get_gallery_list`,
+      input
+    );
+  }
+  set_gallery_images(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/set_gallery_images`,
+      input
+    );
+  }
+  get_all_gallery_images(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/get_gallery_images`,
+      input
+    );
+  }
+  delete_gallery_images(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/delete_gallery_images`,
+      input
+    );
+  }
 
 
 

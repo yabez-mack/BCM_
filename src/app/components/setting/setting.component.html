@@ -1,9 +1,16 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
   <mat-tab label="Dashboard">
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">DASHBOARD IMAGES</h2>
-      <form [formGroup]="dashboard_casrol_form" class="  flex flex-wrap space-x-4">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        DASHBOARD IMAGES
+      </h2>
+      <form
+        [formGroup]="dashboard_casrol_form"
+        class="flex flex-wrap space-x-4"
+      >
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Title
         </div>
         <input
@@ -11,18 +18,17 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Title"
         />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Image
         </div>
-      
-        <input
-        formControlName="file"
-                                (change)="onChangeImage($event)"
-                                type="file"
-                                class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
 
-                              />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+        <input
+          formControlName="file"
+          (change)="onChangeImage($event)"
+          type="file"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Details
         </div>
         <input
@@ -31,7 +37,6 @@
           placeholder="Enter Detail"
         />
         <div class="w-1/1 mt-3 flex justify-center">
-
           <button
             (click)="submit_dashboard_casrol()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -44,9 +49,16 @@
     <hr class="border-t border-gray-300 my-2" />
 
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">PROGRAMS</h2>
-      <form [formGroup]="dashboard_program_form" class="  flex flex-wrap space-x-4">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        PROGRAMS
+      </h2>
+      <form
+        [formGroup]="dashboard_program_form"
+        class="flex flex-wrap space-x-4"
+      >
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Title
         </div>
         <input
@@ -54,18 +66,17 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Title"
         />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Image URL
         </div>
-        
-        <input
-        formControlName="file"
-                                (change)="onChangeImage2($event)"
-                                type="file"
-                                class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
 
-                              />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+        <input
+          formControlName="file"
+          (change)="onChangeImage2($event)"
+          type="file"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Detail
         </div>
         <input
@@ -74,90 +85,95 @@
           placeholder="Enter Detail"
         />
         <div class="w-1/1 mt-3 flex justify-center">
-
-        <button
-          (click)="submit_dashboard_program()"
-          class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-        >
-          SUBMIT
-        </button>
+          <button
+            (click)="submit_dashboard_program()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>
   </mat-tab>
   <mat-tab label="Users">
     <div class="card-body">
-        <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">Create User</h2>
-        <form [formGroup]="user_form" class="  flex flex-wrap space-x-4">
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Username
-          </div>
-          <input
-            formControlName="username"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Username"
-          />
-        
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Full Name
-          </div>
-          <input
-            formControlName="full_name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Full Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Password
-          </div>
-          <input
-            formControlName="password"
-            type="password"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Password"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Confirm Password
-          </div>
-          <input
-            formControlName="confirm_password"
-            type="password"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Password"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
-            Image URL
-          </div>
-          <input
-            formControlName="image"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Image Url"
-          />
-          <div class="w-1/1 mt-3 flex justify-center">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        Create User
+      </h2>
+      <form [formGroup]="user_form" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Username
+        </div>
+        <input
+          formControlName="username"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Username"
+        />
 
-            <button
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Full Name
+        </div>
+        <input
+          formControlName="full_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Full Name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Password
+        </div>
+        <input
+          formControlName="password"
+          type="password"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Password"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Confirm Password
+        </div>
+        <input
+          formControlName="confirm_password"
+          type="password"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Password"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Image URL
+        </div>
+        <input
+          formControlName="image"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Image Url"
+        />
+        <div class="w-1/1 mt-3 flex justify-center">
+          <button
             (click)="submit_user()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-            >
+          >
             SUBMIT
           </button>
         </div>
-        </form>
-      </div>
+      </form>
+    </div>
   </mat-tab>
   <mat-tab label="Employee">
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">BRANCH</h2>
-      <form [formGroup]="branch_form" class="  flex flex-wrap space-x-4">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        BRANCH
+      </h2>
+      <form [formGroup]="branch_form" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Branch Name
         </div>
         <input
           formControlName="branch_name"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Branch Name"
-        />       
+        />
         <div class="w-1/1 mt-3 flex justify-center">
-
           <button
             (click)="submit_branch()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -170,21 +186,25 @@
     <hr class="border-t border-gray-300 my-2" />
 
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">MISSION FIELD</h2>
-      <form [formGroup]="field_form" class="  flex flex-wrap space-x-4">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        MISSION FIELD
+      </h2>
+      <form [formGroup]="field_form" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Branch
         </div>
         <select
           formControlName="branch_id"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-         
         >
-        <option  value="" disabled>Select Branch</option>
-        <option *ngFor="let item of branch_list" [value]="item.id">{{item.branch_name}}</option>
-
+          <option value="" disabled>Select Branch</option>
+          <option *ngFor="let item of branch_list" [value]="item.id">
+            {{ item.branch_name }}
+          </option>
         </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Field Name
         </div>
         <input
@@ -192,44 +212,187 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Title"
         />
-        
-        <div class="w-1/1 mt-3 flex justify-center">
 
-        <button
-          (click)="submit_field()"
-          class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-        >
-          SUBMIT
-        </button>
+        <div class="w-1/1 mt-3 flex justify-center">
+          <button
+            (click)="submit_field()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>
     <hr class="border-t border-gray-300 my-2" />
 
     <div class="card-body">
-      <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200">DESIGNATION</h2>
-      <form [formGroup]="designation_form" class="  flex flex-wrap space-x-4">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end ">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        DESIGNATION
+      </h2>
+      <form [formGroup]="designation_form" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Designation
         </div>
         <input
-        formControlName="designation"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        placeholder="Enter Title"
-      />
-       
-        
-        <div class="w-1/1 mt-3 flex justify-center">
+          formControlName="designation"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Title"
+        />
 
-        <button
-          (click)="submit_designation()"
-          class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-        >
-          SUBMIT
-        </button>
+        <div class="w-1/1 mt-3 flex justify-center">
+          <button
+            (click)="submit_designation()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
         </div>
       </form>
     </div>
   </mat-tab>
+  <mat-tab label="Gallery">
+    <div class="card-body">
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        ADD GALLERY
+      </h2>
+      <form [formGroup]="gallery_list_form" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Gallery Name
+        </div>
+        <input
+          formControlName="name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Title"
+        />
 
+        <div class="w-1/1 mt-3 flex justify-center">
+          <button
+            (click)="save_gallery_list()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
+        </div>
+      </form>
+      </div>
+      
+      <hr class="border-t border-gray-300 my-2" />
+      <div class="card-body">
+      
+      <h2
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+      >
+        ADD GALLERY IMAGES
+      </h2>
+      <form [formGroup]="gallery_list_form2" class="flex flex-wrap space-x-4">
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Gallery List
+        </div>
+
+        <select
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          formControlName="gallery_id"
+        >
+          <option value="">Select Gallery</option>
+          <option *ngFor="let item of gallery_list" [value]="item.id">
+            {{ item.name }}
+          </option>
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Image
+        </div>
+
+        <input
+          formControlName="file"
+          (change)="onChangeImage3($event)"
+          type="file"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          multiple
+        />
+
+        <div class="w-1/1 mt-3 flex justify-center">
+          <button
+            (click)="submit_gallery_images()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
+        </div>
+      </form>
+      </div>
+      <hr class="border-t border-gray-300 my-2" />
+      <div class="card-body">
+
+      <div class="flex flex-wrap justify-between space-x-4">
+        <h2
+          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        >
+          GALLERY LIST
+        </h2>
+        <select
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          style="justify-self: flex-end"
+          (change)="filter_images()"
+          [(ngModel)]="filter_gallery_id"
+        >
+          <option value="">All</option>
+          <option *ngFor="let item of gallery_list" [value]="item.id">
+            {{ item.name }}
+          </option>
+        </select>
+      </div>
+      <table
+        *ngIf="images_list_filtered.length > 0"
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <tr
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <th scope="col" class="px-6 py-3">S.no</th>
+          <th scope="col" class="px-6 py-3">Gallery Name</th>
+          <th scope="col" class="px-6 py-3">Image</th>
+          <th scope="col" class="text-center px-6 py-3">Action</th>
+        </tr>
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+          *ngFor="let item of images_list_filtered; let i = index"
+        >
+          <td scope="col" class="px-6 py-3">{{ i + 1 }}</td>
+          <td scope="col" class="px-6 py-3">{{ item.gallery_name }}</td>
+          <td scope="col" class="px-2 py-2">
+            <div
+              class="flex flex-wrap align-items-center space-x-2"
+              style="padding: 0px"
+            >
+              <img
+                class=""
+                style="width: 50px; border-radius: 50%; height: 50px"
+                src="{{
+                  item.image_url
+                    ? item.image_url
+                    : 'assets/images/student_profile.png'
+                }}"
+              />
+              <span>
+                {{ item.file_name }}
+              </span>
+            </div>
+          </td>
+
+          <td scope="col" class="text-center px-6 py-3">
+            <button
+              style="background: transparent; border: none; color: red"
+              (click)="delete_image(item)"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-tab>
 </mat-tab-group>

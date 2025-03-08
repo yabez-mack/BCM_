@@ -54,14 +54,18 @@
               <td scope="col" class="px-6 py-3">{{ item.album }}</td>
               <td scope="col" class="px-6 py-3">{{ item.artist }}</td>
               <td scope="col" class="px-6 py-3">
-                <button
-                  class="button-small bg-sky-500 text-white p-1 hover:bg-sky-700 focus:outline-none"
+                <button style="    background: transparent;
+                border: none;
+                "  
+                class="text-sky-800 hover:text-sky-500 " 
                   data-bs-toggle="modal"
                   data-bs-target="#edit_song"
                   (click)="edit_song(item)"
                 >
-                  Edit
+                <i class="fa-solid fa-pen"></i>
+                  
                 </button>
+             
               </td>
             </tr>
           </table>

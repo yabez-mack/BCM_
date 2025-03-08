@@ -28,6 +28,8 @@ import { MobileAppComponent } from './components/mobile_app/mobile_app.component
 import { EmployeeComponent } from './components/employee/employee.component';
 import { FieldReportComponent } from './components/field_report/field_report.component';
 import { QuillModule } from 'ngx-quill'
+import { GalleryAppComponent } from './components/gallery/gallery.component';
+import { LightgalleryModule } from 'lightgallery/angular';
 
 
 
@@ -44,7 +46,10 @@ import { QuillModule } from 'ngx-quill'
     SettingComponent,
     MobileAppComponent,
     EmployeeComponent,
-    FieldReportComponent
+    FieldReportComponent,
+    GalleryAppComponent,
+    // MatButtonModule,
+    // MatToolbarModule,
   
 
   ],
@@ -68,6 +73,7 @@ import { QuillModule } from 'ngx-quill'
     NgbModule,
     MatTabsModule, 
     QuillModule.forRoot(),
+    LightgalleryModule
     
   ],
   providers: [CookieService, DatePipe,{provide: LocationStrategy, useClass:HashLocationStrategy},

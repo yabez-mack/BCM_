@@ -85,13 +85,19 @@
               <td scope="col" class="text-center px-6 py-3">{{ conv_status(item.status) }}</td>
               <td scope="col" class="text-center px-6 py-3">
                 <button
-                class="button-small bg-sky-500 text-white p-1 hover:bg-sky-700 focus:outline-none"
+               
                 data-bs-toggle="modal"
                 data-bs-target="#edit_employee"
+                style="    background: transparent;
+                border: none;
+                "  
+                class="text-sky-800 hover:text-sky-500 " 
+
                 (click)="edit_employee(item)"
               >
-                Edit
+              <i class="fa-solid fa-pen"></i>
               </button>
+           
               </td>
             </tr>
           </table>
