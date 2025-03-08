@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "postbuild": "cp -r dist/* /var/www/BCM_/ && sudo chown -R www-data:www-data /var/www/BCM_"
+    "postbuild": "rm -rf /var/www/BCM_sudo mkdir -p /var/www/BCM_ sudo mv /root/BCM_/dist/master_admin/* /var/www/BCM_ sudo systemctl restart nginx"
   },
   "private": true,
   "dependencies": {
