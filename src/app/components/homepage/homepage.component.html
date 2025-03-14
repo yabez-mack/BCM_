@@ -22,11 +22,12 @@
       align-items: center;
       justify-content: flex-start;
       grid-gap: 20px;
+      overflow: auto;
     "
   >
     <div
       *ngFor="let item of program_data"
-      class="max-w-xs rounded overflow-hidden shadow-md"
+      class="max-w-xs rounded overflow-hidden shadow-md" style="width: 400px;"
     >
       <img
         class="w-full"

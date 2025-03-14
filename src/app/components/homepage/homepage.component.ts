@@ -70,6 +70,7 @@ export class AdminHomepageComponent implements OnInit {
     this.today = this.datepipe.transform(this.today_date, 'yyyy-MM-dd');
     this.program_data = [];
     let val = sessionStorage.getItem('program_data');
+    let valid=this.isValidJSON(val)
     if (this.token) {
       let body1 = { token: this.token };
       this._auth.validate_token(body1).subscribe((res: any) => {
@@ -86,11 +87,20 @@ export class AdminHomepageComponent implements OnInit {
         }
       });
     }
-    if (!val) {
+    if (!valid) {
       let body = {};
+
       this._auth.get_events(body).subscribe((res: any) => {
         if ((res.status = 'success')) {
           this.program_data = res.data;
+          let current_date= new Date()
+          if(this.program_data){
+
+            this.program_data=this.program_data.filter((a:any)=>new Date(String(a.event_start_date)).getTime()>current_date.getTime())
+            this.program_data=this.program_data = this.program_data.sort((a: any, b: any) => 
+              new Date(String(a.event_start_date)).getTime() - new Date(String(b.event_start_date)).getTime()
+            ).slice(0, 5);
+          }
 
           sessionStorage.setItem(
             'program_data',
@@ -99,12 +109,21 @@ export class AdminHomepageComponent implements OnInit {
         }
       });
     } else {
-      this.program_data = JSON.parse(val);
+      let vals:any = sessionStorage.getItem('program_data');
+      this.program_data = JSON.parse(vals);
       let body = {};
       setTimeout(() => {
         this._auth.get_events(body).subscribe((res: any) => {
           if ((res.status = 'success')) {
             this.program_data = res.data;
+            let current_date= new Date()
+            if(this.program_data){
+
+              this.program_data=this.program_data.filter((a:any)=>new Date(String(a.event_start_date)).getTime()>current_date.getTime())
+              this.program_data=this.program_data = this.program_data.sort((a: any, b: any) => 
+                new Date(String(a.event_start_date)).getTime() - new Date(String(b.event_start_date)).getTime()
+              ).slice(0, 5);
+            }
 
             sessionStorage.setItem(
               'program_data',
@@ -113,6 +132,14 @@ export class AdminHomepageComponent implements OnInit {
           }
         });
       }, 2000);
+    }
+  }
+  isValidJSON(str:any) {
+    try {
+      JSON.parse(str); 
+      return true;  
+    } catch (e) {
+      return false;  
     }
   }
 }
