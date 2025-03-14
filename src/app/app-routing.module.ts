@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminHomepageComponent } from './components/admin-homepage/admin-homepage.component';
+import { AdminHomepageComponent } from './components/homepage/homepage.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AuthGuard } from './auth.guard';
 import { AboutComponent } from './components/about/about.component';

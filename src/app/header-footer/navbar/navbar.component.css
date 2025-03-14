@@ -1,0 +1,27 @@
+.underline-with-padding.active {
+    transition: all 100ms ease-in-out;
+    text-decoration: underline;
+    padding-bottom: 4px; 
+    border-bottom: 2px solid black; 
+  }
+a:hover{
+    color: gray !important;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .shake-on-hover {
+   
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .shake-on-hover:hover {
+    animation: shake 0.5s ease-in-out;
+    cursor: pointer;
+  }

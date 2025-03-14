@@ -211,7 +211,7 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ 'font': ['sans-serif','Roboto', 'serif', 'monospace', 'Noto Sans Tamil'] }],
+      [{ 'font': ['sans-serif','monospace', 'Noto Sans Tamil'] }],
       [{ header: 1 }, { header: 2 }], 
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ script: 'sub' }, { script: 'super' }], 

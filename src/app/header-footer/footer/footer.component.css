@@ -1,7 +1,7 @@
 .footer {
     width: 100%;
     padding: 8px 8px;
-    background: tomato;
+    background:#050c31;
     /* position: absolute; */
     bottom: 0px;
     left: 0px;
@@ -23,4 +23,10 @@
 
 .col-md-7 {
     float: right;
+}
+a:hover{
+    color: #b1b1b1 !important;
+}
+.icon{
+    font-size: 20px;
 }

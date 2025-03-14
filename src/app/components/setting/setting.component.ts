@@ -35,8 +35,10 @@ export class SettingComponent implements OnInit {
     url: [''],
     detail: [''],
     file: [''],
-    type: ['2'],
     status: ['1'],
+    event_start_date: [''],
+    event_end_date: [''],
+
   });
   user_form = this._fb.group({
     username: [''],
@@ -292,7 +294,8 @@ export class SettingComponent implements OnInit {
       image_url: this.dashboard_program_form.value.url,     
       status: this.dashboard_program_form.value.status,
       detail: this.dashboard_program_form.value.detail,
-      type: this.dashboard_program_form.value.type,
+      event_start_date: this.dashboard_program_form.value.event_start_date,
+      event_end_date: this.dashboard_program_form.value.event_end_date,
       token: this.token,
       file_name: this.file_name2,
       file: this.base64code4image2,
@@ -302,16 +305,17 @@ export class SettingComponent implements OnInit {
     } else if (!body.title) {
       Swal.fire({ title: 'Please Enter Title', icon: 'info' });
     }  else {
-      this._auth.submit_dashboard_images(body).subscribe((res: any) => {
+      this._auth.submit_events(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
           this.dashboard_program_form.patchValue({
             detail: '',
             status: '1',
             title: '',
-            type: '2',
             url: '',
-            file:''
+            file:'',
+            event_end_date:'',
+            event_start_date:''
           });
           this.base64code4image2=''
           this.file_name2=''

@@ -1,12 +1,12 @@
 
-<app-sidenav *ngIf="!login_page" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<!-- <app-sidenav *ngIf="!login_page" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav> -->
 <div *ngIf="!login_page" class="body" [ngClass]="getBodyClass()">
     <app-navbar style="min-height: 60px;"></app-navbar>
 
     <router-outlet (activate)="onActivate($event)" class="app-main__outer" style="display: contents;"
         [ngClass]="{ 'display-area-shrink': sideNavStatus }"></router-outlet>
-    <!-- <app-footer></app-footer> -->
-
-
+        
+        
+        <app-footer></app-footer>
 </div>
 <router-outlet (activate)="onActivate($event)" *ngIf="login_page"></router-outlet>

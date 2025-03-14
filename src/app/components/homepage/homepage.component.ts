@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, registerables } from 'chart.js';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../auth.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import plugin from 'chartjs-plugin-datalabels';
 import { EncryptionService } from '../../encrypt.service';
-
-Chart.register(...registerables);
 
 interface SideNavToggle {
   screenWidth: number;
@@ -16,9 +11,9 @@ interface SideNavToggle {
 }
 
 @Component({
-  selector: 'app-admin-homepage',
-  templateUrl: './admin-homepage.component.html',
-  styleUrls: ['./admin-homepage.component.css'],
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.css'],
 })
 export class AdminHomepageComponent implements OnInit {
   sideNavStatus = false;
@@ -93,12 +88,10 @@ export class AdminHomepageComponent implements OnInit {
     }
     if (!val) {
       let body = {};
-      this._auth.dashboard_images(body).subscribe((res: any) => {
+      this._auth.get_events(body).subscribe((res: any) => {
         if ((res.status = 'success')) {
           this.program_data = res.data;
-          this.program_data = this.program_data.filter(
-            (a: any) => a.status == 1 && a.type == 2
-          );
+
           sessionStorage.setItem(
             'program_data',
             JSON.stringify(this.program_data)
@@ -109,12 +102,10 @@ export class AdminHomepageComponent implements OnInit {
       this.program_data = JSON.parse(val);
       let body = {};
       setTimeout(() => {
-        this._auth.dashboard_images(body).subscribe((res: any) => {
+        this._auth.get_events(body).subscribe((res: any) => {
           if ((res.status = 'success')) {
             this.program_data = res.data;
-            this.program_data = this.program_data.filter(
-              (a: any) => a.status == 1 && a.type == 2
-            );
+
             sessionStorage.setItem(
               'program_data',
               JSON.stringify(this.program_data)

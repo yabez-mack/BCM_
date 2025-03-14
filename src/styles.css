@@ -8,11 +8,29 @@
 @tailwind components;
 @tailwind utilities; */
 @font-face {
-  font-family: 'Noto Sans Tamil';
-  src: url('assets/fonts/NotoSansTamil-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Neon Glow';
+  src: url('https://assets.codepen.io/230569/NeonGlow-8VLz.ttf');
 }
+
+app-homepage{
+  flex: 1;
+}
+app-employee{
+  flex: 1;
+}
+app-field_report{
+  flex: 1;
+}
+app-gallery{
+  flex: 1;
+}
+app-mobile_app{
+  flex: 1;
+}
+app-setting{
+  flex: 1;
+}
+
 select,
 input {
   height: 34px !important;
@@ -126,7 +144,7 @@ app-header {
   height: 32.5px !important;
 }
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   background-color: #f4d7fa;
   border-radius: 6px;
   min-height: 4px;
@@ -134,30 +152,30 @@ app-header {
 ::-webkit-scrollbar:hover {
   width: 5px;
   background-color: #f4d7fa;
-  border-radius: 6px;
+  border-radius: 2px;
   min-height: 4px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(235, 233, 233);
-  border-radius: 10px;
+  border-radius: 2px;
   min-height: 40px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #561a7a;
-  border-radius: 10px;
-  max-height: 40px !important;
+  background: #050c31;
+  border-radius: 2px;
+  min-height: 40px !important;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb:hover {
-  background: #561a7a;
-  border-radius: 10px;
+  background: #050c31;
+  border-radius: 2px;
   min-height: 40px;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #561a7a;
+  background: #050c31;
   min-height: 40px;
 }
 .cdk-overlay-container {

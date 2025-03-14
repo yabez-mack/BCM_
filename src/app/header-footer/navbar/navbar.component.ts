@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Output,
   Injectable,
+  HostListener,
 } from '@angular/core';
 // import { ROUTES } from '../sidebar/sidebar.component';
 import {
@@ -12,10 +13,10 @@ import {
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { SidenavComponent } from '../sidenav/sidenav.component';
+import { filter } from 'rxjs';
 // import Chart from 'chart.js';
 @Injectable({
   providedIn: 'root',
@@ -40,12 +41,21 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     public _auth: AuthService,
     private service: CookieService,
-    private sidenav: SidenavComponent
   ) {
     this.location = location;
     this.sidebarVisible = false;
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth <= 768) {
+      this.mobile=true
+    }
+    else{
+      this.mobile=false
 
+    }
+  }
   listTitles: any[] = [];
 
   menuStatus: boolean = true;
@@ -74,6 +84,31 @@ export class NavbarComponent implements OnInit {
       }
     });
   }
+  setdropdown2() {
+    const dropdownButton = document.getElementById('dropdownButton2');
+    const dropdownMenu = document.getElementById('dropdownMenu2');
+
+    if (dropdownMenu?.classList.contains('hidden')) {
+      dropdownMenu?.classList.remove('hidden');
+    } else {
+      dropdownMenu?.classList.add('hidden');
+    }
+
+    document.addEventListener('click', (event: any) => {
+      if (
+        !dropdownButton?.contains(event.target) &&
+        !dropdownMenu?.contains(event.target)
+      ) {
+        dropdownMenu?.classList.add('hidden');
+      }
+    });
+  }
+  onDropdownItemClick() {
+    const dropdownMenu = document.getElementById('dropdownMenu2');
+    if (dropdownMenu) {
+      dropdownMenu.classList.add('hidden');  // Close the dropdown
+    }
+  }
   set_username(item: any, token: any) {
     this.full_name = item;
     this.token = token;
@@ -84,7 +119,18 @@ export class NavbarComponent implements OnInit {
 
     
   }
+  modules:any[]=[]
+  activeRoute:any
+  mobile:any=false
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth <= 768) {
+      this.mobile = true;
+
+    }
+    else{
+      this.mobile = false;
+    }
     if (this.service.get('token')) {
       this.token = this.service.get('token');
     }
@@ -98,21 +144,18 @@ export class NavbarComponent implements OnInit {
     //   this.full_name = this.service.get('full_name');
 
     // }
+     this.router.events.pipe(
+          filter((event:any) => event instanceof NavigationEnd)
+        ).subscribe((event: NavigationEnd) => {
+          this.activeRoute = event.urlAfterRedirects;
+          this.activeRoute = this.activeRoute.split('/')[1];  
+        });
+    if(!this.activeRoute){
+      this.activeRoute = window.location.href?.split('/#/')[1];
 
-    this._auth.onMenuStatus().subscribe((res: any) => {
-      if (this.screenWidth <= 768) {
-        this.menuStatus = true;
-      } else {
-        this.menuStatus = res;
-      }
-    });
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth <= 768) {
-      this.collapsed = false;
-      this.menuStatus = true;
-
-      this._auth.emitMenuStatus(this.collapsed);
     }
+  
+    
     this.listTitles = ['any'];
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -124,18 +167,71 @@ export class NavbarComponent implements OnInit {
       //    this.mobile_menu_visible = 0;
       //  }
     });
-  }
-  SideNavToggle() {
-    if (this.screenWidth <= 768) {
-      // this.collapsed =  true;
-      // this.menuStatus=true;
-      this.collapsed = !this.collapsed;
-      this._auth.emitMenuStatus(this.collapsed);
-    } else {
-      this.collapsed = !this.collapsed;
-      this._auth.emitMenuStatus(this.collapsed);
+    this.modules = [];
+      
+   
+    this.modules?.push({
+      module_id: '',
+      routeLink: '/home',
+      icon: 'fa fa-house',
+      module_name: 'Home',
+    });
+    this.modules?.push({
+      module_id: '',
+      routeLink: '/gallery',
+      icon: 'fa-solid fa-image',
+      module_name: 'Gallery',
+    });
+    // this.modules?.push({
+    //   module_id: '',
+    //   routeLink: '#/blogs',
+    //   icon: 'fa fa-key',
+    //   module_name: 'Blogs',
+    // });
+    if(this.token){
+      this.modules?.push({
+        module_id: '',
+        routeLink: '/employees',
+        icon: 'fa-solid fa-user-tie',
+        module_name: 'Employee',
+      });
+      this.modules?.push({
+        module_id: '',
+        routeLink: '/apps',
+        icon: 'fa fa-mobile-button',
+        module_name: 'Mobile App',
+      });
+      this.modules?.push({
+        module_id: '',
+        routeLink: '/field-report',
+        icon: 'fa-solid fa-file-lines',
+        module_name: 'Field Report',
+      });
+      this.modules?.push({
+        module_id: '',
+        routeLink: '/setting',
+        icon: 'fa fa-key',
+        module_name: 'Setting',
+      });
+     
     }
+    this.modules?.push({
+      module_id: '',
+      routeLink: '/contact',
+      icon: 'fa fa-user',
+      module_name: 'Contacts',
+    });
+    this.modules?.push({
+      module_id: '',
+      routeLink: '/about',
+      icon: 'fa fa-address-card',
+      module_name: 'About',
+    });
+    
+   
+    
   }
+  
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];

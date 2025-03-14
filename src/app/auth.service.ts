@@ -229,6 +229,18 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
       input
     );
   }
+  submit_events(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/set_events`,
+      input
+    );
+  }
+  get_events(input: any) {
+    return this._http.post<any>(
+      `https://api.bcmmovement.in/lyric/get_events`,
+      input
+    );
+  }
 
 
 
