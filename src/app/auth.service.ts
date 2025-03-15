@@ -87,37 +87,37 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   check_login(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/validate_user`,
+      `https://api.bcmmovement.in/lyric/validate_user`,
       input
     );
   }
   get_users(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_users`,
+      `https://api.bcmmovement.in/lyric/get_users`,
       input
     );
   }
   get_module_access(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_module_access`,
+      `https://api.bcmmovement.in/lyric/get_module_access`,
       input
     );
   }
   save_module_access(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/save_module_access`,
+      `https://api.bcmmovement.in/lyric/save_module_access`,
       input
     );
   }
   get_all_module_access(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_all_module_access`,
+      `https://api.bcmmovement.in/lyric/get_all_module_access`,
       input
     );
   }
   validate_token(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/validate_token`,
+      `https://api.bcmmovement.in/lyric/validate_token`,
       input
     );
   }
