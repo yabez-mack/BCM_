@@ -9,6 +9,7 @@ import { MobileAppComponent } from './components/mobile_app/mobile_app.component
 import { EmployeeComponent } from './components/employee/employee.component';
 import { FieldReportComponent } from './components/field_report/field_report.component';
 import { GalleryAppComponent } from './components/gallery/gallery.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 const routes: Routes = [
   {path: '',redirectTo:'home', pathMatch:'full'},
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path:'setting', component: SettingComponent,canActivate: [AuthGuard]},
   {path:'apps', component: MobileAppComponent,canActivate: [AuthGuard]},
   {path:'employees', component: EmployeeComponent,canActivate: [AuthGuard]},
+  {path:'calendar', component: CalendarComponent},
   {path:'field-report', component: FieldReportComponent,canActivate: [AuthGuard]},
   {path: '**',component: AdminHomepageComponent},
   // {path:'blogs', component: SubjectsComponent},

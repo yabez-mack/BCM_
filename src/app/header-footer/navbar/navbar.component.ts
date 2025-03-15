@@ -122,6 +122,21 @@ export class NavbarComponent implements OnInit {
   modules:any[]=[]
   activeRoute:any
   mobile:any=false
+  module_access:any[]=[]
+  get_modules(){
+    let body={
+      token:this.service.get('token'),
+    }
+    this.module_access=[]
+    this._auth.get_module_access(body).subscribe((res:any)=>{
+      if(res.status=='success'){
+        this.module_access=res.data
+          this.module_access.forEach(element => {
+            this.modules?.push({routeLink:element.path,module_name:element.module_name})
+          });
+      }
+    })
+  }
   ngOnInit() {
     this.screenWidth = window.innerWidth;
     if (this.screenWidth <= 768) {
@@ -133,6 +148,7 @@ export class NavbarComponent implements OnInit {
     }
     if (this.service.get('token')) {
       this.token = this.service.get('token');
+      this.get_modules()
     }
     // if (!this.token) {
     //   this.token = this.service.get('token');
@@ -182,39 +198,20 @@ export class NavbarComponent implements OnInit {
       icon: 'fa-solid fa-image',
       module_name: 'Gallery',
     });
+    this.modules?.push({
+      module_id: '',
+      routeLink: '/calendar',
+      icon: 'fa-solid fa-image',
+      module_name: 'Events',
+    });
     // this.modules?.push({
     //   module_id: '',
     //   routeLink: '#/blogs',
     //   icon: 'fa fa-key',
     //   module_name: 'Blogs',
     // });
-    if(this.token){
-      this.modules?.push({
-        module_id: '',
-        routeLink: '/employees',
-        icon: 'fa-solid fa-user-tie',
-        module_name: 'Employee',
-      });
-      this.modules?.push({
-        module_id: '',
-        routeLink: '/apps',
-        icon: 'fa fa-mobile-button',
-        module_name: 'Mobile App',
-      });
-      this.modules?.push({
-        module_id: '',
-        routeLink: '/field-report',
-        icon: 'fa-solid fa-file-lines',
-        module_name: 'Field Report',
-      });
-      this.modules?.push({
-        module_id: '',
-        routeLink: '/setting',
-        icon: 'fa fa-key',
-        module_name: 'Setting',
-      });
-     
-    }
+    
+    
     this.modules?.push({
       module_id: '',
       routeLink: '/contact',
@@ -228,7 +225,8 @@ export class NavbarComponent implements OnInit {
       module_name: 'About',
     });
     
-   
+   console.log(this.module_access)
+   console.log(this.modules)
     
   }
   

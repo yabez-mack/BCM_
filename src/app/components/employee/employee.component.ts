@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
+import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -19,7 +21,9 @@ export class EmployeeComponent implements OnInit {
     private route: Router,
     private service: CookieService,
     private datepipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private navbar: NavbarComponent
+
   ) {}
   dashboard_casrol_form = this._fb.group({
     title: [''],
@@ -291,7 +295,6 @@ export class EmployeeComponent implements OnInit {
   default_url:any=''
   default_url2:any=''
   edit_employee(item: any) {
-    console.log(item)
     this.default_url=item.image
     this.default_url2=item.family_image
     this.user_form_edit.patchValue({
@@ -708,6 +711,17 @@ export class EmployeeComponent implements OnInit {
           this.service.set('full_name', res.data.full_name);
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
+          let array=res.data.module_access.split(',')
+          if(!(array.includes('1'))){
+            this.service.deleteAll();
+            localStorage.clear();
+            sessionStorage.clear();
+            this.token = '';
+            this.navbar.ngOnInit()
+            this.router.navigate(['/home'])
+
+          }
+        
         } else {
           this.service.deleteAll();
           localStorage.clear();

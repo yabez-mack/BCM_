@@ -1,9 +1,9 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
   <mat-tab label="All Reports">
     <div class="card-body">
-      <div class="flex flex-wrap justify-between space-x-4">
+      <div class="flex flex-wrap justify-between  ">
         <h2
-          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
         >
           FIELD REPORTS
         </h2>
@@ -14,7 +14,7 @@
           [(ngModel)]="searchReport"
         />
       </div>
-      <div class="flex flex-wrap space-x-4">
+      <div class="flex flex-wrap  ">
         <div class="w-full">
           <table
           *ngIf="report_list.length==0"
@@ -78,13 +78,13 @@
   <mat-tab label="Create Report">
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         FIELD REPORT
       </h2>
       <form
         [formGroup]="field_report_form"
-        class="flex flex-wrap space-x-4"
+        class="flex flex-wrap  "
       >
 
         <div class="w-full mt-3 flex items-center justify-start">Select Detail</div>
@@ -171,7 +171,7 @@
         >
         </quill-editor>
 
-        <div class="w-1/1 mt-5 flex justify-center">
+        <div class="w-full mt-5 flex justify-center">
           <button
             (click)="submit_field()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"

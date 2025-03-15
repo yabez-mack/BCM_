@@ -45,10 +45,8 @@ export class AdminLoginComponent implements OnInit {
       this._auth.check_login(body).subscribe((res) => {
         if (res.status == 'success') {
           this.service.set('token', res.token);
-          this.service.set('user_id', res.user);
-          this.service.set('full_name', res.full_name);
-          this.navbar.set_username(res.full_name,res.token);
-
+          this.service.set('user_id', res.user.user_id);
+          this.service.set('full_name', res.user.full_name);
           this.router.navigate(['/home']);
         } else {
           Swal.fire({ title: res.message, icon: 'error' });

@@ -8,7 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/auth.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
 @Injectable({

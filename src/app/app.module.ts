@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule, myRoutings } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +12,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { SearchByFilterPipe } from './search-by-filter.pipe';
 import { HeaderFooterModule } from './header-footer/header-footer.module';
-import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'
+// import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2'
 import { LoadingInterceptor } from './loading.interceptor';
 import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { SearchfilterPipe } from './searchfilter.pipe';
@@ -33,13 +33,10 @@ import { LightgalleryModule } from 'lightgallery/angular';
 
 
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
     myRoutings,
-    SearchByFilterPipe,
     SearchByFilterPipe,
     AboutComponent,
     CasrolComponent,
@@ -48,6 +45,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
     EmployeeComponent,
     FieldReportComponent,
     GalleryAppComponent,
+    
     // MatButtonModule,
     // MatToolbarModule,
   
@@ -67,17 +65,18 @@ import { LightgalleryModule } from 'lightgallery/angular';
     MatFormFieldModule,
     MatTooltipModule,
     HeaderFooterModule,
-    SweetAlert2Module.forRoot(),
     Ng2ImgMaxModule,
     AutocompleteLibModule,
     NgbModule,
     MatTabsModule, 
     QuillModule.forRoot(),
-    LightgalleryModule
+    LightgalleryModule,
+    // SweetAlert2Module.forRoot(),
     
   ],
   providers: [CookieService, DatePipe,{provide: LocationStrategy, useClass:HashLocationStrategy},
   {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

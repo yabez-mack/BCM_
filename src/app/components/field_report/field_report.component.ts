@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 import { jsPDF } from 'jspdf';
+import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
+
 @Component({
   selector: 'app-field_report',
   templateUrl: './field_report.component.html',
@@ -20,7 +22,9 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
     private route: Router,
     private service: CookieService,
     private datepipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private navbar: NavbarComponent
+
   ) {}
   field_report_form = this._fb.group({
     employee_id: [''],
@@ -406,6 +410,17 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
           this.service.set('full_name', res.data.full_name);
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
+          let array=res.data.module_access.split(',')
+          if(!(array.includes('3'))){
+            this.service.deleteAll();
+            localStorage.clear();
+            sessionStorage.clear();
+            this.token = '';
+            this.navbar.ngOnInit()
+            this.router.navigate(['/home'])
+            // window.location.replace('/home')
+
+          }
         } else {
           this.service.deleteAll();
           localStorage.clear();

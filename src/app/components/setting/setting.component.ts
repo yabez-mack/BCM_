@@ -7,6 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subscriber } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
+import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
+
 @Component({
   selector: 'app-setting',
   templateUrl: './setting.component.html',
@@ -19,7 +21,8 @@ export class SettingComponent implements OnInit {
     private route: Router,
     private service: CookieService,
     private datepipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private navbar: NavbarComponent
   ) {}
   dashboard_casrol_form = this._fb.group({
     title: [''],
@@ -28,7 +31,6 @@ export class SettingComponent implements OnInit {
     type: ['1'],
     status: ['1'],
     file: [''],
-
   });
   dashboard_program_form = this._fb.group({
     title: [''],
@@ -38,7 +40,6 @@ export class SettingComponent implements OnInit {
     status: ['1'],
     event_start_date: [''],
     event_end_date: [''],
-
   });
   user_form = this._fb.group({
     username: [''],
@@ -47,30 +48,30 @@ export class SettingComponent implements OnInit {
     full_name: [''],
     user_id: [''],
     status: ['1'],
-    user_type: ['1'],
+    user_type: ['2'],
     image: [''],
   });
   branch_form = this._fb.group({
     branch_name: [''],
-    status: ['1'],   
+    status: ['1'],
   });
   designation_form = this._fb.group({
     designation: [''],
-    status: ['1'],   
+    status: ['1'],
   });
   gallery_list_form = this._fb.group({
     name: [''],
-    status: ['1'],   
+    status: ['1'],
   });
   gallery_list_form2 = this._fb.group({
     gallery_id: [''],
     file: [''],
-    status: ['1'],   
+    status: ['1'],
   });
   field_form = this._fb.group({
     branch_id: [''],
     field_name: [''],
-    status: ['1'],   
+    status: ['1'],
   });
   submit_user() {
     let body = {
@@ -91,11 +92,11 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Enter Password', icon: 'info' });
     } else if (!body.full_name) {
       Swal.fire({ title: 'Please Enter Full Name', icon: 'info' });
-    } 
-     else if (!(this.user_form.value.confirm_password==this.user_form.value.password)) {
+    } else if (
+      !(this.user_form.value.confirm_password == this.user_form.value.password)
+    ) {
       Swal.fire({ title: "Password Didn't Match", icon: 'info' });
-    } 
-    else {
+    } else {
       this._auth.submit_user(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
@@ -104,7 +105,7 @@ export class SettingComponent implements OnInit {
             image: '',
             password: '',
             status: '1',
-            user_type: '1',
+            user_type: '2',
             username: '',
           });
         } else {
@@ -127,7 +128,7 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.title) {
       Swal.fire({ title: 'Please Enter Title', icon: 'info' });
-    }  else {
+    } else {
       this._auth.submit_dashboard_images(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
@@ -137,10 +138,10 @@ export class SettingComponent implements OnInit {
             title: '',
             type: '1',
             url: '',
-            file:''
+            file: '',
           });
-          this.base64code4image=''
-          this.file_name=''
+          this.base64code4image = '';
+          this.file_name = '';
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -148,7 +149,7 @@ export class SettingComponent implements OnInit {
     }
   }
   submit_gallery_images() {
-    let images=this.base64code4image3.split(',')
+    let images = this.base64code4image3.split(',');
     let body = {
       file_name: this.file_name3,
       file: images,
@@ -156,24 +157,22 @@ export class SettingComponent implements OnInit {
       gallery_id: this.gallery_list_form2.value.gallery_id,
       token: this.token,
     };
-    console.log(body)
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
-    } else if (body.file.length==0) {
+    } else if (body.file.length == 0) {
       Swal.fire({ title: 'Please Select File', icon: 'info' });
-    }  else {
+    } else {
       this._auth.set_gallery_images(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
           this.gallery_list_form2.patchValue({
             status: '1',
-            gallery_id: '',           
-            file:''
+            gallery_id: '',
+            file: '',
           });
-          this.base64code4image3=''
-          this.file_name3=''
+          this.base64code4image3 = '';
+          this.file_name3 = '';
           this.get_gallery_images();
-          
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -190,15 +189,15 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.name) {
       Swal.fire({ title: 'Please Enter Gallery Name', icon: 'info' });
-    }  else {
+    } else {
       this._auth.submit_gallery_list(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
           this.gallery_list_form.patchValue({
             status: '1',
-            name: '',           
+            name: '',
           });
-          this.get_gallery_list()
+          this.get_gallery_list();
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -213,7 +212,7 @@ export class SettingComponent implements OnInit {
     };
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
-    }  else if (!body.branch_name) {
+    } else if (!body.branch_name) {
       Swal.fire({ title: 'Please Enter Branch Name', icon: 'info' });
     } else {
       this._auth.add_branch(body).subscribe((res: any) => {
@@ -222,9 +221,8 @@ export class SettingComponent implements OnInit {
           this.branch_form.patchValue({
             branch_name: '',
             status: '1',
-          
           });
-          this.get_branch()
+          this.get_branch();
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -239,16 +237,15 @@ export class SettingComponent implements OnInit {
     };
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
-    }  else if (!body.designation) {
+    } else if (!body.designation) {
       Swal.fire({ title: 'Please Enter Designation', icon: 'info' });
     } else {
       this._auth.add_designation(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
           this.designation_form.patchValue({
-           designation:'',
+            designation: '',
             status: '1',
-            
           });
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
@@ -265,14 +262,11 @@ export class SettingComponent implements OnInit {
     };
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
-    } 
-     else if (!body.branch_id) {
+    } else if (!body.branch_id) {
       Swal.fire({ title: 'Please Select Branch', icon: 'info' });
-    }
-     else if (!body.field_name) {
+    } else if (!body.field_name) {
       Swal.fire({ title: 'Please Enter Field Name', icon: 'info' });
-    }
-     else {
+    } else {
       this._auth.add_mission_field(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
@@ -280,7 +274,6 @@ export class SettingComponent implements OnInit {
             field_name: '',
             branch_id: '',
             status: '1',
-            
           });
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
@@ -291,7 +284,7 @@ export class SettingComponent implements OnInit {
   submit_dashboard_program() {
     let body = {
       title: this.dashboard_program_form.value.title,
-      image_url: this.dashboard_program_form.value.url,     
+      image_url: this.dashboard_program_form.value.url,
       status: this.dashboard_program_form.value.status,
       detail: this.dashboard_program_form.value.detail,
       event_start_date: this.dashboard_program_form.value.event_start_date,
@@ -304,7 +297,7 @@ export class SettingComponent implements OnInit {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.title) {
       Swal.fire({ title: 'Please Enter Title', icon: 'info' });
-    }  else {
+    } else {
       this._auth.submit_events(body).subscribe((res: any) => {
         if (res.status == 'success') {
           Swal.fire({ title: 'Submitted Successfully', icon: 'success' });
@@ -313,25 +306,24 @@ export class SettingComponent implements OnInit {
             status: '1',
             title: '',
             url: '',
-            file:'',
-            event_end_date:'',
-            event_start_date:''
+            file: '',
+            event_end_date: '',
+            event_start_date: '',
           });
-          this.base64code4image2=''
-          this.file_name2=''
+          this.base64code4image2 = '';
+          this.file_name2 = '';
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
       });
     }
   }
-  base64code4image:any=''
-  file_name:any=''
-  file_type:any=''
+  base64code4image: any = '';
+  file_name: any = '';
+  file_type: any = '';
   onChangeImage = ($event: any) => {
     this.base64code4image = '';
     const files = $event.target.files;
-
 
     for (let item of files) {
       if (
@@ -356,7 +348,7 @@ export class SettingComponent implements OnInit {
       }
     }
   };
-  imageURL:any=''
+  imageURL: any = '';
   convertToBase64(file: File) {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
@@ -376,12 +368,11 @@ export class SettingComponent implements OnInit {
       }
     });
   }
-  base64code4image2:any=''
-  file_name2:any=''
+  base64code4image2: any = '';
+  file_name2: any = '';
   onChangeImage2 = ($event: any) => {
     this.base64code4image2 = '';
     const files = $event.target.files;
-
 
     for (let item of files) {
       if (
@@ -392,7 +383,6 @@ export class SettingComponent implements OnInit {
         item.size <= 5000000
       ) {
         this.file_name2 = item.name;
-       
 
         // ||          item.type.split('/')[1] == 'pdf'
         this.convertToBase642(item);
@@ -406,7 +396,7 @@ export class SettingComponent implements OnInit {
       }
     }
   };
-  imageURL2:any=''
+  imageURL2: any = '';
   convertToBase642(file: File) {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
@@ -426,13 +416,13 @@ export class SettingComponent implements OnInit {
       }
     });
   }
-  base64code4image3:any=''
-  file_name3:any=''
+  base64code4image3: any = '';
+  file_name3: any = '';
   onChangeImage3 = ($event: any) => {
     this.base64code4image3 = '';
     const files = $event.target.files;
 
-    this.file_name3=[]
+    this.file_name3 = [];
     for (let item of files) {
       if (
         (item.type.split('/')[1] == 'png' ||
@@ -442,7 +432,6 @@ export class SettingComponent implements OnInit {
         item.size <= 5000000
       ) {
         this.file_name3.push(item.name);
-       
 
         // ||          item.type.split('/')[1] == 'pdf'
         this.convertToBase643(item);
@@ -456,7 +445,7 @@ export class SettingComponent implements OnInit {
       }
     }
   };
-  imageURL3:any=''
+  imageURL3: any = '';
   convertToBase643(file: File) {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
@@ -490,63 +479,61 @@ export class SettingComponent implements OnInit {
   }
   token: any = '';
   user_id: any = '';
-  branch_list:any[]=[]
-  gallery_list:any[]=[]
-  get_branch(){
-    let body={
-      token:this.service.get('token')
-    }
-    this._auth.get_branch(body).subscribe((res:any)=>{
-      if(res.status=='success'){
-        this.branch_list=res.data
+  branch_list: any[] = [];
+  gallery_list: any[] = [];
+  get_branch() {
+    let body = {
+      token: this.service.get('token'),
+    };
+    this._auth.get_branch(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.branch_list = res.data;
       }
-    })
-
+    });
   }
-  get_gallery_list(){
-    let body={
-      token:this.service.get('token')
-    }
-    this._auth.get_gallery_list(body).subscribe((res:any)=>{
-      if(res.status=='success'){
-        this.gallery_list=res.data
+  get_gallery_list() {
+    let body = {
+      token: this.service.get('token'),
+    };
+    this._auth.get_gallery_list(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.gallery_list = res.data;
       }
-    })
-
+    });
   }
-  images_list:any[]=[]
-  images_list_filtered:any[]=[]
-  get_gallery_images(){
-    let body={
-      token:this.service.get('token')
-    }
-    this._auth.get_all_gallery_images(body).subscribe((res:any)=>{
-      if(res.status=='success'){
-        this.images_list=res.data
-        this.images_list_filtered=this.images_list.filter((a:any)=>a)
+  images_list: any[] = [];
+  images_list_filtered: any[] = [];
+  get_gallery_images() {
+    let body = {
+      token: this.service.get('token'),
+    };
+    this._auth.get_all_gallery_images(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.images_list = res.data;
+        this.images_list_filtered = this.images_list.filter((a: any) => a);
       }
-    })
-
+    });
   }
-  filter_gallery_id:any=''
-  filter_images(){
-    this.images_list_filtered=this.images_list
-    if(this.filter_gallery_id){
-
-      this.images_list_filtered=this.images_list_filtered.filter((a:any)=>a.gallery_id==this.filter_gallery_id)
+  filter_gallery_id: any = '';
+  filter_images() {
+    this.images_list_filtered = this.images_list;
+    if (this.filter_gallery_id) {
+      this.images_list_filtered = this.images_list_filtered.filter(
+        (a: any) => a.gallery_id == this.filter_gallery_id
+      );
     }
   }
-  delete_image(item:any){
-    let id=item.image_url.split('.amazonaws.com/')[1]
-    let array=[]
-    let array1=[]
-    array.push(id)
-    array1.push(item.id)
-    let body={
-      token:this.token,
-      image:array,
-      id:array1
-    }
+  delete_image(item: any) {
+    let id = item.image_url.split('.amazonaws.com/')[1];
+    let array = [];
+    let array1 = [];
+    array.push(id);
+    array1.push(item.id);
+    let body = {
+      token: this.token,
+      image: array,
+      id: array1,
+    };
     Swal.fire({
       title: 'Delete Image?',
       text: 'You will not be able to recover!',
@@ -556,7 +543,6 @@ export class SettingComponent implements OnInit {
       cancelButtonText: 'No, keep Image',
     }).then((result) => {
       if (result.value) {
-        console.log(body)
         this._auth.delete_gallery_images(body).subscribe((res) => {
           if (res.status == 'success') {
             Swal.fire('Deleted!', 'Image Deleted.', 'success');
@@ -568,7 +554,58 @@ export class SettingComponent implements OnInit {
         // this.viewEvents();
       }
     });
+  }
+  user_list: any[] = [];
+  get_user_list() {
+    let body = {
+      token: this.service.get('token'),
+    };
+    this._auth.get_users(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.user_list = res.data;
+      }
+    });
+  }
 
+  module_access_form = this._fb.group({});
+  group: any = {};
+  module_access: any[] = [];
+  get_access_item(item: any) {
+    let body = {
+      token: this.service.get('token'),
+      user_id: item.user_id,
+    };
+    this.current_user_id = item.user_id;
+    this.module_access = [];
+    this._auth.get_all_module_access(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.module_access = res.data;
+        this.module_access.forEach((element: any) => {
+          this.group[element.id] = this._fb.control(
+            element.access_status == 1 ? true : false
+          );
+        });
+        this.module_access_form = this._fb.group(this.group);
+      }
+    });
+  }
+  current_user_id: any = '';
+  update_access() {
+    console.log(this.module_access_form.value);
+    let obj: any = this.module_access_form.value;
+    const trueKeys = Object.keys(obj).filter((key) => obj[key]);
+    let body = {
+      token: this.token,
+      user_id: this.current_user_id,
+      module_id: trueKeys,
+      status: 1,
+    };
+    this._auth.save_module_access(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        Swal.fire({ title: 'Access Updated Successfully', icon: 'success' });
+        (<HTMLElement>document.getElementById('module_access_edit')).click();
+      }
+    });
   }
   ngOnInit(): void {
     this.token = this.service.get('token');
@@ -580,6 +617,15 @@ export class SettingComponent implements OnInit {
           this.service.set('full_name', res.data.full_name);
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
+          let array = res.data.module_access.split(',');
+          if (!array.includes('3')) {
+            this.service.deleteAll();
+            localStorage.clear();
+            sessionStorage.clear();
+            this.token = '';
+            this.router.navigate(['/home']);
+            this.navbar.ngOnInit();
+          }
         } else {
           this.service.deleteAll();
           localStorage.clear();
@@ -588,10 +634,10 @@ export class SettingComponent implements OnInit {
           // window.location.reload()
         }
       });
-    this.get_branch()
-    this.get_gallery_list()
-    this.get_gallery_images()
-
+      this.get_branch();
+      this.get_user_list();
+      this.get_gallery_list();
+      this.get_gallery_images();
     }
   }
 }

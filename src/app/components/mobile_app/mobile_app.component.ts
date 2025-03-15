@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
+import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
+
 @Component({
   selector: 'app-mobile_app',
   templateUrl: './mobile_app.component.html',
@@ -18,7 +20,9 @@ export class MobileAppComponent implements OnInit {
     private route: Router,
     private service: CookieService,
     private datepipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private navbar: NavbarComponent
+
   ) {}
   dashboard_casrol_form = this._fb.group({
     title: [''],
@@ -169,6 +173,16 @@ export class MobileAppComponent implements OnInit {
           this.service.set('full_name', res.data.full_name);
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
+          let array=res.data.module_access.split(',')
+          if(!(array.includes('3'))){
+            this.service.deleteAll();
+            localStorage.clear();
+            sessionStorage.clear();
+            this.token = '';
+            this.router.navigate(['/home'])
+            this.navbar.ngOnInit()
+
+          }
         } else {
           this.service.deleteAll();
           localStorage.clear();

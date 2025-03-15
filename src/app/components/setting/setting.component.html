@@ -2,14 +2,11 @@
   <mat-tab label="Dashboard">
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         DASHBOARD IMAGES
       </h2>
-      <form
-        [formGroup]="dashboard_casrol_form"
-        class="flex flex-wrap space-x-4"
-      >
+      <form [formGroup]="dashboard_casrol_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Title
         </div>
@@ -36,7 +33,7 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Detail"
         />
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_dashboard_casrol()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -50,14 +47,11 @@
 
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         PROGRAMS
       </h2>
-      <form
-        [formGroup]="dashboard_program_form"
-        class="flex flex-wrap space-x-4"
-      >
+      <form [formGroup]="dashboard_program_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Title
         </div>
@@ -73,7 +67,6 @@
           formControlName="event_start_date"
           type="date"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-      
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           End Date
@@ -82,7 +75,6 @@
           formControlName="event_end_date"
           type="date"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Image URL
@@ -102,7 +94,7 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Detail"
         />
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_dashboard_program()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -116,11 +108,11 @@
   <mat-tab label="Users">
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         Create User
       </h2>
-      <form [formGroup]="user_form" class="flex flex-wrap space-x-4">
+      <form [formGroup]="user_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Username
         </div>
@@ -164,7 +156,7 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Image Url"
         />
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_user()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -173,16 +165,68 @@
           </button>
         </div>
       </form>
+      <h2
+        *ngIf="user_list.length > 0"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
+      >
+        User List
+      </h2>
+      <table
+        *ngIf="user_list.length > 0"
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <tr
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <th scope="col" class="px-6 py-3">S.no</th>
+          <th scope="col" class="px-6 py-3">Full Name</th>
+          <th scope="col" class="text-center px-6 py-3">Access</th>
+        </tr>
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+          *ngFor="let item of user_list; let i = index"
+        >
+          <td scope="col" class="px-6 py-3">{{ i + 1 }}</td>
+          <td scope="col" class="px-2 py-2">
+            <div
+              class="flex flex-wrap align-items-center space-x-2"
+              style="padding: 0px"
+            >
+              <img
+                class=""
+                style="width: 50px; border-radius: 50%; height: 50px"
+                src="{{
+                  item.image ? item.image : 'assets/images/student_profile.png'
+                }}"
+              />
+              <span>
+                {{ item.full_name }}
+              </span>
+            </div>
+          </td>
+
+          <td scope="col" class="text-center px-6 py-3">
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#module_access_edit"
+              style="background: transparent; border: none; color: red"
+              (click)="get_access_item(item)"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
   </mat-tab>
   <mat-tab label="Employee">
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         BRANCH
       </h2>
-      <form [formGroup]="branch_form" class="flex flex-wrap space-x-4">
+      <form [formGroup]="branch_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Branch Name
         </div>
@@ -191,7 +235,7 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Branch Name"
         />
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_branch()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -205,11 +249,11 @@
 
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         MISSION FIELD
       </h2>
-      <form [formGroup]="field_form" class="flex flex-wrap space-x-4">
+      <form [formGroup]="field_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Branch
         </div>
@@ -231,7 +275,7 @@
           placeholder="Enter Title"
         />
 
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_field()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -245,11 +289,11 @@
 
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         DESIGNATION
       </h2>
-      <form [formGroup]="designation_form" class="flex flex-wrap space-x-4">
+      <form [formGroup]="designation_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Designation
         </div>
@@ -259,7 +303,7 @@
           placeholder="Enter Title"
         />
 
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_designation()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -273,11 +317,11 @@
   <mat-tab label="Gallery">
     <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         ADD GALLERY
       </h2>
-      <form [formGroup]="gallery_list_form" class="flex flex-wrap space-x-4">
+      <form [formGroup]="gallery_list_form" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Gallery Name
         </div>
@@ -287,7 +331,7 @@
           placeholder="Enter Title"
         />
 
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="save_gallery_list()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -296,17 +340,16 @@
           </button>
         </div>
       </form>
-      </div>
-      
-      <hr class="border-t border-gray-300 my-2" />
-      <div class="card-body">
-      
+    </div>
+
+    <hr class="border-t border-gray-300 my-2" />
+    <div class="card-body">
       <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
       >
         ADD GALLERY IMAGES
       </h2>
-      <form [formGroup]="gallery_list_form2" class="flex flex-wrap space-x-4">
+      <form [formGroup]="gallery_list_form2" class="flex flex-wrap">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Gallery List
         </div>
@@ -332,7 +375,7 @@
           multiple
         />
 
-        <div class="w-1/1 mt-3 flex justify-center">
+        <div class="w-full mt-3 flex justify-center">
           <button
             (click)="submit_gallery_images()"
             class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
@@ -341,13 +384,12 @@
           </button>
         </div>
       </form>
-      </div>
-      <hr class="border-t border-gray-300 my-2" />
-      <div class="card-body">
-
-      <div class="flex flex-wrap justify-between space-x-4">
+    </div>
+    <hr class="border-t border-gray-300 my-2" />
+    <div class="card-body">
+      <div class="flex flex-wrap justify-between">
         <h2
-          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
         >
           GALLERY LIST
         </h2>
@@ -414,3 +456,75 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+<div
+  class="modal fade"
+  id="module_access_edit"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog modal-dialog-centered modal-lg w-50"
+    style="max-width: 95%"
+    role="document"
+  >
+    <div class="modal-content">
+      <div
+        class="modal-header"
+        style="
+          background-color: darkblue;
+          padding: 10px 20px;
+          color: white;
+          font-weight: 600;
+        "
+      >
+        <span class="modal-title fs-5">Module Access</span>
+        <button
+          type="button"
+          class="btn-close"
+          id="close_module_access"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <table
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <tr  class="text-xs text-gray-700 uppercase  " *ngFor="let item of module_access">
+           
+            <td  scope="col" class="px-1 py-1">
+              <form
+                [formGroup]="module_access_form"
+                style="
+                justify-content: center;
+                display: flex;align-items: center;
+            "
+              >
+                <input
+                  type="checkbox"
+                  [formControlName]="item.id"
+                />
+              </form>
+            </td>
+            <th  scope="col" class="px-1 py-1">
+              {{ item.module_name }}
+            </th>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary"
+        (click)="update_access()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

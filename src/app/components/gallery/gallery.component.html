@@ -3,11 +3,11 @@
      
         <div class="my-4 flex flex-wrap" *ngFor="let images of images_list">
           <h2
-          class=" text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-fuchsia-600 dark:text-gray-200"
+          class=" text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
         >
           {{images[0].gallery_name}}
         </h2>
-          <lightgallery class="w-full flex flex-wrap space-x-4 space-y-4 my-2" [settings]="settings" (onInit)="onInit($event)">
+          <lightgallery class="w-full flex flex-wrap   space-y-4 my-2" [settings]="settings" (onInit)="onInit($event)">
             <a *ngFor="let image of images"
              [attr.data-lg-size]="'1024-768'" 
              class="gallery-item" 

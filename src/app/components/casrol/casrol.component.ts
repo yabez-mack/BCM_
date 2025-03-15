@@ -61,52 +61,43 @@ constructor(
     }
   }
 
-  // Start auto-scrolling the images
   startAutoScroll(): void {
     this.autoScrollInterval = setInterval(() => {
       if (!this.isHovered) {
         this.moveToNext();
       }
-    }, 5000); // Change image every 3 seconds
+    }, 5000); 
   }
 
-  // Pause auto-scroll when hovered
   pause(): void {
     this.isHovered = true;
     clearInterval(this.autoScrollInterval);
   }
 
-  // Resume auto-scroll when the hover is removed
   resume(): void {
     this.isHovered = false;
     this.startAutoScroll();
   }
 
-  // Move to the next image
   moveToNext(): void {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.updateTransformPosition();
   }
 
-  // Move to the previous image
   moveToPrevious(): void {
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
     this.updateTransformPosition();
   }
 
-  // Move to a specific image based on the indicator click
   moveToImage(index: number): void {
     this.currentIndex = index;
     this.updateTransformPosition();
   }
 
-  // Update the translateX position to move the carousel
   updateTransformPosition(): void {
-    // Make sure transformPosition is always a valid number
     if (!isNaN(this.currentIndex) && this.images.length > 0) {
       this.transformPosition = -this.currentIndex * 100;
     } else {
-      console.error('Invalid currentIndex or images array is empty');
     }
   }
 }

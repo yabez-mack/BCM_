@@ -11,8 +11,63 @@
   font-family: 'Neon Glow';
   src: url('https://assets.codepen.io/230569/NeonGlow-8VLz.ttf');
 }
+/* calendar */
+/* Tooltip style (hidden by default) */
+.calendar-event-details {
+  display: none;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 5px;
+  position: absolute;
+  top: 100%; /* Position above the event box */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 150px;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 9999999 !important;
+  
+}
+.fc-header-toolbar {
+  z-index: 10; /* Lower z-index of calendar header to be below tooltip */
+}
 
+/* Image style */
+.calendar-event-image {
+  width: 40px; /* Adjust the size of the image */
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 5px;
+  object-fit: cover;
+}
+
+/* Show event details on hover */
+.fc-event:hover .calendar-event-details {
+  display: block;
+  opacity: 1; /* Fade in the details */
+  transform: translateX(-50%) translateY(5px); /* Slightly move the tooltip upwards */
+  z-index: 9999 !important;
+
+}
+
+/* Add hover zoom effect for event */
+.fc-event:hover {
+  transform: scale(1.05); /* Slightly increase size on hover */
+  transition: transform 0.2s ease-in-out;
+  z-index: 9999 !important;
+
+}
+.fc-event{
+z-index: 1;
+}
 app-homepage{
+  flex: 1;
+}
+app-calendar{
   flex: 1;
 }
 app-employee{
@@ -53,6 +108,7 @@ input {
   width: 100%;
   height: 100%;
 }
+
 
 .dropdown-menu.dropdown-select-class.show {
   height: 300px;
@@ -333,9 +389,12 @@ body {
 }
 
 .card-body {
-  padding: 1rem;
+  padding: 1rem !important;
 }
 
+.btn-close{
+  filter: invert(1) contrast(100%) brightness(100%);
+}
 .w-1\/1_5 {
   @media (width >= 48rem) {
     width: calc(1 / 2 * 96%);
