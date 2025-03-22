@@ -1,7 +1,7 @@
 <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
   <mat-tab label="All Employee">
     <div class="card-body">
-      <div class="flex flex-wrap justify-between  ">
+      <div class="flex flex-wrap justify-between">
         <h2
           class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
         >
@@ -14,9 +14,10 @@
           [(ngModel)]="searchEmployee"
         />
       </div>
-      <div class="flex flex-wrap  ">
+      <div class="flex flex-wrap">
         <div class="w-full">
-          <table *ngIf="employee_list.length==0"
+          <table
+            *ngIf="employee_list.length == 0"
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
           >
             <tr
@@ -33,13 +34,14 @@
             </tr>
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-             
             >
-              <td colspan="8" scope="col" class="px-6 py-3">No Records Found</td>
-            
+              <td colspan="8" scope="col" class="px-6 py-3">
+                No Records Found
+              </td>
             </tr>
           </table>
-          <table  *ngIf="employee_list.length>0"
+          <table
+            *ngIf="employee_list.length > 0"
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
           >
             <tr
@@ -56,48 +58,48 @@
             </tr>
             <tr
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              *ngFor="let item of employee_list | search:searchEmployee"
+              *ngFor="let item of employee_list | search : searchEmployee"
             >
               <td scope="col" class="px-6 py-3">{{ item.reg_id }}</td>
               <td scope="col" class="px-2 py-2">
-                <div class="flex flex-wrap align-items-center space-x-2" style="padding: 0px;">
-
+                <div
+                  class="flex flex-wrap align-items-center space-x-2"
+                  style="padding: 0px"
+                >
                   <img
-                  class=""
-                style="width: 50px; border-radius: 50%; height: 50px"
-                src="{{
-                  item.image
-                    ?  item.image
-                    : 'assets/images/student_profile.png'
-                }}"
-              />
-              <span>
-                
-                {{ item.name }}
-              </span>
-            </div>
-            </td>
+                    class=""
+                    style="width: 50px; border-radius: 50%; height: 50px"
+                    src="{{
+                      item.image
+                        ? item.image
+                        : 'assets/images/student_profile.png'
+                    }}"
+                  />
+                  <span>
+                    {{ item.name }}
+                  </span>
+                </div>
+              </td>
               <td scope="col" class="px-6 py-3">{{ item.designation_name }}</td>
               <!-- <td scope="col" class="px-6 py-3">{{ item.branch_name }}</td> -->
               <td scope="col" class="px-6 py-3">{{ item.field_name }}</td>
-              <td scope="col" class="px-6 py-3">{{ item.date_of_birth|date:'dd-MMM-yyyy' }}</td>
+              <td scope="col" class="px-6 py-3">
+                {{ item.date_of_birth | date : "dd-MMM-yyyy" }}
+              </td>
               <td scope="col" class="px-6 py-3">{{ item.father_name }}</td>
-              <td scope="col" class="text-center px-6 py-3">{{ conv_status(item.status) }}</td>
+              <td scope="col" class="text-center px-6 py-3">
+                {{ conv_status(item.status) }}
+              </td>
               <td scope="col" class="text-center px-6 py-3">
                 <button
-               
-                data-bs-toggle="modal"
-                data-bs-target="#edit_employee"
-                style="    background: transparent;
-                border: none;
-                "  
-                class="text-sky-800 hover:text-sky-500 " 
-
-                (click)="edit_employee(item)"
-              >
-              <i class="fa-solid fa-pen"></i>
-              </button>
-           
+                  data-bs-toggle="modal"
+                  data-bs-target="#edit_employee"
+                  style="background: transparent; border: none"
+                  class="text-sky-800 hover:text-sky-500"
+                  (click)="edit_employee(item)"
+                >
+                  <i class="fa-solid fa-pen"></i>
+                </button>
               </td>
             </tr>
           </table>
@@ -112,7 +114,7 @@
       >
         ADD EMPLOYEE
       </h2>
-      <form [formGroup]="user_form" class="flex flex-wrap" style="grid-gap: 3%;">
+      <form [formGroup]="user_form" class="flex flex-wrap" style="grid-gap: 3%">
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Registration Number
         </div>
@@ -129,75 +131,6 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Full name"
         />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Adhar Number
-        </div>
-        <input
-          formControlName="adhar"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Adhar Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Gender
-        </div>
-        <select
-          formControlName="gender"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option  value="" disabled>Select Gender</option>
-          <option  value="M">Male</option>
-          <option  value="F" >Female</option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Designation
-        </div>
-        <select
-          formControlName="designation"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option  value="" disabled>Select Designation</option>
-          <option *ngFor="let item of designation_list" [value]="item.id">{{item.designation_name}}</option>
-        </select>
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Email
-        </div>
-        <input
-          formControlName="email"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Email"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Education Qualification
-        </div>
-        <input
-          formControlName="education_qualification"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Education Qualification"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Branch Name
-        </div>
-        <select
-        (change)="filter_field()"
-        formControlName="branch"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-      >
-        <option  value="" disabled>Select Branch</option>
-        <option *ngFor="let item of branch_list" [value]="item.id">{{item.branch_name}}</option>
-      </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Field Name
-        </div>
-       
-        <select
-        formControlName="field_name"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-      >
-        <option  value="" disabled>Select Field</option>
-        <option *ngFor="let item of field_list_filtered" [value]="item.id">{{item.field_name}}</option>
-      </select>
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Date Of Birth
         </div>
@@ -207,37 +140,32 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Address
+          Gender
         </div>
-        <input
-          formControlName="address"
+        <select
+          formControlName="gender"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Address"
-        />
+        >
+          <option value="" disabled>Select Gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          People Group
+          Blood Group
         </div>
         <input
-          formControlName="people_group"
+          formControlName="blood_group"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter People Group"
+          placeholder="Enter Blood Group"
         />
+      
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language Known
+          Email
         </div>
         <input
-          formControlName="language_known"
+          formControlName="email"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Language Known"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Joining
-        </div>
-        <input
-          formControlName="date_of_joining"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Date Of Joining"
+          placeholder="Enter Email"
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Contact Number
@@ -249,18 +177,211 @@
           placeholder="Enter Contact Number"
         />
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Adhar Number
+        </div>
+        <input
+          formControlName="adhar"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Adhar Number"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Language Speak
+        </div>
+        <input
+          formControlName="language_speak"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Language Speak"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Language Write
+        </div>
+        <input
+          formControlName="language_write"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Language Write"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Address
+        </div>
+        <textarea
+          formControlName="address"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Address"
+        ></textarea>
+
+
+
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Designation
+        </div>
+        <select
+          formControlName="designation"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Designation</option>
+          <option *ngFor="let item of designation_list" [value]="item.id">
+            {{ item.designation_name }}
+          </option>
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Branch Name
+        </div>
+        <select
+          (change)="filter_field()"
+          formControlName="branch"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Branch</option>
+          <option *ngFor="let item of branch_list" [value]="item.id">
+            {{ item.branch_name }}
+          </option>
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Field Name
+        </div>
+
+        <select
+          formControlName="field_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Field</option>
+          <option *ngFor="let item of field_list_filtered" [value]="item.id">
+            {{ item.field_name }}
+          </option>
+        </select>
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Date Of Joining
+        </div>
+        <input
+          formControlName="date_of_joining"
+          type="date"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Date Of Joining"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          People Group
+        </div>
+        <input
+          formControlName="people_group"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter People Group"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Education Qualification
+        </div>
+        <input
+          formControlName="education_qualification"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Education Qualification"
+        />
+           
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Bank Name
+        </div>
+        <input
+          formControlName="bank_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Bank Name"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Account Name
+        </div>
+        <input
+          formControlName="account_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Account Name"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Account Number
+        </div>
+        <input
+          formControlName="account_number"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Account Number"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          IFSC
+        </div>
+        <input
+          formControlName="ifsc"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter IFSC"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          MICR
+        </div>
+        <input
+          formControlName="micr"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter MICR"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mut Member
+        </div>
+        <select
+          formControlName="mut_member"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Mut Status</option>
+          <option value="1" >Yes</option>
+          <option value="2" >No</option>
+        </select>
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mut ID
+        </div>
+        <input
+          formControlName="mut_id"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Mut ID"
+        />
+
+
+
+
+
+
+      
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Father Name
+        </div>
+        <input
+          formControlName="father_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Father Name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mother Name
+        </div>
+        <input
+          formControlName="mother_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Mother Name"
+        />
+        
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Martial Status
         </div>
-        
+
         <select
-        formControlName="martial_status"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-      >
-        <option  value="" disabled>Select Status</option>
-        <option value="UnMarried">UnMarried</option>
-        <option value="Married">Married</option>
-        <option value="Divorced">Divorced</option>
-      </select>
+          formControlName="martial_status"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Status</option>
+          <option value="unmarried">UnMarried</option>
+          <option value="married">Married</option>
+          <option value="divorced">Divorced</option>
+          <option value="widow/widower">Divorced</option>
+        </select>
+        
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Spouse Name
         </div>
@@ -285,76 +406,41 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Spouse Occupation"
         />
+        
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Father Name
+          Spouse Adhar
         </div>
         <input
-          formControlName="father_name"
+          formControlName="spouse_adhar"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Father Name"
+          placeholder="Enter Spouse Adhar"
         />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mother Name
-        </div>
-        <input
-          formControlName="mother_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Mother Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          First Child Name
-        </div>
-        <input
-          formControlName="child_1"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Child Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Second Child Name
-        </div>
-        <input
-          formControlName="child_2"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Child Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Third Child Name
-        </div>
-        <input
-          formControlName="child_3"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Child Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Fourth Child Name
-        </div>
-        <input
-          formControlName="child_4"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Child Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Fifth Child Name
-        </div>
-        <input
-          formControlName="child_5"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Child Name"
-        />
+        
        
+
+        
+     
+        
+        
+        
+       
+
+    
+     
+        
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Status
         </div>
         <select
-        formControlName="status"
-        class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-      >
-        <option  value="" disabled>Select Status</option>
-        <option value="1">Active</option>
-        <option value="2">InActive</option>
-        <option value="3">Resigned</option>
-        <option value="4">Deceased</option>
-      </select>
+          formControlName="status"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Status</option>
+          <option value="1">Active</option>
+          <option value="2">InActive</option>
+          <option value="3">Resigned</option>
+          <option value="4">Deceased</option>
+        </select>
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Image
         </div>
@@ -363,9 +449,8 @@
           (change)="onChangeImage($event)"
           type="file"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-
         />
-       
+
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
           Family Image
         </div>
@@ -374,7 +459,6 @@
           (change)="onChangeImage2($event)"
           type="file"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-
         />
 
         <div class="w-full mt-3 flex justify-center">
@@ -400,12 +484,21 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-dialog-centered modal-lg w-90" style="max-width: 95%" role="document">
-    <div class="modal-content" >
-      <div class="modal-header" style="background-color:  darkblue;
-    padding: 10px 20px;
-    color: white;
-    font-weight: 600;">
+  <div
+    class="modal-dialog modal-dialog-centered modal-lg w-90"
+    style="max-width: 95%"
+    role="document"
+  >
+    <div class="modal-content">
+      <div
+        class="modal-header"
+        style="
+          background-color: darkblue;
+          padding: 10px 20px;
+          color: white;
+          font-weight: 600;
+        "
+      >
         <span class="modal-title fs-5">Edit Employee</span>
         <button
           type="button"
@@ -417,258 +510,346 @@
       </div>
 
       <div class="modal-body">
-        <form [formGroup]="user_form_edit" class="flex flex-wrap" style="grid-gap: 3%;">
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Registration Number
-          </div>
-          <input
-            formControlName="reg_id"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Registration Number"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Full Name
-          </div>
-          <input
-            formControlName="name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Full name"
-          />
-  
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Adhar Number
-          </div>
-          <input
-            formControlName="adhar"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Adhar Number"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Gender
-          </div>
-          <select
-            formControlName="gender"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          >
-            <option  value="" disabled>Select Gender</option>
-            <option  value="M">Male</option>
-            <option  value="F" >Female</option>
-          </select>
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Designation
-          </div>
-          <select
-            formControlName="designation"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          >
-            <option  value="" disabled>Select Designation</option>
-            <option *ngFor="let item of designation_list" [value]="item.id">{{item.designation_name}}</option>
-          </select>
-  
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Email
-          </div>
-          <input
-            formControlName="email"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Email"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Education Qualification
-          </div>
-          <input
-            formControlName="education_qualification"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Education Qualification"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Branch Name
-          </div>
-          <select
+        <form
+          [formGroup]="user_form_edit"
+          class="flex flex-wrap"
+          style="grid-gap: 3%"
+        >
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Registration Number
+        </div>
+        <input
+          formControlName="reg_id"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Registration Number"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Full Name
+        </div>
+        <input
+          formControlName="name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Full name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Date Of Birth
+        </div>
+        <input
+          formControlName="date_of_birth"
+          type="date"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Gender
+        </div>
+        <select
+          formControlName="gender"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Blood Group
+        </div>
+        <input
+          formControlName="blood_group"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Blood Group"
+        />
+      
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Email
+        </div>
+        <input
+          formControlName="email"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Email"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Contact Number
+        </div>
+        <input
+          formControlName="contact_no"
+          type="number"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Contact Number"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Adhar Number
+        </div>
+        <input
+          formControlName="adhar"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Adhar Number"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Language Speak
+        </div>
+        <input
+          formControlName="language_speak"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Language Speak"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Language Write
+        </div>
+        <input
+          formControlName="language_write"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Language Write"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Address
+        </div>
+        <textarea
+          formControlName="address"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Address"
+        ></textarea>
+
+
+
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Designation
+        </div>
+        <select
+          formControlName="designation"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Designation</option>
+          <option *ngFor="let item of designation_list" [value]="item.id">
+            {{ item.designation_name }}
+          </option>
+        </select>
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Branch Name
+        </div>
+        <select
           (change)="filter_field2()"
           formControlName="branch"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
         >
-          <option  value="" disabled>Select Branch</option>
-          <option *ngFor="let item of branch_list" [value]="item.id">{{item.branch_name}}</option>
+          <option value="" disabled>Select Branch</option>
+          <option *ngFor="let item of branch_list" [value]="item.id">
+            {{ item.branch_name }}
+          </option>
         </select>
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Field Name
-          </div>
-         
-          <select
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Field Name
+        </div>
+
+        <select
           formControlName="field_name"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
         >
-          <option  value="" disabled>Select Field</option>
-          <option *ngFor="let item of field_list_filtered" [value]="item.id">{{item.field_name}}</option>
+          <option value="" disabled>Select Field</option>
+          <option *ngFor="let item of field_list_filtered2" [value]="item.id">
+            {{ item.field_name }}
+          </option>
         </select>
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Date Of Birth
-          </div>
-          <input
-            formControlName="date_of_birth"
-            type="date"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Address
-          </div>
-          <input
-            formControlName="address"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Address"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            People Group
-          </div>
-          <input
-            formControlName="people_group"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter People Group"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Language Known
-          </div>
-          <input
-            formControlName="language_known"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Language Known"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Date Of Joining
-          </div>
-          <input
-            formControlName="date_of_joining"
-            type="date"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Date Of Joining"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Contact Number
-          </div>
-          <input
-            formControlName="contact_no"
-            type="number"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Contact Number"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Martial Status
-          </div>
-          
-          <select
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Date Of Joining
+        </div>
+        <input
+          formControlName="date_of_joining"
+          type="date"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Date Of Joining"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          People Group
+        </div>
+        <input
+          formControlName="people_group"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter People Group"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Education Qualification
+        </div>
+        <input
+          formControlName="education_qualification"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Education Qualification"
+        />
+           
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Bank Name
+        </div>
+        <input
+          formControlName="bank_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Bank Name"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Account Name
+        </div>
+        <input
+          formControlName="account_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Account Name"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Account Number
+        </div>
+        <input
+          formControlName="account_number"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Account Number"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          IFSC
+        </div>
+        <input
+          formControlName="ifsc"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter IFSC"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          MICR
+        </div>
+        <input
+          formControlName="micr"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter MICR"
+        />
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mut Member
+        </div>
+        <select
+          formControlName="mut_member"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="" disabled>Select Mut Status</option>
+          <option value="1" >Yes</option>
+          <option value="2" >No</option>
+        </select>
+
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mut ID
+        </div>
+        <input
+          formControlName="mut_id"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Mut ID"
+        />
+
+
+
+
+
+
+      
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Father Name
+        </div>
+        <input
+          formControlName="father_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Father Name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Mother Name
+        </div>
+        <input
+          formControlName="mother_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Mother Name"
+        />
+        
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Martial Status
+        </div>
+
+        <select
           formControlName="martial_status"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
         >
-          <option  value="" disabled>Select Status</option>
-          <option value="UnMarried">UnMarried</option>
-          <option value="Married">Married</option>
-          <option value="Divorced">Divorced</option>
+          <option value="" disabled>Select Status</option>
+          <option value="unmarried">UnMarried</option>
+          <option value="married">Married</option>
+          <option value="divorced">Divorced</option>
+          <option value="widow/widower">Divorced</option>
         </select>
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Spouse Name
-          </div>
-          <input
-            formControlName="spouse_name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Spouse Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Date Of Marriage
-          </div>
-          <input
-            formControlName="date_of_marriage"
-            type="date"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Spouse Occupation
-          </div>
-          <input
-            formControlName="spouse_occupation"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Spouse Occupation"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Father Name
-          </div>
-          <input
-            formControlName="father_name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Father Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Mother Name
-          </div>
-          <input
-            formControlName="mother_name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Mother Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            First Child Name
-          </div>
-          <input
-            formControlName="child_1"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Child Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Second Child Name
-          </div>
-          <input
-            formControlName="child_2"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Child Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Third Child Name
-          </div>
-          <input
-            formControlName="child_3"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Child Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Fourth Child Name
-          </div>
-          <input
-            formControlName="child_4"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Child Name"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Fifth Child Name
-          </div>
-          <input
-            formControlName="child_5"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Child Name"
-          />
-         
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Status
-          </div>
-          <select
+        
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Spouse Name
+        </div>
+        <input
+          formControlName="spouse_name"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Spouse Name"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Date Of Marriage
+        </div>
+        <input
+          formControlName="date_of_marriage"
+          type="date"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+        />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Spouse Occupation
+        </div>
+        <input
+          formControlName="spouse_occupation"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Spouse Occupation"
+        />
+        
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Spouse Adhar
+        </div>
+        <input
+          formControlName="spouse_adhar"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="Enter Spouse Adhar"
+        />
+        
+       
+
+        
+     
+        
+        
+        
+       
+
+    
+     
+        
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          Status
+        </div>
+        <select
           formControlName="status"
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
         >
-          <option  value="" disabled>Select Status</option>
+          <option value="" disabled>Select Status</option>
           <option value="1">Active</option>
           <option value="2">InActive</option>
           <option value="3">Resigned</option>
           <option value="4">Deceased</option>
         </select>
+       
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Image
           </div>
           <input
             formControlName="image"
             (change)="onChangeImage3($event)"
-          type="file"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-
+            type="file"
+            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Family Image
@@ -678,20 +859,14 @@
             (change)="onChangeImage4($event)"
             type="file"
             class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-  
           />
-          
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="update_user()"
-          >
+        <button type="button" class="btn btn-primary" (click)="update_user()">
           Submit
         </button>
       </div>

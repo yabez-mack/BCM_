@@ -29,3 +29,10 @@
   .input:hover {
     border-color: #888;        /* Change border color when hovering */
   }
+
+  legend{
+    font-weight: 500;
+      padding: 0px 14px;
+      background: white;
+      width: max-content;
+  }
