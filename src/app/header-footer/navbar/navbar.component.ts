@@ -225,8 +225,6 @@ export class NavbarComponent implements OnInit {
       module_name: 'About',
     });
     
-   console.log(this.module_access)
-   console.log(this.modules)
     
   }
   

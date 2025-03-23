@@ -510,6 +510,8 @@
       </div>
 
       <div class="modal-body">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+          <mat-tab label="Employee Detail">
         <form
           [formGroup]="user_form_edit"
           class="flex flex-wrap"
@@ -861,15 +863,134 @@
             class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </form>
+      
+      
+        <div class="w-full mt-3 flex justify-center">
+          <button
+          (click)="update_user()"
+            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
+          >
+            SUBMIT
+          </button>
+        </div>
+        </mat-tab>
+        <mat-tab label="Documents">
+          <h2
+          class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
+        >
+          DOCUMENTS
+        </h2>
+        <div >
+          <form [formGroup]="documents_form" class="flex flex-wrap">
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Title
+            </div>
+            <input
+              formControlName="title"
+              class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Enter Document Name"
+              />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              File
+            </div>
+            <input
+              formControlName="file"
+              (change)="onChangeImage5($event)"
+              type="file"
+              class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+            <div class="w-full flex justify-center">
+
+              <button   (click)="upload_document()"
+              class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none">UPLOAD</button>
+            </div>
+              
+          </form>
+          <h2 
+          class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
+          >
+            DOCUMENT LIST
+        </h2>
+        <table
+            *ngIf="document_list.length == 0"
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+            <th scope="col" class="px-6 py-3">Title</th>
+            <th scope="col" class="px-6 py-3">File</th>
+            <th scope="col" class="text-center px-6 py-3">Action</th>
+            </tr>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+            >
+              <td colspan="8" scope="col" class="px-6 py-3">
+                No Records Found
+              </td>
+            </tr>
+          </table>
+          <table
+            *ngIf="document_list.length > 0"
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+          >
+            <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">Title</th>
+              <th scope="col" class="px-6 py-3">File</th>
+              <th scope="col" class="text-center px-6 py-3">Action</th>
+            </tr>
+            <tr
+              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+              *ngFor="let item of document_list | search : searchEmployee"
+            >
+              <td scope="col" class="px-6 py-3">{{ item.document_name }}</td>
+              <td scope="col" class="px-2 py-2">
+                <div
+                  class="flex flex-wrap align-items-center space-x-2"
+                  style="padding: 0px"
+                >
+                  <img
+                    class=""
+                    style="width: 50px;  height: 50px"
+                    src="{{
+                      item.url
+                        ? item.url.split('/').pop().split('.').pop()=='xlsx'?'assets/images/excel.png':item.url.split('/').pop().split('.').pop()=='pdf'?'assets/images/pdf.png':item.url.split('/').pop().split('.').pop()=='zip'?'assets/images/zip.png'
+                        : item.url:'assets/images/student_profile.png'
+                    }}"
+                  />
+                 
+                </div>
+              </td>
+              
+              <td scope="col" class="text-center px-6 py-3">
+                <a
+                [href]="item.url"
+                target="_blank"
+                style="background: transparent; border: none;color:green;font-size: 20px;"
+              >
+              <i class="fa-solid fa-cloud-arrow-down"></i>
+            </a>
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#edit_employee"
+                  style="background: transparent; border: none;color:red;font-size: 20px;"
+                  (click)="delete_file(item)"
+                class="ml-4"
+
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+               
+              </td>
+            </tr>
+          </table>
+        </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" (click)="update_user()">
-          Submit
-        </button>
-      </div>
+      
     </div>
   </div>
 </div>

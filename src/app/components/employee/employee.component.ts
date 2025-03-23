@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
@@ -22,14 +22,19 @@ export class EmployeeComponent implements OnInit {
     private service: CookieService,
     private datepipe: DatePipe,
     private router: Router,
-    private navbar: NavbarComponent
-
+    private navbar: NavbarComponent,
   ) {}
   dashboard_casrol_form = this._fb.group({
     title: [''],
     url: [''],
     detail: [''],
     type: ['1'],
+    status: ['1'],
+  });
+  documents_form = this._fb.group({
+    title: [''],
+    url: [''],
+    file: [''],
     status: ['1'],
   });
   dashboard_program_form = this._fb.group({
@@ -65,18 +70,18 @@ export class EmployeeComponent implements OnInit {
     family_image: [''],
     branch: [''],
     gender: [''],
-    status: ['1'], 
-    language_speak: [''],  
-    language_write: [''],  
-    spouse_adhar: [''],     
-    mut_member: ['2'],        
-    mut_id: [''],          
-    bank_name: [''],       
-    account_name: [''],    
-    account_number: [''],  
-    ifsc: [''],             
-    micr: [''],       
-    blood_group: [''],       
+    status: ['1'],
+    language_speak: [''],
+    language_write: [''],
+    spouse_adhar: [''],
+    mut_member: ['2'],
+    mut_id: [''],
+    bank_name: [''],
+    account_name: [''],
+    account_number: [''],
+    ifsc: [''],
+    micr: [''],
+    blood_group: [''],
   });
   user_form_edit = this._fb.group({
     id: [''],
@@ -106,18 +111,17 @@ export class EmployeeComponent implements OnInit {
     branch: [''],
     gender: [''],
     status: ['1'],
-    language_speak: [''],  
-    language_write: [''],   
-    spouse_adhar: [''],      
-    mut_member: ['1'],         
-    mut_id: [''],            
-    bank_name: [''],         
-    account_name: [''],      
-    account_number: [''],    
-    ifsc: [''],              
+    language_speak: [''],
+    language_write: [''],
+    spouse_adhar: [''],
+    mut_member: ['1'],
+    mut_id: [''],
+    bank_name: [''],
+    account_name: [''],
+    account_number: [''],
+    ifsc: [''],
     micr: [''],
-    blood_group: [''],       
-
+    blood_group: [''],
   });
   searchEmployee: any = '';
   submit_user() {
@@ -133,7 +137,7 @@ export class EmployeeComponent implements OnInit {
       date_of_birth: this.user_form.value.date_of_birth,
       address: this.user_form.value.address,
       people_group: this.user_form.value.people_group,
-      
+
       date_of_joining: this.user_form.value.date_of_joining,
       contact_no: this.user_form.value.contact_no,
       martial_status: this.user_form.value.martial_status,
@@ -142,7 +146,7 @@ export class EmployeeComponent implements OnInit {
       spouse_occupation: this.user_form.value.spouse_occupation,
       father_name: this.user_form.value.father_name,
       mother_name: this.user_form.value.mother_name,
-      
+
       spouse_image: this.user_form.value.spouse_image,
       signature: this.user_form.value.signature,
       comment: this.user_form.value.comment,
@@ -153,7 +157,7 @@ export class EmployeeComponent implements OnInit {
       branch: this.user_form.value.branch,
       status: this.user_form.value.status,
       blood_group: this.user_form.value.blood_group,
-      
+
       // Added fields
       language_speak: this.user_form.value.language_speak,
       language_write: this.user_form.value.language_write,
@@ -164,9 +168,9 @@ export class EmployeeComponent implements OnInit {
       account_name: this.user_form.value.account_name,
       account_number: this.user_form.value.account_number,
       ifsc: this.user_form.value.ifsc,
-      micr: this.user_form.value.micr
+      micr: this.user_form.value.micr,
     };
-    
+
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.reg_id) {
@@ -208,17 +212,17 @@ export class EmployeeComponent implements OnInit {
             language_speak: '',
             language_write: '',
             spouse_adhar: '',
-            mut_member: '2', 
+            mut_member: '2',
             mut_id: '',
             bank_name: '',
             account_name: '',
             account_number: '',
             ifsc: '',
             blood_group: '',
-            micr: ''
+            micr: '',
           });
-          
-          this.get_latest_employee_id()
+
+          this.get_latest_employee_id();
           this.get_employee();
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
@@ -235,7 +239,8 @@ export class EmployeeComponent implements OnInit {
       adhar: this.user_form_edit.value.adhar,
       designation: this.user_form_edit.value.designation,
       email: this.user_form_edit.value.email,
-      education_qualification: this.user_form_edit.value.education_qualification,
+      education_qualification:
+        this.user_form_edit.value.education_qualification,
       field_name: this.user_form_edit.value.field_name,
       date_of_birth: this.user_form_edit.value.date_of_birth,
       address: this.user_form_edit.value.address,
@@ -252,11 +257,13 @@ export class EmployeeComponent implements OnInit {
       signature: this.user_form_edit.value.signature,
       comment: this.user_form_edit.value.comment,
       image: this.base64code4image3 ? this.base64code4image3 : this.default_url,
-      family_image: this.base64code4image4 ? this.base64code4image4 : this.default_url2,
+      family_image: this.base64code4image4
+        ? this.base64code4image4
+        : this.default_url2,
       family_image_name: this.base64code4image4 ? this.file_name4 : '',
       image_name: this.base64code4image3 ? this.file_name3 : '',
       branch: this.user_form_edit.value.branch,
-      status: this.user_form_edit.value.status,      
+      status: this.user_form_edit.value.status,
       language_speak: this.user_form_edit.value.language_speak,
       language_write: this.user_form_edit.value.language_write,
       spouse_adhar: this.user_form_edit.value.spouse_adhar,
@@ -269,7 +276,7 @@ export class EmployeeComponent implements OnInit {
       micr: this.user_form_edit.value.micr,
       blood_group: this.user_form_edit.value.blood_group,
     };
-    
+
     if (!body.token) {
       Swal.fire({ title: 'Please Login', icon: 'info' });
     } else if (!body.reg_id) {
@@ -309,37 +316,38 @@ export class EmployeeComponent implements OnInit {
             spouse_name: '',
             spouse_occupation: '',
             status: '',
-            language_speak: '',  
-            language_write: '',               
-            spouse_adhar: '',     
-            mut_member: '2',         
-            mut_id: '',           
-            bank_name: '',        
-            account_name: '',     
-            account_number: '',   
-            ifsc: '',             
-            micr: '',              
-            blood_group: '',              
+            language_speak: '',
+            language_write: '',
+            spouse_adhar: '',
+            mut_member: '2',
+            mut_id: '',
+            bank_name: '',
+            account_name: '',
+            account_number: '',
+            ifsc: '',
+            micr: '',
+            blood_group: '',
           });
-          
-          this.get_employee();
-          (<HTMLElement>document.getElementById('close_edit_employee')).click()
 
+          this.get_employee();
+          // (<HTMLElement>document.getElementById('close_edit_employee')).click()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
       });
     }
   }
-  default_url:any=''
-  default_url2:any=''
+  default_url: any = '';
+  default_url2: any = '';
+  employee_id: any = '';
   edit_employee(item: any) {
-    this.default_url=item.image
-    this.default_url2=item.family_image
+    this.employee_id = item.id;
+    this.default_url = item.image;
+    this.default_url2 = item.family_image;
     this.user_form_edit.patchValue({
       address: item.address,
       adhar: item.adhar,
-      branch: item.branch,     
+      branch: item.branch,
       comment: item.comment,
       contact_no: item.contact_no,
       date_of_birth: item.date_of_birth,
@@ -363,21 +371,21 @@ export class EmployeeComponent implements OnInit {
       spouse_name: item.spouse_name,
       spouse_occupation: item.spouse_occupation,
       status: item.status,
-      id:item.id,
-      language_speak: item.language_speak || '',  
-      language_write: item.language_write || '',   
-      spouse_adhar: item.spouse_adhar || '',       
-      mut_member: item.mut_member || '2',            
-      mut_id: item.mut_id || '',                   
-      bank_name: item.bank_name || '',             
-      account_name: item.account_name || '',       
-      account_number: item.account_number || '',   
-      ifsc: item.ifsc || '',                       
-      micr: item.micr || '',                        
-      blood_group: item.blood_group || '',                        
+      id: item.id,
+      language_speak: item.language_speak || '',
+      language_write: item.language_write || '',
+      spouse_adhar: item.spouse_adhar || '',
+      mut_member: item.mut_member || '2',
+      mut_id: item.mut_id || '',
+      bank_name: item.bank_name || '',
+      account_name: item.account_name || '',
+      account_number: item.account_number || '',
+      ifsc: item.ifsc || '',
+      micr: item.micr || '',
+      blood_group: item.blood_group || '',
     });
-    this.filter_field2()
-   
+    this.filter_field2();
+    this.get_documents_list();
   }
   submit_dashboard_casrol() {
     let body = {
@@ -526,225 +534,323 @@ export class EmployeeComponent implements OnInit {
   branch_list: any[] = [];
   field_list: any[] = [];
 
-  base64code4image:any=''
-    file_name:any=''
-    file_type:any=''
-    onChangeImage = ($event: any) => {
-      this.base64code4image = '';
-      const files = $event.target.files;
-  
-  
-      for (let item of files) {
-        if (
-          (item.type.split('/')[1] == 'png' ||
-            item.type.split('/')[1] == 'jpeg' ||
-            item.type.split('/')[1] == 'jpg' ||
-            item.type.split('/')[1] == 'bmp') &&
-          item.size <= 5000000
-        ) {
-          this.file_name = item.name;
-          this.file_type = item.type.split('/')[1];
-  
-          // ||          item.type.split('/')[1] == 'pdf'
-          this.convertToBase64(item);
-        } else {
-          Swal.fire({
-            title: 'File Error',
-            text: 'Please use Jpeg/Png file less than 5mb',
-            icon: 'error',
-          });
-          $event.target.value = '';
-        }
+  base64code4image: any = '';
+  file_name: any = '';
+  file_type: any = '';
+  onChangeImage = ($event: any) => {
+    this.base64code4image = '';
+    const files = $event.target.files;
+
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name = item.name;
+        this.file_type = item.type.split('/')[1];
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase64(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
       }
-    };
-    imageURL:any=''
-    convertToBase64(file: File) {
-      const observable = new Observable((subscriber: Subscriber<any>) => {
-        this.readFile(file, subscriber);
-      });
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageURL = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-      // //////console.log(file)
-      observable.subscribe((d) => {
-        if (this.base64code4image) {
-          this.base64code4image =
-            this.base64code4image + ',' + d.split('base64,')[1];
-        } else {
-          this.base64code4image = d.split('base64,')[1];
-        }
-      });
     }
-
-  base64code4image2:any=''
-    file_name2:any=''
-    file_type2:any=''
-    onChangeImage2 = ($event: any) => {
-      this.base64code4image2 = '';
-      const files = $event.target.files;
-  
-  
-      for (let item of files) {
-        if (
-          (item.type.split('/')[1] == 'png' ||
-            item.type.split('/')[1] == 'jpeg' ||
-            item.type.split('/')[1] == 'jpg' ||
-            item.type.split('/')[1] == 'bmp') &&
-          item.size <= 5000000
-        ) {
-          this.file_name2 = item.name;
-          
-  
-          // ||          item.type.split('/')[1] == 'pdf'
-          this.convertToBase642(item);
-        } else {
-          Swal.fire({
-            title: 'File Error',
-            text: 'Please use Jpeg/Png file less than 5mb',
-            icon: 'error',
-          });
-          $event.target.value = '';
-        }
-      }
+  };
+  imageURL: any = '';
+  convertToBase64(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
     };
-    imageURL2:any=''
-    convertToBase642(file: File) {
-      const observable = new Observable((subscriber: Subscriber<any>) => {
-        this.readFile(file, subscriber);
-      });
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageURL2 = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-      // //////console.log(file)
-      observable.subscribe((d) => {
-        if (this.base64code4image2) {
-          this.base64code4image2 =
-            this.base64code4image2 + ',' + d.split('base64,')[1];
-        } else {
-          this.base64code4image2 = d.split('base64,')[1];
-        }
-      });
-    }
-
-  base64code4image3:any=''
-    file_name3:any=''
-    file_type3:any=''
-    onChangeImage3 = ($event: any) => {
-      this.base64code4image3 = '';
-      const files = $event.target.files;
-  
-  
-      for (let item of files) {
-        if (
-          (item.type.split('/')[1] == 'png' ||
-            item.type.split('/')[1] == 'jpeg' ||
-            item.type.split('/')[1] == 'jpg' ||
-            item.type.split('/')[1] == 'bmp') &&
-          item.size <= 5000000
-        ) {
-          this.file_name3 = item.name;
-  
-          // ||          item.type.split('/')[1] == 'pdf'
-          this.convertToBase643(item);
-        } else {
-          Swal.fire({
-            title: 'File Error',
-            text: 'Please use Jpeg/Png file less than 5mb',
-            icon: 'error',
-          });
-          $event.target.value = '';
-        }
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image) {
+        this.base64code4image =
+          this.base64code4image + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image = d.split('base64,')[1];
       }
+    });
+  }
+
+  base64code4image2: any = '';
+  file_name2: any = '';
+  file_type2: any = '';
+  onChangeImage2 = ($event: any) => {
+    this.base64code4image2 = '';
+    const files = $event.target.files;
+
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name2 = item.name;
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase642(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL2: any = '';
+  convertToBase642(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL2 = reader.result as string;
     };
-    imageURL3:any=''
-    convertToBase643(file: File) {
-      const observable = new Observable((subscriber: Subscriber<any>) => {
-        this.readFile(file, subscriber);
-      });
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageURL3 = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-      // //////console.log(file)
-      observable.subscribe((d) => {
-        if (this.base64code4image3) {
-          this.base64code4image3 =
-            this.base64code4image3 + ',' + d.split('base64,')[1];
-        } else {
-          this.base64code4image3 = d.split('base64,')[1];
-        }
-      });
-    }
-
-  base64code4image4:any=''
-    file_name4:any=''
-    onChangeImage4 = ($event: any) => {
-      this.base64code4image4 = '';
-      const files = $event.target.files;
-  
-  
-      for (let item of files) {
-        if (
-          (item.type.split('/')[1] == 'png' ||
-            item.type.split('/')[1] == 'jpeg' ||
-            item.type.split('/')[1] == 'jpg' ||
-            item.type.split('/')[1] == 'bmp') &&
-          item.size <= 5000000
-        ) {
-          this.file_name4 = item.name;
-          
-  
-          // ||          item.type.split('/')[1] == 'pdf'
-          this.convertToBase644(item);
-        } else {
-          Swal.fire({
-            title: 'File Error',
-            text: 'Please use Jpeg/Png file less than 5mb',
-            icon: 'error',
-          });
-          $event.target.value = '';
-        }
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image2) {
+        this.base64code4image2 =
+          this.base64code4image2 + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image2 = d.split('base64,')[1];
       }
+    });
+  }
+
+  base64code4image3: any = '';
+  file_name3: any = '';
+  file_type3: any = '';
+  onChangeImage3 = ($event: any) => {
+    this.base64code4image3 = '';
+    const files = $event.target.files;
+
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name3 = item.name;
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase643(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL3: any = '';
+  convertToBase643(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL3 = reader.result as string;
     };
-    imageURL4:any=''
-    convertToBase644(file: File) {
-      const observable = new Observable((subscriber: Subscriber<any>) => {
-        this.readFile(file, subscriber);
-      });
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageURL4 = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-      // //////console.log(file)
-      observable.subscribe((d) => {
-        if (this.base64code4image4) {
-          this.base64code4image4 =
-            this.base64code4image4 + ',' + d.split('base64,')[1];
-        } else {
-          this.base64code4image4 = d.split('base64,')[1];
-        }
-      });
-    }
-
-     readFile(file: File, subscriber: Subscriber<any>) {
-        const filereader = new FileReader();
-        filereader.readAsDataURL(file);
-        filereader.onload = () => {
-          subscriber.next(filereader.result);
-          subscriber.complete();
-        };
-        filereader.onerror = () => {
-          subscriber.error();
-          subscriber.complete();
-        };
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image3) {
+        this.base64code4image3 =
+          this.base64code4image3 + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image3 = d.split('base64,')[1];
       }
+    });
+  }
 
+  base64code4image4: any = '';
+  file_name4: any = '';
+  onChangeImage4 = ($event: any) => {
+    this.base64code4image4 = '';
+    const files = $event.target.files;
+
+    for (let item of files) {
+      if (
+        (item.type.split('/')[1] == 'png' ||
+          item.type.split('/')[1] == 'jpeg' ||
+          item.type.split('/')[1] == 'jpg' ||
+          item.type.split('/')[1] == 'bmp') &&
+        item.size <= 5000000
+      ) {
+        this.file_name4 = item.name;
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase644(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use Jpeg/Png file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL4: any = '';
+  convertToBase644(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL4 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image4) {
+        this.base64code4image4 =
+          this.base64code4image4 + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image4 = d.split('base64,')[1];
+      }
+    });
+  }
+  base64code4image5: any = '';
+  file_name5: any = '';
+  onChangeImage5 = ($event: any) => {
+    this.base64code4image5 = '';
+    const files = $event.target.files;
+
+    for (let item of files) {
+      if (item.size <= 5000000) {
+        this.file_name5 = item.name;
+
+        // ||          item.type.split('/')[1] == 'pdf'
+        this.convertToBase645(item);
+      } else {
+        Swal.fire({
+          title: 'File Error',
+          text: 'Please use file less than 5mb',
+          icon: 'error',
+        });
+        $event.target.value = '';
+      }
+    }
+  };
+  imageURL5: any = '';
+  convertToBase645(file: File) {
+    const observable = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
+    });
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL5 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+    // //////console.log(file)
+    observable.subscribe((d) => {
+      if (this.base64code4image5) {
+        this.base64code4image5 =
+          this.base64code4image5 + ',' + d.split('base64,')[1];
+      } else {
+        this.base64code4image5 = d.split('base64,')[1];
+      }
+    });
+  }
+
+  readFile(file: File, subscriber: Subscriber<any>) {
+    const filereader = new FileReader();
+    filereader.readAsDataURL(file);
+    filereader.onload = () => {
+      subscriber.next(filereader.result);
+      subscriber.complete();
+    };
+    filereader.onerror = () => {
+      subscriber.error();
+      subscriber.complete();
+    };
+  }
+  upload_document() {
+    let body = {
+      token: this.token,
+      employee_id: this.employee_id,
+      user_id: this.user_id,
+      status: this.documents_form.value.status,
+      title: this.documents_form.value.title,
+      file: this.base64code4image5,
+      file_name: this.file_name5,
+    };
+    this._auth.save_employee_document(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        Swal.fire({ title: 'File Uploaded Successfully', icon: 'success' });
+        this.get_documents_list();
+        this.documents_form.reset();
+        this.imageURL5 = '';
+        this.base64code4image5 = '';
+        this.file_name5 = '';
+      } else {
+        Swal.fire({ title: res.message, icon: 'error' });
+      }
+    });
+  }
+  document_list: any[] = [];
+  get_documents_list() {
+    let body = {
+      token: this.token,
+      employee_id: this.employee_id,
+    };
+    this._auth.get_employee_document(body).subscribe((res: any) => {
+      if (res.status == 'success') {
+        this.document_list = res.data;
+      }
+    });
+  }
+  delete_file(item: any) {
+    let body = {
+      token: this.token,
+      file: item.url,
+      id: item.id,
+    };
+    Swal.fire({
+      title: 'Delete File?',
+      text: 'You will not be able to recover!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete!',
+      cancelButtonText: 'No, keep File',
+      backdrop: false,
+    }).then((result) => {
+      if (result.value) {
+        this._auth.delete_employee_document(body).subscribe((res) => {
+          if (res.status == 'success') {
+            Swal.fire('Deleted!', 'File Deleted.', 'success');
+          }
+          this.get_documents_list();
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('', 'Your File is safe :)', 'info');
+        // this.viewEvents();
+      }
+    });
+  }
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
@@ -755,17 +861,15 @@ export class EmployeeComponent implements OnInit {
           this.service.set('full_name', res.data.full_name);
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
-          let array=res.data.module_access.split(',')
-          if(!(array.includes('1'))){
+          let array = res.data.module_access.split(',');
+          if (!array.includes('1')) {
             this.service.deleteAll();
             localStorage.clear();
             sessionStorage.clear();
             this.token = '';
-            this.navbar.ngOnInit()
-            this.router.navigate(['/home'])
-
+            this.navbar.ngOnInit();
+            this.router.navigate(['/home']);
           }
-        
         } else {
           this.service.deleteAll();
           localStorage.clear();
