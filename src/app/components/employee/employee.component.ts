@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit  } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -23,7 +23,91 @@ export class EmployeeComponent implements OnInit {
     private datepipe: DatePipe,
     private router: Router,
     private navbar: NavbarComponent,
-  ) {}
+  ) {
+    this.user_form_edit = this._fb.group({
+      id: [''],
+      reg_id: [''],
+      name: [''],
+      adhar: [''],
+      designation: [''],
+      email: [''],
+      education_qualification: [''],
+      field_name: [''],
+      date_of_birth: [''],
+      address: [''],
+      people_group: [''],
+      date_of_joining: [''],
+      contact_no: [''],
+      martial_status: [''],
+      spouse_name: [''],
+      date_of_marriage: [''],
+      spouse_occupation: [''],
+      father_name: [''],
+      mother_name: [''],
+      spouse_image: [''],
+      signature: [''],
+      image: [''],
+      comment: [''],
+      family_image: [''],
+      branch: [''],
+      gender: [''],
+      status: ['1'],
+      language_speak: [''],
+      language_write: [''],
+      spouse_adhar: [''],
+      mut_member: ['1'],
+      mut_id: [''],
+      bank_name: [''],
+      account_name: [''],
+      account_number: [''],
+      ifsc: [''],
+      micr: [''],
+      blood_group: [''],
+      no_of_children: [0],
+      children: this._fb.array([])
+    });
+    this.user_form = this._fb.group({
+      reg_id: [''],
+      name: [''],
+      adhar: [''],
+      designation: [''],
+      email: [''],
+      education_qualification: [''],
+      field_name: [''],
+      date_of_birth: [''],
+      address: [''],
+      people_group: [''],
+      date_of_joining: [''],
+      contact_no: [''],
+      martial_status: [''],
+      spouse_name: [''],
+      date_of_marriage: [''],
+      spouse_occupation: [''],
+      father_name: [''],
+      mother_name: [''],
+      spouse_image: [''],
+      signature: [''],
+      image: [''],
+      comment: [''],
+      family_image: [''],
+      branch: [''],
+      gender: [''],
+      status: ['1'],
+      language_speak: [''],
+      language_write: [''],
+      spouse_adhar: [''],
+      mut_member: ['2'],
+      mut_id: [''],
+      bank_name: [''],
+      account_name: [''],
+      account_number: [''],
+      ifsc: [''],
+      micr: [''],
+      blood_group: [''],
+      no_of_children: [0],
+      children2: this._fb.array([])
+    });
+  }
   dashboard_casrol_form = this._fb.group({
     title: [''],
     url: [''],
@@ -44,85 +128,9 @@ export class EmployeeComponent implements OnInit {
     type: ['2'],
     status: ['1'],
   });
-  user_form = this._fb.group({
-    reg_id: [''],
-    name: [''],
-    adhar: [''],
-    designation: [''],
-    email: [''],
-    education_qualification: [''],
-    field_name: [''],
-    date_of_birth: [''],
-    address: [''],
-    people_group: [''],
-    date_of_joining: [''],
-    contact_no: [''],
-    martial_status: [''],
-    spouse_name: [''],
-    date_of_marriage: [''],
-    spouse_occupation: [''],
-    father_name: [''],
-    mother_name: [''],
-    spouse_image: [''],
-    signature: [''],
-    image: [''],
-    comment: [''],
-    family_image: [''],
-    branch: [''],
-    gender: [''],
-    status: ['1'],
-    language_speak: [''],
-    language_write: [''],
-    spouse_adhar: [''],
-    mut_member: ['2'],
-    mut_id: [''],
-    bank_name: [''],
-    account_name: [''],
-    account_number: [''],
-    ifsc: [''],
-    micr: [''],
-    blood_group: [''],
-  });
-  user_form_edit = this._fb.group({
-    id: [''],
-    reg_id: [''],
-    name: [''],
-    adhar: [''],
-    designation: [''],
-    email: [''],
-    education_qualification: [''],
-    field_name: [''],
-    date_of_birth: [''],
-    address: [''],
-    people_group: [''],
-    date_of_joining: [''],
-    contact_no: [''],
-    martial_status: [''],
-    spouse_name: [''],
-    date_of_marriage: [''],
-    spouse_occupation: [''],
-    father_name: [''],
-    mother_name: [''],
-    spouse_image: [''],
-    signature: [''],
-    image: [''],
-    comment: [''],
-    family_image: [''],
-    branch: [''],
-    gender: [''],
-    status: ['1'],
-    language_speak: [''],
-    language_write: [''],
-    spouse_adhar: [''],
-    mut_member: ['1'],
-    mut_id: [''],
-    bank_name: [''],
-    account_name: [''],
-    account_number: [''],
-    ifsc: [''],
-    micr: [''],
-    blood_group: [''],
-  });
+  
+  user_form_edit:FormGroup
+  user_form:FormGroup
   searchEmployee: any = '';
   submit_user() {
     let body = {
@@ -169,6 +177,7 @@ export class EmployeeComponent implements OnInit {
       account_number: this.user_form.value.account_number,
       ifsc: this.user_form.value.ifsc,
       micr: this.user_form.value.micr,
+      children:this.user_form.value.children2
     };
 
     if (!body.token) {
@@ -220,7 +229,9 @@ export class EmployeeComponent implements OnInit {
             ifsc: '',
             blood_group: '',
             micr: '',
+            no_of_children:0
           });
+          this.children2.clear()
 
           this.get_latest_employee_id();
           this.get_employee();
@@ -275,6 +286,7 @@ export class EmployeeComponent implements OnInit {
       ifsc: this.user_form_edit.value.ifsc,
       micr: this.user_form_edit.value.micr,
       blood_group: this.user_form_edit.value.blood_group,
+      children:this.user_form_edit.value.children
     };
 
     if (!body.token) {
@@ -327,10 +339,12 @@ export class EmployeeComponent implements OnInit {
             ifsc: '',
             micr: '',
             blood_group: '',
+            no_of_children:0,
           });
+          this.children.clear();
 
           this.get_employee();
-          // (<HTMLElement>document.getElementById('close_edit_employee')).click()
+          (<HTMLElement>document.getElementById('close_edit_employee')).click()
         } else {
           Swal.fire({ title: res.message, icon: 'error' });
         }
@@ -383,7 +397,16 @@ export class EmployeeComponent implements OnInit {
       ifsc: item.ifsc || '',
       micr: item.micr || '',
       blood_group: item.blood_group || '',
+      no_of_children:item['children']?item['children'].length:0
     });
+    this.children.clear();
+    if(item['children']){
+
+      item['children'].forEach((child:any) => {
+        this.children.push(this.createChild(child));
+      });
+    }
+    // Add a FormGroup for each child in the childrenData
     this.filter_field2();
     this.get_documents_list();
   }
@@ -851,6 +874,89 @@ export class EmployeeComponent implements OnInit {
       }
     });
   }
+  get children() {
+    return (this.user_form_edit.get('children') as FormArray);
+  }
+  get children2() {
+    return (this.user_form.get('children2') as FormArray);
+  }
+  childrenArray() {
+    const noOfChildren = this.user_form_edit.value.no_of_children;
+    return Array(noOfChildren).fill(0); // Creates an array of length no_of_children
+  }
+ 
+
+  onNumberOfChildrenChange() {
+    const noOfChildren: any = this.user_form_edit.value.no_of_children;
+    const currentChildren = this.children.length;
+
+    // If the number of children increases, add more controls
+    if (noOfChildren > currentChildren) {
+      for (let i = currentChildren; i < noOfChildren; i++) {
+        this.children.push(this.createChild());
+      }
+    }
+    // If the number of children decreases, remove excess controls
+    if (noOfChildren < currentChildren) {
+      for (let i = currentChildren; i > noOfChildren; i--) {
+        this.children.removeAt(i - 1);
+      }
+    }
+  }
+  onNumberOfChildrenChange2() {
+    const noOfChildren: any = this.user_form.value.no_of_children;
+    const currentChildren = this.children2.length;
+
+    // If the number of children increases, add more controls
+    if (noOfChildren > currentChildren) {
+      for (let i = currentChildren; i < noOfChildren; i++) {
+        this.children2.push(this.createChild2());
+      }
+    }
+    // If the number of children decreases, remove excess controls
+    if (noOfChildren < currentChildren) {
+      for (let i = currentChildren; i > noOfChildren; i--) {
+        this.children2.removeAt(i - 1);
+      }
+    }
+  }
+  createChild(child?:any): FormGroup {
+    if(child){
+      return this._fb.group({
+        child_name: [child.child_name],
+        dob: [child.dob],
+        gender: [child.gender],
+        education: [child.education],
+        marital_status: [child.marital_status],
+        status: [child.status]
+      });
+    }
+    else{
+
+      return this._fb.group({
+        child_name: [''],
+        dob: [''],
+        gender: [''],
+        education: [''],
+        marital_status: [''],
+        status: [1]
+      });
+    }
+  }
+  createChild2(): FormGroup {
+   
+
+      return this._fb.group({
+        child_name: [''],
+        dob: [''],
+        gender: [''],
+        education: [''],
+        marital_status: [''],
+        status: [1]
+      });
+    
+  }
+  
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');

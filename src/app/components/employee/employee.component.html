@@ -368,7 +368,7 @@
         />
         
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Martial Status
+          Marital Status
         </div>
 
         <select
@@ -415,6 +415,80 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Spouse Adhar"
         />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          No of Children
+        </div>
+        <input
+        (input)="onNumberOfChildrenChange2()"
+        type="number"
+          formControlName="no_of_children"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="No. of Children"
+        />
+        
+       <table formArrayName="children2" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">S.No</th>
+              <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">DOB</th>
+              <th scope="col" class="px-6 py-3">Gender</th>
+              <th scope="col" class="px-6 py-3">Education</th>
+              <th scope="col" class="px-6 py-3">Martial Status</th>
+              </tr>
+              <tr *ngFor="let child of children2.controls; let i = index" [formGroupName]="i" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                <td class="px-6 py-3">{{i + 1}}</td>
+          
+                <!-- Child Name input -->
+                <td class="px-6 py-3">
+                  <input
+                    type="text"
+                    formControlName="child_name"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter Name"
+                  />
+                </td>
+          
+                <!-- Date of Birth input -->
+                <td class="px-6 py-3">
+                  <input
+                    type="date"
+                    formControlName="dob"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                  />
+                </td>
+          
+                <!-- Gender select -->
+                <td class="px-6 py-3">
+                  <select formControlName="gender" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </td>
+          
+                <!-- Education input -->
+                <td class="px-6 py-3">
+                  <input
+                    formControlName="education"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter Education"
+                  />
+                </td>
+          
+                <!-- Marital Status select -->
+                <td class="px-6 py-3">
+                  <select formControlName="marital_status" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
+                    <option value="" disabled>Select Status</option>
+                    <option value="unmarried">UnMarried</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widow/widower">Divorced</option>
+                  </select>
+                </td>
+              </tr>
+
+       </table>
         
        
 
@@ -770,7 +844,7 @@
         />
         
         <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Martial Status
+          Marital Status
         </div>
 
         <select
@@ -817,9 +891,80 @@
           class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Enter Spouse Adhar"
         />
+        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+          No of Children
+        </div>
+        <input
+        (input)="onNumberOfChildrenChange()"
+        type="number"
+          formControlName="no_of_children"
+          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+          placeholder="No. of Children"
+        />
         
-       
+       <table formArrayName="children" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <tr
+              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+              <th scope="col" class="px-6 py-3">S.No</th>
+              <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">DOB</th>
+              <th scope="col" class="px-6 py-3">Gender</th>
+              <th scope="col" class="px-6 py-3">Education</th>
+              <th scope="col" class="px-6 py-3">Martial Status</th>
+              </tr>
+              <tr *ngFor="let child of children.controls; let i = index" [formGroupName]="i" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                <td class="px-6 py-3">{{i + 1}}</td>
+          
+                <!-- Child Name input -->
+                <td class="px-6 py-3">
+                  <input
+                    type="text"
+                    formControlName="child_name"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter Name"
+                  />
+                </td>
+          
+                <!-- Date of Birth input -->
+                <td class="px-6 py-3">
+                  <input
+                    type="date"
+                    formControlName="dob"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                  />
+                </td>
+          
+                <!-- Gender select -->
+                <td class="px-6 py-3">
+                  <select formControlName="gender" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </td>
+          
+                <!-- Education input -->
+                <td class="px-6 py-3">
+                  <input
+                    formControlName="education"
+                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter Education"
+                  />
+                </td>
+          
+                <!-- Marital Status select -->
+                <td class="px-6 py-3">
+                  <select formControlName="marital_status" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
+                    <option value="" disabled>Select Status</option>
+                    <option value="unmarried">UnMarried</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widow/widower">Divorced</option>
+                  </select>
+                </td>
+              </tr>
 
+       </table>
         
      
         

@@ -267,19 +267,19 @@ imageUrl=`${environment.baseURL}/uploads/schools/`
   }
   save_employee_document(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/set_employee_document`,
+      `https://api.bcmmovement.in/lyric/set_employee_document`,
       input
     );
   }
   get_employee_document(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/get_employee_document`,
+      `https://api.bcmmovement.in/lyric/get_employee_document`,
       input
     );
   }
   delete_employee_document(input: any) {
     return this._http.post<any>(
-      `http://127.0.0.1:8000/lyric/delete_employee_document`,
+      `https://api.bcmmovement.in/lyric/delete_employee_document`,
       input
     );
   }
