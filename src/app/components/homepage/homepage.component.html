@@ -31,7 +31,7 @@
     >
       <img
         class="w-full"
-        [src]="item.image"
+        [src]="item.image?base_url+item.image:'assets/images/profile.png'"
         alt="No Image"
         style="min-height: 200px; height: 220px"
       />

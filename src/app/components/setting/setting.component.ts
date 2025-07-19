@@ -114,6 +114,7 @@ export class SettingComponent implements OnInit {
       });
     }
   }
+  base_url:any='https://bcmmovement.in'
   submit_dashboard_casrol() {
     let body = {
       title: this.dashboard_casrol_form.value.title,

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from './environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +9,6 @@ import { environment } from './environments/environments';
 export class AuthService {
   public otp = new BehaviorSubject<any>({});
   public menuStatus = new BehaviorSubject<any>({});
-  public fileBaseUrl = `${environment.baseURL}uploads/schools/`;
-  public baseUrl = environment.baseURLTesting;
-  public baseUrl2 = `https://alt1.schoolknot.com/`;
-imageUrl=`${environment.baseURL}/uploads/schools/`
   private loading: boolean = false;
   private loader: boolean = false;
 

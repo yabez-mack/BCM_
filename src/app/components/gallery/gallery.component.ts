@@ -16,7 +16,7 @@ export class GalleryAppComponent implements OnInit, AfterViewInit {
     counter: false,
     plugins: [lgZoom],  // Adding Zoom plugin
   };
-
+base_url:any='https://bcmmovement.in'
   private lightGallery!: LightGallery;
   
   images_list: any[] = [];

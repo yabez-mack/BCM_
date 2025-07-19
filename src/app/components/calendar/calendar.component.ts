@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
     private service: CookieService,
     private datepipe: DatePipe
   ) {}
-
+base_url:any='https://bcmmovement.in'
   ngOnInit(): void {
     var calendarEl = this.calendar.nativeElement;
 

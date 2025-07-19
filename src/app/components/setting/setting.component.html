@@ -195,9 +195,7 @@
               <img
                 class=""
                 style="width: 50px; border-radius: 50%; height: 50px"
-                src="{{
-                  item.image ? item.image : 'assets/images/student_profile.png'
-                }}"
+                [src]="item.image?base_url+item.image:'assets/images/profile.png'"
               />
               <span>
                 {{ item.full_name }}
@@ -431,11 +429,7 @@
               <img
                 class=""
                 style="width: 50px; border-radius: 50%; height: 50px"
-                src="{{
-                  item.image_url
-                    ? item.image_url
-                    : 'assets/images/student_profile.png'
-                }}"
+                [src]="item.image_url?base_url+item.image_url:'assets/images/profile.png'"
               />
               <span>
                 {{ item.file_name }}

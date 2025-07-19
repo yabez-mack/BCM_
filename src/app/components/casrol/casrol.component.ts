@@ -23,7 +23,7 @@ constructor(
   transformPosition: number = 0;
   autoScrollInterval: any;
   isHovered: boolean = false;
-
+base_url:any='https://bcmmovement.in'
   ngOnInit(): void {
     this.images=[]
     let val=sessionStorage.getItem('casrol')

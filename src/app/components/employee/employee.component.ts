@@ -15,6 +15,7 @@ import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
+  base_url:any='https://bcmmovement.in'
   constructor(
     private _auth: AuthService,
     private _fb: FormBuilder,

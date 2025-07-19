@@ -11,9 +11,9 @@
             <a *ngFor="let image of images"
              [attr.data-lg-size]="'1024-768'" 
              class="gallery-item" 
-             [attr.href]="image.image_url"
+             [attr.href]="base_url+image.image_url"
              [attr.data-lightbox]="image.id">
-             <img class="img-responsive" [src]="image.thumb_url" alt="Gallery Image" />
+             <img class="img-responsive" [src]="base_url+image.thumb_url" alt="Gallery Image" />
             </a>
           </lightgallery>
         </div>

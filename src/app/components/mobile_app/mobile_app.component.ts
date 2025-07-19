@@ -162,6 +162,7 @@ export class MobileAppComponent implements OnInit {
       }
     })
   }
+  base_url:any='https://bcmmovement.in'
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');

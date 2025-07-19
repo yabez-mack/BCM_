@@ -13,7 +13,7 @@
           <div class="calendar-event-details">
             <p>{{ event.details }}</p>
             <!-- Optional Image -->
-            <img *ngIf="event.imageUrl" [src]="event.imageUrl" alt="Event Image" class="calendar-event-image mt-2 w-16 h-16 object-cover rounded-lg" />
+            <img *ngIf="event.imageUrl" [src]="event.imageUrl?+base_url+event.imageUrl:'assets/images/profile.png'" alt="Event Image" class="calendar-event-image mt-2 w-16 h-16 object-cover rounded-lg" />
           </div>
         </div>
       </div>
