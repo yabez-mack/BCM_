@@ -274,12 +274,12 @@ export class FieldReportComponent implements OnInit, AfterViewInit {
       popupWin.document.write(`
 				<html>
 					<head>
-						<title>${item.name}</title>
-             <link rel="stylesheet" type="text/css" href="styles.css" />
-						<style type="text/css">
+          <title>${item.name}</title>
+        
+          <style type="text/css">
            @font-face {
           font-family: 'Bamini';
-          src: url('assets/fonts/Bamini.ttf') format('truetype');
+          src: url('./Bamini.ttf') format('truetype');
           font-weight: normal;
           font-style: normal;
         }
@@ -287,6 +287,12 @@ export class FieldReportComponent implements OnInit, AfterViewInit {
     .no-print {
       display: none !important;
     }
+        @font-face {
+  font-family: 'Bamini';
+  src: url('/Bamini.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
   }
               p {
                 font-family: "Times New Roman";
