@@ -65,7 +65,7 @@
               <td scope="col" class="px-6 py-3">{{ item.date_of_birth|date:'dd-MMM-yyyy' }}</td>
               <td scope="col" class="px-6 py-3">{{ item.father_name }}</td>
               <td scope="col" class="px-6 py-3">
-            <button class="button-small bg-stone-950 text-white p-1 hover:bg-stone-700 focus:outline-none" (click)="print(item)">Print</button>
+            <button  class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none" (click)="print(item)">Print</button>
 
               </td>
             </tr>
@@ -139,6 +139,7 @@
       
         <div class="w-full mt-3 mb-2 flex items-center justify-start" >Obstacles</div>
         <quill-editor
+        #obstacles_editor
         formControlName="obstacles"
           class="w:full mb-5"
           [modules]="tools"
@@ -149,6 +150,7 @@
         </quill-editor>
         <div class="w-full mt-5 mb-2 flex items-center justify-start" >Testimony</div>
         <quill-editor
+        #testimony_editor
         formControlName="testimony"
           class="w:full mb-5"
           [modules]="tools"
@@ -162,6 +164,7 @@
           Prayer Request
         </div>
         <quill-editor
+        #prayer_editor
         formControlName="prayer_request"
           class="w:full mb-4"
           [modules]="tools"

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { Router } from '@angular/router';
@@ -8,14 +8,26 @@ import { AuthService } from 'src/app/auth.service';
 import Swal from 'sweetalert2';
 import { jsPDF } from 'jspdf';
 import { NavbarComponent } from '../../header-footer/navbar/navbar.component';
-
+import { QuillConfigService } from '../../quill-config.service';
+import { QuillEditorComponent } from 'ngx-quill';
 @Component({
   selector: 'app-field_report',
   templateUrl: './field_report.component.html',
   styleUrls: ['./field_report.component.css'],
 })
-
 export class FieldReportComponent implements OnInit , AfterViewInit {
+  @ViewChild('obstacles_editor', { static: false }) quillEditorComponent1!: QuillEditorComponent;
+  @ViewChild('testimony_editor', { static: false }) quillEditorComponent2!: QuillEditorComponent;
+  @ViewChild('prayer_editor', { static: false }) quillEditorComponent3!: QuillEditorComponent;
+ngAfterViewInit(): void {
+    const editor1 = this.quillEditorComponent1.quillEditor;
+    const editor2 = this.quillEditorComponent2.quillEditor;
+    const editor3 = this.quillEditorComponent3.quillEditor;
+    editor1.format('font', 'monospace'); // or 'monospace'
+    editor2.format('font', 'monospace'); // or 'monospace'
+    editor3.format('font', 'monospace'); // or 'monospace'
+  }
+
   constructor(
     private _auth: AuthService,
     private _fb: FormBuilder,
@@ -23,9 +35,11 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
     private service: CookieService,
     private datepipe: DatePipe,
     private router: Router,
-    private navbar: NavbarComponent
+    private navbar: NavbarComponent,
+    private quillConfig: QuillConfigService
 
-  ) {}
+  ) {
+  }
   field_report_form = this._fb.group({
     employee_id: [''],
     year: [''],
@@ -77,17 +91,38 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
       });
     }
   }
-  
+  getUsedFonts(delta: any): string[] {
+  const fonts = new Set<string>();
+
+  delta.ops.forEach((op:any) => {
+    if (op.attributes?.font) {
+      fonts.add(op.attributes.font);
+    }
+  });
+
+  return Array.from(fonts);
+}
   submit_field() {
+    // Get Delta (recommended for preserving formats)
+    const delta1 = this.quillEditorComponent1.quillEditor.getContents();
+    const delta2 = this.quillEditorComponent2.quillEditor.getContents();
+    const delta3 = this.quillEditorComponent3.quillEditor.getContents();
+    let font1=this.getUsedFonts(delta1)
+    let font2=this.getUsedFonts(delta2)
+    let font3=this.getUsedFonts(delta3)
+
     let body = {
       employee_id: this.field_report_form.value.employee_id,
       year: this.field_report_form.value.year,
       month: this.field_report_form.value.month,
-      prayer_request: this.field_report_form.value.prayer_request,
-      testimony: this.field_report_form.value.testimony,
       status: this.field_report_form.value.status,
-      obstacles: this.field_report_form.value.obstacles,
       new_followers: this.field_report_form.value.new_followers,
+      testimony: this.field_report_form.value.testimony,
+      prayer_request: this.field_report_form.value.prayer_request,
+      obstacles: this.field_report_form.value.obstacles,
+      obstacle_font:font1[0] ,
+      testimony_font:font2[0] ,
+      prayer_request_font:font3[0] ,
       token: this.token,
     };
     console.log(body)
@@ -215,7 +250,7 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ 'font': ['sans-serif','monospace', 'Noto Sans Tamil'] }],
+      [{ 'font': ['sans-serif','monospace',, 'Bamini'] }],
       [{ header: 1 }, { header: 2 }], 
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ script: 'sub' }, { script: 'super' }], 
@@ -230,11 +265,8 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
       ['link', 'image', 'video'], 
     ],
   };
-  ngAfterViewInit(): void {
-    if (this.tools) {
-      this.tools.format('font', 'monospace');
-    }
-  }
+  
+ 
   downloadPDF(): void {
     const doc = new jsPDF();
     // const doc = new jsPDF('p', 'mm', 'a4'); 
@@ -264,7 +296,19 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
 				<html>
 					<head>
 						<title>${item.name}</title>
+             <link rel="stylesheet" type="text/css" href="styles.css" />
 						<style type="text/css">
+           @font-face {
+          font-family: 'Bamini';
+          src: url('assets/fonts/Bamini.ttf') format('truetype');
+          font-weight: normal;
+          font-style: normal;
+        }
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
               p {
                 font-family: "Times New Roman";
               }
@@ -310,7 +354,10 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
                 border-top: solid black 1.0pt;
               }
             </style>
-            <body onload="window.print();window.close()"><div style="width: 100%;height:100%" id="contentToExport">
+            <body onload="window.print();window.close()">
+            <div class="row no-print mt-2"style=" justify-content: center;
+            align-items: center;"><button onclick="window.print()" class="btn-primary btn" style="width:max-content">PRINT</button></div>
+            <div style="width: 100%;height:100%" id="contentToExport">
               <div style="display:flex;justify-content: space-between;align-items: center;flex-direction: row;">
 
                 <img src="assets/images/mono_old.png" style="width:70px"/>
@@ -360,33 +407,32 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
                 </div>
                 <div  style="width:100%">
                   Obstacles in the Ministry :
-                </div>
-                
-                <div style="width: 100%;
-                white-space: break-spaces;
-                
-                padding:5px">
-                ${item.obstacles}
-                </div>
+               <div style="width: 100%;
+  white-space: break-spaces;
+  padding:5px;
+  font-family: '${item.obstacle_font}', sans-serif;">
+  ${item.obstacles}
+</div>
                 <div  style="width:100%;">
                  Testimony :
                 </div>
                 
-                <div style="width: 100%;
-                white-space: break-spaces;
-                padding:5px">
-                ${testimony}
-                </div>
+               <div style="width: 100%;
+  white-space: break-spaces;
+  padding:5px;
+  font-family: '${item.testimony_font}', sans-serif;">
+  ${testimony}
+</div>
                 <div  style="width:100%;">
                  Prayer Request :
                 </div>
                 
-                <div style="width: 90%;
-                white-space:pre-wrap;
-
-                padding:5px">
-                ${prayer_request}
-                </div>
+              <div style="width: 90%;
+  white-space: pre-wrap;
+  padding:5px;
+  font-family: '${item.prayer_request_font}', sans-serif;">
+  ${prayer_request}
+</div>
 
               </div>
               
@@ -397,7 +443,7 @@ export class FieldReportComponent implements OnInit , AfterViewInit {
           </head>
         </html>
       `)
-      popupWin.document.close();
+      // popupWin.document.close();
     }
   }
   ngOnInit(): void {
