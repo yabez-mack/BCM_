@@ -13,7 +13,7 @@
 }
 @font-face {
   font-family: 'Bamini';
-  src: url('assets/fonts/Bamini.ttf') format('truetype');
+  src: url('/src/assets/fonts/Bamini.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
