@@ -71,7 +71,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatTabsModule, 
     QuillModule.forRoot(),
     LightgalleryModule,
-    AngularEditorModule
     // SweetAlert2Module.forRoot(),
     
   ],
