@@ -30,7 +30,6 @@ import { FieldReportComponent } from './components/field_report/field_report.com
 import { QuillModule } from 'ngx-quill'
 import { GalleryAppComponent } from './components/gallery/gallery.component';
 import { LightgalleryModule } from 'lightgallery/angular';
-import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
