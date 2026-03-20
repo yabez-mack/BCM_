@@ -26,8 +26,8 @@ import { SettingComponent } from './components/setting/setting.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MobileAppComponent } from './components/mobile_app/mobile_app.component';
 import { EmployeeComponent } from './components/employee/employee.component';
-import { FieldReportComponent } from './components/field_report/field_report.component';
-import { QuillModule } from 'ngx-quill'
+// import { FieldReportComponent } from './components/field_report/field_report.component';
+// import { QuillModule } from 'ngx-quill'
 import { GalleryAppComponent } from './components/gallery/gallery.component';
 import { LightgalleryModule } from 'lightgallery/angular';
 
@@ -42,7 +42,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
     SettingComponent,
     MobileAppComponent,
     EmployeeComponent,
-    FieldReportComponent,
+    // FieldReportComponent,
     GalleryAppComponent,
     
     // MatButtonModule,
@@ -68,7 +68,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
     AutocompleteLibModule,
     NgbModule,
     MatTabsModule, 
-    QuillModule.forRoot(),
+    // QuillModule.forRoot(),
     LightgalleryModule,
     // SweetAlert2Module.forRoot(),
     

@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
     private service: CookieService,
     private datepipe: DatePipe
   ) {}
-base_url:any='https://bcmmovement.in'
+base_url:any='https://api.bcmmovement.in'
   ngOnInit(): void {
     var calendarEl = this.calendar.nativeElement;
 
@@ -66,12 +66,12 @@ base_url:any='https://bcmmovement.in'
             let eventTitle = document.createElement('div');
             eventTitle.innerHTML = `<strong>${arg.event.title}</strong>`;
             eventContent.appendChild(eventTitle);
-
+            console.log(arg)
             let eventDetails = document.createElement('div');
             eventDetails.classList.add('calendar-event-details');
             eventDetails.innerHTML = `
               <div>${arg.event.extendedProps.description}</div>
-              <img src="${arg.event.extendedProps.image_url}" class="event-image" />
+              <img src="${'https://api.bcmmovement.in'+arg.event.extendedProps.image_url}" class="event-image" />
             `;
             eventContent.appendChild(eventDetails);
 

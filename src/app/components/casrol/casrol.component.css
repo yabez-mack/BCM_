@@ -1,12 +1,21 @@
+
+
+
+.carousel-item1 {
+  user-select: none;
+}
+
 .carousel-container1 {
     position: relative;
     width: 100%;
     overflow: hidden;
   }
-  
+  .no-transition {
+  transition: none !important;
+}
   .carousel-wrapper1 {
     display: flex;
-    transition: transform 0.8s ease;
+    transition: transform 0.5s ease-in-out;
   }
   
   .carousel-item1 {
@@ -30,6 +39,8 @@
     padding: 10px;
     cursor: pointer;
     z-index: 10;
+    background: none;
+    font-size: 25px;
   }
   
   .prev {

@@ -7,8 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "postbuild": "rm -rf /var/www/BCM_sudo mkdir -p /var/www/BCM_ sudo mv /root/BCM_/dist/master_admin/* /var/www/BCM_ sudo systemctl restart nginx"
-  },
+    "postbuild": "cp -r dist/master_admin /home/yabez/Desktop/BCM_ && sudo systemctl restart nginx"  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^15.0.0",
@@ -51,7 +50,7 @@
     "ngx-filesaver": "^16.0.0",
     "ngx-pagination": "^6.0.3",
     "ngx-print": "^1.3.1",
-    "ngx-quill": "^7.3.12",
+    "ngx-quill": "^30.0.1",
     "npm": "^9.8.0",
     "pako": "^2.1.0",
     "quill": "^1.3.7",

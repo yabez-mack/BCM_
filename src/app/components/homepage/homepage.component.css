@@ -61,6 +61,9 @@ app-sidenav{
     white-space: nowrap;
     transition: width 250ms ease-in;
 }
+::-webkit-scrollbar{
+  display: none !important;
+}
 
 /* end inner html styles */
 

@@ -59,7 +59,7 @@ export class AdminHomepageComponent implements OnInit {
   token: any;
   user_details: any;
   program_data: any[] = [];
-  base_url:any='https://bcmmovement.in'
+  base_url:any='https://api.bcmmovement.in'
   ngOnInit() {
     let data = window.sessionStorage.getItem('user');
     this.token = this.service.get('token');

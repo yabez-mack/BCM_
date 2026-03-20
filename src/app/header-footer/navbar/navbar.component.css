@@ -2,7 +2,7 @@
     transition: all 100ms ease-in-out;
     text-decoration: underline;
     padding-bottom: 4px; 
-    border-bottom: 2px solid black; 
+    border-bottom: 2px solid white; 
   }
 a:hover{
     color: gray !important;
