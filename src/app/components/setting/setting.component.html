@@ -3,7 +3,7 @@
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
       <mat-tab label="Dashboard">
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Dashboard Images
           </h2>
           <form [formGroup]="dashboard_casrol_form" class="flex flex-wrap" style="gap:3%">
@@ -31,7 +31,7 @@
         <hr class="border-t border-gray-300 my-2" />
 
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Programs
           </h2>
           <form [formGroup]="dashboard_program_form" class="flex flex-wrap" style="gap:3%">
@@ -67,7 +67,7 @@
       </mat-tab>
       <mat-tab label="Users">
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Create User
           </h2>
           <form [formGroup]="user_form" class="flex flex-wrap" style="gap:3%">
@@ -102,7 +102,7 @@
             </div>
           </form>
           <h2 *ngIf="user_list.length > 0"
-            class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+            class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             User List
           </h2>
           <table *ngIf="user_list.length > 0" class="modern-table" style="width:100%">
@@ -135,7 +135,7 @@
       </mat-tab>
       <mat-tab label="Employee">
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Branch
           </h2>
           <form [formGroup]="branch_form" class="flex flex-wrap" style="gap:3%">
@@ -146,7 +146,7 @@
               placeholder="Enter Branch Name" />
             <div class="w-full mt-3 flex justify-center">
               <button (click)="submit_branch()"
-                class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none">
+                class="glass-button">
                 SUBMIT
               </button>
             </div>
@@ -155,7 +155,7 @@
         <hr class="border-t border-gray-300 my-2" />
 
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Mission Field
           </h2>
           <form [formGroup]="field_form" class="flex flex-wrap" style="gap:3%">
@@ -183,7 +183,7 @@
         <hr class="border-t border-gray-300 my-2" />
 
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Designation
           </h2>
           <form [formGroup]="designation_form" class="flex flex-wrap" style="gap:3%">
@@ -202,7 +202,7 @@
       </mat-tab>
       <mat-tab label="Gallery">
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Add Gallery
           </h2>
           <form [formGroup]="gallery_list_form" class="flex flex-wrap" style="gap:3%">
@@ -221,7 +221,7 @@
 
         <hr class="border-t border-gray-300 my-2" />
         <div class="card-body">
-          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+          <h2 class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
             Add Gallery Image
           </h2>
           <form [formGroup]="gallery_list_form2" class="flex flex-wrap" style="gap:3%">
@@ -253,7 +253,7 @@
         <div class="card-body">
           <div class="flex flex-wrap justify-between">
             <h2
-              class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200">
+              class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 ">
               Gallery List
             </h2>
             <select class="sm:w-1/1_5 md:w-1/3_5  glass-select file-padding" style="justify-self: flex-end"
@@ -316,9 +316,8 @@
 <div class="modal fade" id="module_access_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg w-50" style="max-width: 95%" role="document">
-    <div class="modal-content">
+    <div class="modal-content glass-container">
       <div class="modal-header" style="
-          background-color: darkblue;
           padding: 10px 20px;
           color: white;
           font-weight: 600;
@@ -328,9 +327,9 @@
           aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <tr class="text-xs text-gray-700 uppercase  " *ngFor="let item of module_access">
+      <div class="modal-body" style="color: aliceblue;">
+        <table class="w-full text-sm text-left rtl:text-right">
+          <tr class="text-xs  uppercase  " *ngFor="let item of module_access">
 
             <td scope="col" class="px-1 py-1">
               <form [formGroup]="module_access_form" style="
@@ -347,10 +346,10 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="glass-button" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="update_access()">
+        <button type="button" class="glass-button" (click)="update_access()">
           Submit
         </button>
       </div>
