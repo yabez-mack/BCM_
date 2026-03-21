@@ -1,12 +1,5 @@
-.underline-with-padding.active {
-    transition: all 100ms ease-in-out;
-    text-decoration: underline;
-    padding-bottom: 4px; 
-    border-bottom: 2px solid white; 
-  }
-a:hover{
-    color: gray !important;
-}
+
+
 
 @keyframes shake {
     0% { transform: translateX(0); }
@@ -25,3 +18,154 @@ a:hover{
     animation: shake 0.5s ease-in-out;
     cursor: pointer;
   }
+
+  .navbar a {
+  color: rgba(20, 20, 20, 0.85);   /* softer than #333 */
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+/* Active underline with gradient */
+/* Parent element */
+.underline-with-padding.active {
+  position: relative;
+  padding-bottom: 4px;
+  transition: all 0.1s ease-in-out; /* 100ms */
+  color: #fff; /* text color */
+}
+
+/* Frosted glass underline using ::after */
+.underline-with-padding.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px; /* underline thickness */
+
+  background: rgba(255,255,255,0.5); /* semi-transparent white */
+  backdrop-filter: blur(4px);        /* glass/frosted effect */
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.underline-with-padding {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.underline-with-padding::after {
+  /* content: ""; */
+  /* position: absolute; */
+  /* left: 0; */
+  /* bottom: -4px; */
+  /* width: 0%; */
+  /* height: 2px; */
+  /* background: linear-gradient(90deg, #667eea, #764ba2); */
+  /* transition: width 0.5s ease; */
+}
+/* .underline-with-padding.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+} */
+
+.underline-with-padding:hover::after {
+  width: 100%;
+}
+
+.navbar a:hover {
+  color: #ffffff41 !important;
+  /* transform: translateY(-1px); */
+  transition: all 0.3s ease;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.glass-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #222;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+  background: rgba(255,255,255,0.25);
+  color: #000;
+}
+.navbar.glass {
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Glass icon button for mobile hamburger */
+.glass-icon-button {
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #f0f8ff82;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.glass-icon-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Glass dropdown menu */
+.glass-dropdown {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 8px 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 50;
+}
+
+/* Dropdown items */
+.glass-dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  color: darkslategrey;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.glass-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.glass-dropdown-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Optional: make dropdown more responsive on mobile */
+@media (max-width: 640px) {
+  .glass-dropdown {
+    width: 200px;
+  }
+}

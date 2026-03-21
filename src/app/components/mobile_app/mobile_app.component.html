@@ -1,288 +1,179 @@
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="Songs List">
-    <div class="card-body">
-      <div class="flex flex-wrap justify-between  ">
-        <h2
-          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
-        >
-          SONG LIST
-        </h2>
-        <input
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          style="justify-self: flex-end"
-          placeholder=" Enter Search Text"
-          [(ngModel)]="searchLyrics"
-        />
-      </div>
-      <div class="flex flex-wrap  ">
-        <div class="w-full">
-          <table
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
-            <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">Song No</th>
-              <th scope="col" class="px-6 py-3">Song Name</th>
-              <th scope="col" class="px-6 py-3">Album</th>
-              <th scope="col" class="px-6 py-3">Artist</th>
-              <th scope="col" class="px-6 py-3">Action</th>
-            </tr>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              *ngFor="let item of song_list | search : searchLyrics"
-            >
-              <td scope="col" class="px-6 py-3">{{ item.serial_no }}</td>
-              <td scope="col" class="px-2 py-2">
-                <div class="flex flex-wrap align-items-center space-x-2" style="padding: 0px;">
+<div class="main-content">
+  <div class="glass-container">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="glass-tab-group">
 
-                  <img
-                  class=""
-                style="width: 50px; border-radius: 50%; height: 50px"
-               [src]="item.image?item.image:'assets/images/profile.png'"
-              />
-              <span>
-                
-                {{ item.name }}
-              </span>
+      <!-- Songs List Tab -->
+      <mat-tab label="Songs List">
+        <div class="card-body">
+
+          <!-- Top Controls: Search + Items per page -->
+          <div class="flex flex-col sm:flex-row justify-between items-center mt-2 mb-2 gap-2">
+
+            <!-- Search input -->
+            <input class="glass-input flex-1" placeholder="Search Song" [(ngModel)]="searchLyrics"
+              (input)="page = 1; updatePagedSongs()" />
+
+            <!-- Items per page select -->
+
+          </div>
+
+          <!-- Songs Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full modern-table glass-table">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Song Name</th>
+                  <th>Album</th>
+                  <th>Artist</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of paginatedSongs">
+                  <td>{{ item.serial_no }}</td>
+                  <td>
+                    <div class="flex items-center space-x-2">
+                      <img class="song-image" [src]="item.image ? item.image : 'assets/images/profile.png'" />
+                      <span>{{ item.name }}</span>
+                    </div>
+                  </td>
+                  <td>{{ item.album }}</td>
+                  <td>{{ item.artist }}</td>
+                  <td>
+                    <button class="icon-button" (click)="edit_song(item)" data-bs-toggle="modal"
+                      data-bs-target="#edit_song">
+                      <i class="fa-solid fa-pen" style="font-size: 16px;"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Condensed Pagination -->
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <select [(ngModel)]="pageSize" id="itemsPerPage" class="glass-select px-2 py-1 rounded" (change)="onItemsPerPageChange($event)">
+                <option *ngFor="let opt of itemsPerPageOptions" [value]="opt">{{ opt }}</option>
+              </select>
             </div>
-            </td>
-              <td scope="col" class="px-6 py-3">{{ item.album }}</td>
-              <td scope="col" class="px-6 py-3">{{ item.artist }}</td>
-              <td scope="col" class="px-6 py-3">
-                <button style="    background: transparent;
-                border: none;
-                "  
-                class="text-sky-800 hover:text-sky-500 " 
-                  data-bs-toggle="modal"
-                  data-bs-target="#edit_song"
-                  (click)="edit_song(item)"
-                >
-                <i class="fa-solid fa-pen"></i>
-                  
-                </button>
-             
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </mat-tab>
 
-  <mat-tab label="Create">
-    <div class="card-body">
-      <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-400 dark:text-gray-200"
-      >
-        Create Lyrics
-      </h2>
-      <form
-        [formGroup]="lyrics_form"
-        class="flex flex-wrap"
-        style="grid-gap: 3%"
-      >
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Song No.
-        </div>
-        <input
-          type="number"
-          formControlName="serial_no"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Song No."
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Song Name
-        </div>
-        <input
-          formControlName="name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Song Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Image URL
-        </div>
-        <input
-          formControlName="image"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Image Url"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Album Name
-        </div>
-        <input
-          formControlName="album"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Album Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Artist Name
-        </div>
-        <input
-          formControlName="artist"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Artist Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language
-        </div>
-        <input
-          formControlName="language"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter language"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Youtube Video URL
-        </div>
-        <input
-          formControlName="video_url"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Video URL"
-        />
+            <div *ngIf="song_list.length > itemsPerPage" class="flex gap-2">
+              <button (click)="prevPage()" [disabled]="currentPage == 1"
+                class="glass-button">Prev</button>
+              <span class="glass-button">
+                Page {{ currentPage }} / {{ totalPages() }}
+              </span>
+              <button (click)="nextPage()" [disabled]="currentPage == totalPages()"
+                class="glass-button">Next</button>
+            </div>
+          </div>
 
-        <textarea
-          formControlName="song"
-          class="w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Song"
-          style="
-            height: 35px;
-            margin-top: 8px;
-            margin-left: 9px;
-            padding: 5px 4px;
-            min-height: 80px;
-          "
-        >
-            <!-- margin-bottom: -13px; -->
-            <!-- width: 333px; -->
-            <!-- min-width: 157px; -->
-        </textarea>
-        <div class="mt-3 w-full flex items-center justify-center">
-          <button
-            (click)="submit_lyrics()"
-            class="button bg-indigo-500 text-white ml-2 p-2 hover:bg-indigo-700 focus:outline-none"
-            style="margin-left: 15px"
-          >
-            SUBMIT
-          </button>
         </div>
-      </form>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+      </mat-tab>
 
-<div
-  class="modal fade"
-  id="edit_song"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-lg w-90"
-    style="max-width: 95%"
-    role="document"
-  >
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: darkblue;
+      <!-- Create Lyrics Tab -->
+      <mat-tab label="Create">
+        <div class="card-body">
+          <form [formGroup]="lyrics_form" class="flex flex-col sm:flex-row flex-wrap glass-form">
+
+            <div class="form-label">Song No.</div>
+            <input type="number" formControlName="serial_no" class="glass-input" placeholder="Enter Song No." />
+
+            <div class="form-label">Song Name</div>
+            <input formControlName="name" class="glass-input" placeholder="Enter Song Name" />
+
+            <div class="form-label">Image URL</div>
+            <input formControlName="image" class="glass-input" placeholder="Enter Image URL" />
+
+            <div class="form-label">Album Name</div>
+            <input formControlName="album" class="glass-input" placeholder="Enter Album Name" />
+
+            <div class="form-label">Artist Name</div>
+            <input formControlName="artist" class="glass-input" placeholder="Enter Artist Name" />
+
+            <div class="form-label">Language</div>
+            <input formControlName="language" class="glass-input" placeholder="Enter Language" />
+
+            <div class="form-label">YouTube Video URL</div>
+            <input formControlName="video_url" class="glass-input" placeholder="Enter Video URL" />
+
+            <div class="form-label w-full">Lyrics</div>
+            <textarea formControlName="song" class="glass-textarea" placeholder="Enter Song"></textarea>
+
+            <div class="form-actions w-full">
+              <button (click)="submit_lyrics()" class="glass-button w-full sm:w-auto">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>
+
+<div class="modal fade" id="edit_song" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg w-90" style="max-width: 95%" role="document">
+    <div class="modal-content glass-container">
+      <div class="modal-header" style="
     padding: 10px 20px;
     color: white;
     font-weight: 600;">
         <span class="modal-title fs-5">Edit Song</span>
-        <button
-          type="button"
-          class="btn-close"
-          id="close_edit_song"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" id="close_edit_song" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
-        <form
-          [formGroup]="lyrics_form_edit"
-          class="flex flex-wrap"
-          style="grid-gap: 3%"
-        >
+        <form [formGroup]="lyrics_form_edit" class="flex flex-wrap" style="grid-gap: 3%;color: aliceblue;">
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Song No.
           </div>
-          <input
-            type="number"
-            formControlName="serial_no"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Song No."
-          />
+          <input type="number" formControlName="serial_no" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+            placeholder="Enter Song No." />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Song Name
           </div>
-          <input
-            formControlName="name"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Song Name"
-          />
+          <input formControlName="name" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Song Name" />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Image URL
           </div>
-          <input
-            formControlName="image"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Image Url"
-          />
+          <input formControlName="image" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Image Url" />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Album Name
           </div>
-          <input
-            formControlName="album"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Album Name"
-          />
+          <input formControlName="album" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Album Name" />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Artist Name
           </div>
-          <input
-            formControlName="artist"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Artist Name"
-          />
+          <input formControlName="artist" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Artist Name" />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Language
           </div>
-          <input
-            formControlName="language"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter language"
-          />
+          <input formControlName="language" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter language" />
           <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
             Youtube Video URL
           </div>
-          <input
-            formControlName="video_url"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Video URL"
-          />
+          <input formControlName="video_url" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Video URL" />
 
-          <textarea
-            id="edit_song_lyrics"
-            formControlName="song"
-            class="w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Enter Song"
+          <textarea id="edit_song_lyrics" formControlName="song" class="w-full glass-input" placeholder="Enter Song"
             style="
               height: 35px;
               margin-top: 8px;
               margin-left: 9px;
               padding: 5px 4px;
-              min-height: 80px;
-            "
-          >
+              min-height: 200px;
+            ">
           </textarea>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button type="button" class="glass-button" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="update_song()">
+        <button type="button" class="glass-button" (click)="update_song()">
           Submit
         </button>
       </div>

@@ -11,18 +11,27 @@
   font-family: 'Neon Glow';
   src: url('https://assets.codepen.io/230569/NeonGlow-8VLz.ttf');
 }
+
 @font-face {
   font-family: 'Bamini';
   src: url('/src/assets/fonts/Bamini.TTF') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 html {
   scroll-behavior: smooth;
+
 }
+
+body {
+  background-color: #fefefe !important;
+}
+
 /* Chrome, Edge, Safari */
 ::-webkit-scrollbar {
   width: 0px;
+  height: 0px;
 }
 
 ::-webkit-scrollbar-track {
@@ -38,12 +47,16 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }
+
 .glass {
-  background: rgba(255, 255, 255, 0.1); /* transparent white */
+  background: rgba(255, 255, 255, 0.1);
+  /* transparent white */
   border-radius: 16px;
 
-  backdrop-filter: blur(10px);           /* main glass effect */
-  -webkit-backdrop-filter: blur(10px);   /* Safari support */
+  backdrop-filter: blur(10px);
+  /* main glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
 
   border: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -52,6 +65,7 @@ html {
   padding: 20px;
   color: white;
 }
+
 .glass-btn {
   padding: 12px 24px;
   border-radius: 12px;
@@ -68,6 +82,7 @@ html {
 
   transition: all 0.3s ease;
 }
+
 .glass-btn:hover {
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
@@ -77,10 +92,16 @@ html {
 .glass-btn:active {
   transform: scale(0.97);
 }
+
 .text-hover-underline {
   position: relative;
   display: inline-block;
   cursor: pointer;
+}
+
+.main-content {
+  margin-top: 90px;
+  padding: 30px 40px;
 }
 
 .text-hover-underline::after {
@@ -97,6 +118,7 @@ html {
 .text-hover-underline:hover::after {
   width: 100%;
 }
+
 .text-hover-glow {
   color: white;
   transition: 0.3s ease;
@@ -104,11 +126,12 @@ html {
 }
 
 .text-hover-glow:hover {
-  text-shadow: 
+  text-shadow:
     0 0 5px #fff,
     0 0 10px #fff,
     0 0 20px #0ff;
 }
+
 .text-hover-scale {
   display: inline-block;
   transition: 0.3s ease;
@@ -119,6 +142,7 @@ html {
   color: #00ffff;
   transform: scale(1.1);
 }
+
 .text-hover-gradient {
   background: linear-gradient(90deg, #00f, #0ff, #00f);
   background-size: 200%;
@@ -140,8 +164,9 @@ html {
 
 .glass-text:hover {
   color: #fff;
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
+
 .text-hover-blur {
   color: white;
   filter: blur(2px);
@@ -156,34 +181,90 @@ html {
 .ql-font-Bamini {
   font-family: 'Bamini', sans-serif;
 }
+.glass-button-red {
+  background: rgba(255, 0, 0, 0.1);   /* light red glass */
+  backdrop-filter: blur(8px);         /* glass blur */
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 8px;
+  color: red;                         /* icon color */
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glass-button-delete:hover {
+  background: rgba(255, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+}
+/* HEADER */
+.modern-table th {
+  background: rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  color: aliceblue;
+}
+
+.modern-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* BODY */
+.modern-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: aliceblue;
+}
+
+/* ROW HOVER */
+.modern-table tr td {
+  transition: all 0.2s ease;
+}
+
+.modern-table tr:hover td {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
 /* calendar */
 /* Tooltip style (hidden by default) */
 .calendar-event-details {
   display: none;
   opacity: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Semi-transparent background */
   color: white;
   padding: 8px;
   border-radius: 5px;
   text-align: center;
   margin-top: 5px;
   position: absolute;
-  top: 100%; /* Position above the event box */
+  top: 100%;
+  /* Position above the event box */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   width: 150px;
   transition: opacity 0.3s ease-in-out;
   z-index: 9999999 !important;
-  
+
 }
+
 .fc-header-toolbar {
-  z-index: 10; /* Lower z-index of calendar header to be below tooltip */
+  z-index: 10;
+  /* Lower z-index of calendar header to be below tooltip */
 }
 
 /* Image style */
 .calendar-event-image {
-  width: 40px; /* Adjust the size of the image */
+  width: 40px;
+  /* Adjust the size of the image */
   height: 40px;
   border-radius: 50%;
   margin-top: 5px;
@@ -193,56 +274,329 @@ html {
 /* Show event details on hover */
 .fc-event:hover .calendar-event-details {
   display: block;
-  opacity: 1; /* Fade in the details */
-  transform: translateX(-50%) translateY(5px); /* Slightly move the tooltip upwards */
+  opacity: 1;
+  /* Fade in the details */
+  transform: translateX(-50%) translateY(5px);
+  /* Slightly move the tooltip upwards */
   z-index: 9999 !important;
 
 }
 
 /* Add hover zoom effect for event */
 .fc-event:hover {
-  transform: scale(1.05); /* Slightly increase size on hover */
+  transform: scale(1.05);
+  /* Slightly increase size on hover */
   transition: transform 0.2s ease-in-out;
   z-index: 9999 !important;
 
 }
-.fc-event{
-z-index: 1;
+
+.fc-event {
+  z-index: 1;
 }
-app-homepage{
-  flex: 1;
+
+/* ===== FORCE ALL CALENDAR TEXT WHITE ===== */
+.fc {
+  color: #ffffff !important;
 }
-app-calendar{
-  flex: 1;
+
+/* ===== HEADER ===== */
+.fc-toolbar-title {
+  color: #ffffff !important;
 }
-app-employee{
-  flex: 1;
+
+.fc-button {
+  color: #ffffff !important;
 }
-app-field_report{
-  flex: 1;
+
+/* ===== DAY NAMES (Mon, Tue...) ===== */
+.fc-col-header-cell-cushion {
+  color: #ffffff !important;
+  font-size: 16px;
+  text-decoration: none;
 }
-app-gallery{
-  flex: 1;
+
+/* ===== DATE NUMBERS ===== */
+.fc-daygrid-day-number {
+  color: #ffffff !important;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 700;
 }
-app-mobile_app{
-  flex: 1;
+
+/* ===== EVENTS ===== */
+.fc-event {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.342) !important;
+  border: none !important;
+  padding: 5px;
 }
-app-setting{
+
+/* EVENT TITLE */
+.fc-event-title {
+  color: #ffffff !important;
+}
+
+/* ===== TIME GRID ===== */
+.fc-timegrid-slot-label,
+.fc-timegrid-axis {
+  color: #ffffff !important;
+}
+
+/* ===== TODAY CELL ===== */
+.fc-day-today {
+  background: rgba(255, 255, 255, 0.158) !important;
+}
+
+/* ===== TOOLTIP / CUSTOM CONTENT ===== */
+.calendar-event-details {
+  color: #ffffff !important;
+}
+
+/* ===== REMOVE DEFAULT BLUE ===== */
+.fc-daygrid-event-dot {
+  border-color: #ffffff !important;
+}
+
+/* ===== GLASS INPUT ===== */
+.glass-input {
+  width: 100%;
+  padding: 10px 14px;
+  margin: 8px 0;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
+  color: #ffffff;
+  font-size: 14px;
+
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* PLACEHOLDER */
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* HOVER */
+.glass-input:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* FOCUS */
+.glass-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ACTIVE CLICK */
+.glass-input:active {
+  transform: scale(0.99);
+}
+
+/* DISABLED */
+.glass-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.glass-select {
+  width: 100%;
+  padding: 10px 14px;
+  margin: 8px 0;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
+  color: #ffffff;
+  font-size: 13px;
+
+  outline: none;
+  transition: all 0.3s ease;
+  appearance: none;
+  /* remove default arrow */
+  cursor: pointer;
+  position: relative;
+}
+
+.file-padding {
+  padding: 3px 8px !important;
+}
+
+.glass-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 13px;
+  backdrop-filter: blur(10px);
+  /* works on main select */
+  -webkit-backdrop-filter: blur(10px);
+  appearance: none;
+  cursor: pointer;
+}
+
+/* PLACEHOLDER / DEFAULT OPTION */
+.glass-dropdown option {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  display: none;
+  /* hidden by default */
+  z-index: 10;
+}
+
+.glass-select option {
+  background-color: #22222267;
+  /* dark background for dropdown items */
+  color: #fff;
+  /* white text */
+  padding: 8px;
+  /* may work in some browsers */
+}
+
+/* Hover effect */
+/* .glass-dropdown option div:hover {
+  background: rgba(255,255,255,0.15);
+  transform: scale(1.02);
+} */
+
+/* HOVER */
+.glass-select:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* FOCUS */
+.glass-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ACTIVE CLICK */
+.glass-select:active {
+  transform: scale(0.99);
+}
+
+/* DISABLED */
+.glass-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* CUSTOM ARROW */
+.glass-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.glass-select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+app-homepage {
   flex: 1;
+  /* background: #fefefe;
+  margin-top: 65px; */
+
+}
+
+app-about {
+  flex: 1;
+  /* background: linear-gradient(135deg, #667eea, #764ba2);   */
+  /* background: #fefefe;
+  margin-top: 65px; */
+
+}
+
+app-calendar {
+  flex: 1;
+  /* background: #fefefe;
+  margin-top: 65px; */
+
+
+}
+
+app-employee {
+  flex: 1;
+  /* background: #fefefe; */
+  /* margin-top: 65px; */
+
+
+}
+
+app-field_report {
+  flex: 1;
+  /* background: #fefefe; */
+  /* margin-top: 65px; */
+
+
+}
+
+app-gallery {
+  flex: 1;
+  /* background: #fefefe;
+  margin-top: 65px; */
+
+
+}
+
+app-mobile_app {
+  flex: 1;
+  /* background: #fefefe;
+  margin-top: 65px; */
+
+}
+
+app-setting {
+  flex: 1;
+  /* background: #fefefe;
+  margin-top: 65px; */
+
 }
 
 select,
 input {
   height: 34px !important;
 }
+
 .button {
   border-radius: 8px;
   min-width: 90px;
 }
+
 .button-small {
   border-radius: 8px;
   min-width: 50px;
 }
+
 .loader {
   display: flex;
   margin: 0;
@@ -279,6 +633,7 @@ input {
 .btn-secondary {
   height: 34px !important;
 }
+
 .form-select {
   height: 34px !important;
 }
@@ -289,13 +644,15 @@ input {
 }
 
 @media print {
-  .isPrinting > * {
+  .isPrinting>* {
     display: none;
   }
+
   .isPrinting app-print-layout {
     display: block;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .body {
     width: 100% !important;
@@ -304,15 +661,18 @@ input {
     background-color: white !important;
   }
 }
+
 .ql-editor {
   font-family: 'Noto Sans Tamil', sans-serif;
 }
+
 app-header {
   position: fixed;
   width: inherit;
   z-index: 10;
   /* height: 51%; */
 }
+
 .autocomplete-container .input-container .x {
   display: none !important;
   position: absolute;
@@ -322,6 +682,7 @@ app-header {
   top: 50%;
   transform: translateY(-50%);
 }
+
 .autocomplete-container .input-container input {
   display: block !important;
   width: 100% !important;
@@ -344,6 +705,7 @@ app-header {
   appearance: none !important;
   height: 32.5px !important;
 }
+
 /* ::-webkit-scrollbar {
   width: 5px;
   background-color: #f4d7fa;
@@ -379,18 +741,86 @@ app-header {
   position: fixed;
   z-index: 0;
 }
+
+
+.glass-container {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 20px !important;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  color: aliceblue;
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 5px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+/* Glass style for mat-tab labels */
+.mat-tab-group .mat-tab-label {
+  color: rgba(255, 255, 255, 0.8);   /* white-ish text */
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect on tab label */
+.mat-tab-group .mat-tab-label:hover {
+  color: #fff;
+}
+
+/* Active tab label */
+.mat-tab-group .mat-tab-label.mat-tab-label-active {
+  color: #fff;
+}
+
+/* Glass-style tab underline / indicator */
+.mat-tab-group .mat-ink-bar {
+  background: rgba(255, 255, 255, 0.5) !important;  /* semi-transparent white */
+  height: 3px;                            /* thickness of the underline */
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
 @media only screen and (max-width: 767px) {
   .autocomplete-container .input-container input {
     width: 100% !important;
   }
+
   .mobile .autocomplete-container .input-container input {
     width: 100% !important;
   }
+
+  .main-content {
+    margin-top: 90px;
+    padding: 30px 10px !important;
+  }
+
+  .glass-container {
+    padding: 20px 5px !important;
+  }
+
   /* ng-multiselect-dropdown > .multiselect-dropdown{
     flex: 0 0 100% !important;
     max-width: 100% !important;
     padding:0px;
   } */
+
+  .glass-button {
+    padding: 5px 14px;
+  }
 }
 
 .autocomplete-container {
@@ -399,12 +829,15 @@ app-header {
   overflow: visible;
   height: -webkit-fill-available !important;
 }
+
 .multiselect-dropdown {
   padding: 0px;
 }
+
 input[type="date"] {
   position: relative;
 }
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   background-position: right;
   background-size: auto;
@@ -418,12 +851,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   top: 1;
   width: auto;
 }
+
 .form-control {
   height: -webkit-fill-available;
 }
+
 .form-select {
   height: -webkit-fill-available;
 }
+
 .msexcel {
   width: 20px;
   height: 20px;
@@ -449,11 +885,13 @@ app-sidenav {
   text-transform: uppercase;
   letter-spacing: 1.6px;
 }
+
 .btn-danger {
   font-weight: 600 !important;
   text-transform: uppercase;
   letter-spacing: 1.6px;
 }
+
 .btn-success {
   font-weight: 600 !important;
   text-transform: uppercase;
@@ -467,24 +905,29 @@ app-sidenav {
   letter-spacing: 1.6px;
   height: -webkit-fill-available;
 }
+
 .form-control {
   color: #495057;
 }
+
 .form-select {
   color: #495057;
 }
+
 .btn-dark {
   font-weight: 600 !important;
   text-transform: uppercase;
   letter-spacing: 1.6px;
   height: -webkit-fill-available;
 }
+
 .btn-secondary {
   font-weight: 600 !important;
   text-transform: uppercase;
   letter-spacing: 1.6px;
   height: -webkit-fill-available;
 }
+
 .btn-small {
   /* padding: 3px 7px 3px 7px !important; */
   font-size: 11px !important;
@@ -493,6 +936,7 @@ app-sidenav {
   padding: 5px 5px !important;
   height: 28px !important;
 }
+
 .button-label {
   padding: 5px 8px !important;
   font-size: 9px;
@@ -515,7 +959,7 @@ app-sidenav {
   z-index: 1;
 }
 
-.table-info > .mat-sort-header > .mat-sort-header-container {
+.table-info>.mat-sort-header>.mat-sort-header-container {
   background-color: transparent !important;
 }
 
@@ -523,6 +967,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -533,32 +978,37 @@ body {
   padding: 1rem !important;
 }
 
-.btn-close{
+.btn-close {
   filter: invert(1) contrast(100%) brightness(100%);
 }
+
 .w-1\/1_5 {
-  @media (width >= 48rem) {
+  @media (width >=48rem) {
     width: calc(1 / 2 * 96%);
   }
+
   @media (width < 48rem) {
     width: calc(1 / 2 * 96%);
-    /* width: calc(1 / 4* 94%); */
-  }
-}
-.md\:w-1\/5 {
-  @media (width >= 48rem) {
-    width: calc(1 / 5* 100%);
-  }
-  @media (width < 48rem) {
-    width: calc(1 / 2* 86%)
     /* width: calc(1 / 4* 94%); */
   }
 }
 
+.md\:w-1\/5 {
+  @media (width >=48rem) {
+    width: calc(1 / 5* 100%);
+  }
+
+  @media (width < 48rem) {
+    width: calc(1 / 2* 86%)
+      /* width: calc(1 / 4* 94%); */
+  }
+}
+
 .md\:w-1\/3_5 {
-  @media (width >= 48rem) {
+  @media (width >=48rem) {
     width: calc(1 / 4 * 94%);
   }
+
   @media (width < 48rem) {
     width: calc(1 / 2 * 96%);
     /* width: calc(1 / 4* 94%); */

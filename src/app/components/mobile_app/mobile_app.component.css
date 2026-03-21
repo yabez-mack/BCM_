@@ -1,31 +1,233 @@
-.mat-tab-group {
-    margin-bottom: 48px;
+/* --- Glass Card / Tab --- */
+.glass-tab-group {
+  margin-bottom: 48px;
+}
+
+
+
+.navbar.glass {
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Headers --- */
+.glass-header {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  padding-left: 10px;
+  border-left: 4px solid #667eea;
+  margin-bottom: 16px;
+}
+
+/* --- Inputs / Textareas / Selects --- */
+.glass-input,
+.glass-textarea,
+.glass-select {
+  /* width: 100%; */
+  /* padding: 10px 14px; */
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Hover / Focus */
+.glass-input:hover,
+.glass-textarea:hover,
+.glass-select:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.glass-input:focus,
+.glass-textarea:focus,
+.glass-select:focus {
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+}
+
+/* Placeholder */
+.glass-input::placeholder,
+.glass-textarea::placeholder,
+.glass-select option[disabled] {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Disabled */
+.glass-input:disabled,
+.glass-textarea:disabled,
+.glass-select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Buttons --- */
+.glass-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
+/* --- Table --- */
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.modern-table th {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 14px;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modern-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modern-table tr {
+  transition: all 0.2s ease;
+}
+
+.modern-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}
+
+.song-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Icon Button */
+.icon-button {
+  background: transparent;
+  border: none;
+  color: aliceblue;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  color: rgba(240, 248, 255, 0.589);
+}
+
+/* --- Form Layout --- */
+.glass-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.form-label {
+  text-align: right;
+  color: #fff;
+  font-weight: 500;
+  padding-right: 10px;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* --- Pagination --- */
+.glass-pagination {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Pagination buttons */
+.glass-pagination .glass-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  border-radius: 12px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.glass-pagination .glass-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+/* Active page */
+.glass-pagination .active-page {
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+}
+
+/* Disabled / ellipsis page */
+.glass-pagination .glass-button[disabled] {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .glass-form {
+    grid-template-columns: 1fr;
   }
 
-  .input {
-    width: 100%;                /* Full width of the container */
-    padding: 10px 15px;         /* Add padding inside the input */
-    border: 2px solid #ccc;    /* Border with a light gray color */
-    border-radius: 4px;        /* Rounded corners */
-    font-size: 16px;           /* Font size inside the input */
-    font-family: Arial, sans-serif; /* Font family */
-    background-color: #f9f9f9; /* Light background color */
-    color: #333;               /* Text color */
-    transition: all 0.3s ease; /* Smooth transition for focus and hover */
+  .form-label {
+    text-align: left;
+    padding-right: 0;
   }
-  
-  .input:focus {
-    border-color: #4c63af;     /* Change border color when focused */
-    outline: none;             /* Remove outline when focused */
-    background-color: #fff;    /* Change background color when focused */
+
+  .song-image {
+    width: 40px;
+    height: 40px;
   }
-  .input:valid{
-    border-color: #4CAF50; 
+
+  .glass-button {
+    padding: 8px 14px;
   }
-  .input:invalid{
-    border-color: #ff4242; 
-  }
-  
-  .input:hover {
-    border-color: #888;        /* Change border color when hovering */
-  }
+}

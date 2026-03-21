@@ -23,7 +23,7 @@ export class SettingComponent implements OnInit {
     private datepipe: DatePipe,
     private router: Router,
     private navbar: NavbarComponent
-  ) {}
+  ) { }
   dashboard_casrol_form = this._fb.group({
     title: [''],
     url: [''],
@@ -114,7 +114,7 @@ export class SettingComponent implements OnInit {
       });
     }
   }
-  base_url:any='https://api.bcmmovement.in'
+  base_url: any = 'https://api.bcmmovement.in'
   submit_dashboard_casrol() {
     let body = {
       title: this.dashboard_casrol_form.value.title,
@@ -512,6 +512,8 @@ export class SettingComponent implements OnInit {
       if (res.status == 'success') {
         this.images_list = res.data;
         this.images_list_filtered = this.images_list.filter((a: any) => a);
+        this.totalPages = Math.ceil(this.images_list_filtered.length / this.itemsPerPage);
+        this.setPage(1);
       }
     });
   }
@@ -608,6 +610,40 @@ export class SettingComponent implements OnInit {
       }
     });
   }
+  currentPage: number = 1;
+  itemsPerPage: number = 20; // number of rows per page
+  itemsPerPageOptions: number[] = [5, 10, 20, 50,100]; // dropdown options
+  totalPages: number = 0;
+  paginatedImages: any[] = [];
+  setPage(page: number) {
+    if (page < 1) page = 1;
+    if (page > this.totalPages) page = this.totalPages;
+    this.currentPage = page;
+
+    const startIndex = (page - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+
+    this.paginatedImages = this.images_list_filtered.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    this.setPage(this.currentPage + 1);
+  }
+
+  prevPage() {
+    this.setPage(this.currentPage - 1);
+  }
+  onItemsPerPageChange(event: any) {
+    this.itemsPerPage = +event.target.value;
+    this.currentPage = 1; // reset to first page
+    this.updatePagination();
+  }
+  updatePagination() {
+    this.totalPages = Math.ceil(this.images_list_filtered.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedImages = this.images_list_filtered.slice(startIndex, endIndex);
+  }
   ngOnInit(): void {
     this.token = this.service.get('token');
     this.user_id = this.service.get('user_id');
@@ -619,7 +655,7 @@ export class SettingComponent implements OnInit {
           this.service.set('token', res.data.token);
           this.service.set('user_id', res.data.user_id);
           let array = res.data.module_access.split(',');
-          if (!array.includes('3')) {
+          if (!array.includes('4')) {
             this.service.deleteAll();
             localStorage.clear();
             sessionStorage.clear();

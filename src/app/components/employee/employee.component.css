@@ -2,6 +2,18 @@
     margin-bottom: 48px;
   }
 
+.navbar.glass {
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.glass-container {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
   .input {
     width: 100%;                /* Full width of the container */
     padding: 10px 15px;         /* Add padding inside the input */
@@ -36,3 +48,133 @@
       background: white;
       width: max-content;
   }
+
+  /* New */
+  /* ===== HEADER ===== */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* ===== SEARCH ===== */
+.search-box {
+  position: relative;
+  width:100%
+}
+
+.search-box input {
+  padding: 10px 15px 10px 35px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  width:100%;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.search-box i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #ccc;
+}
+
+/* ===== TABLE ===== */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+
+/* ===== EMPLOYEE CELL ===== */
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.employee-cell img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+/* ===== STATUS ===== */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: rgba(102, 126, 234, 0.356);
+  color: aliceblue;
+}
+
+/* ===== ACTION ===== */
+.action-btn {
+  background: transparent;
+  border: none;
+  color: aliceblue;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.action-btn:hover {
+  color: #ffffff;
+}
+
+/* ===== EMPTY ===== */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #ccc;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+::ng-deep .custom-tabs .mat-mdc-tab {
+  border-radius: 10px;
+  padding: 6px 16px;
+  margin-right: 8px;
+}
+
+/* ACTIVE TAB BG */
+::ng-deep .custom-tabs .mdc-tab--active {
+  background: rgba(102,126,234,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.modal-header {
+  /* background: linear-gradient(135deg, #1e3c72, #2a5298); */
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  border-bottom: none;
+}
+
+/* Modal close button */
+.modal-header .btn-close {
+  filter: invert(1);
+}

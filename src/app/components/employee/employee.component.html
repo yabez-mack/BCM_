@@ -1,1141 +1,819 @@
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="All Employee">
-    <div class="card-body">
-      <div class="flex flex-wrap justify-between">
-        <h2
-          class="sm:w-1/1_5 md:w-1/3_5 text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
-        >
-          EMPLOYEE LIST
-        </h2>
-        <input
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          style="justify-self: flex-end"
-          placeholder=" Enter Search Text"
-          [(ngModel)]="searchEmployee"
-        />
-      </div>
-      <div class="flex flex-wrap">
-        <div class="w-full">
-          <table
-            *ngIf="employee_list.length == 0"
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
-            <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">Registation Number</th>
-              <th scope="col" class="px-6 py-3">Full Name</th>
-              <th scope="col" class="px-6 py-3">Designation</th>
-              <th scope="col" class="px-6 py-3">Field Name</th>
-              <th scope="col" class="px-6 py-3">DOB</th>
-              <th scope="col" class="px-6 py-3">Father Name</th>
-              <th scope="col" class="text-center px-6 py-3">Status</th>
-              <th scope="col" class="text-center px-6 py-3">Action</th>
-            </tr>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-            >
-              <td colspan="8" scope="col" class="px-6 py-3">
-                No Records Found
-              </td>
-            </tr>
-          </table>
-          <table
-            *ngIf="employee_list.length > 0"
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
-            <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">Registation Number</th>
-              <th scope="col" class="px-6 py-3">Full Name</th>
-              <th scope="col" class="px-6 py-3">Designation</th>
-              <th scope="col" class="px-6 py-3">Field Name</th>
-              <th scope="col" class="px-6 py-3">DOB</th>
-              <th scope="col" class="px-6 py-3">Father Name</th>
-              <th scope="col" class="text-center px-6 py-3">Status</th>
-              <th scope="col" class="text-center px-6 py-3">Action</th>
-            </tr>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              *ngFor="let item of employee_list | search : searchEmployee"
-            >
-              <td scope="col" class="px-6 py-3">{{ item.reg_id }}</td>
-              <td scope="col" class="px-2 py-2">
-                <div
-                  class="flex flex-wrap align-items-center space-x-2"
-                  style="padding: 0px"
-                >
-                  <img
-                    class=""
-                    style="width: 50px; border-radius: 50%; height: 50px"
-                    src="{{
-                      item.image
-                        ? base_url+item.image
-                        : 'assets/images/profile.png'
-                    }}"
-                  />
-                  <span>
-                    {{ item.name }}
-                  </span>
-                </div>
-              </td>
-              <td scope="col" class="px-6 py-3">{{ item.designation_name }}</td>
-              <!-- <td scope="col" class="px-6 py-3">{{ item.branch_name }}</td> -->
-              <td scope="col" class="px-6 py-3">{{ item.field_name }}</td>
-              <td scope="col" class="px-6 py-3">
-                {{ item.date_of_birth | date : "dd-MMM-yyyy" }}
-              </td>
-              <td scope="col" class="px-6 py-3">{{ item.father_name }}</td>
-              <td scope="col" class="text-center px-6 py-3">
-                {{ conv_status(item.status) }}
-              </td>
-              <td scope="col" class="text-center px-6 py-3">
-                <button
-                  data-bs-toggle="modal"
-                  data-bs-target="#edit_employee"
-                  style="background: transparent; border: none"
-                  class="text-sky-800 hover:text-sky-500"
-                  (click)="edit_employee(item)"
-                >
-                  <i class="fa-solid fa-pen"></i>
-                </button>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </mat-tab>
-  <mat-tab label="Add Employee">
-    <div class="card-body">
-      <h2
-        class="text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
-      >
-        ADD EMPLOYEE
-      </h2>
-      <form [formGroup]="user_form" class="flex flex-wrap" style="grid-gap: 3%">
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Registration Number
-        </div>
-        <input
-          formControlName="reg_id"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Registration Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Full Name
-        </div>
-        <input
-          formControlName="name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Full name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Birth
-        </div>
-        <input
-          formControlName="date_of_birth"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Gender
-        </div>
-        <select
-          formControlName="gender"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Gender</option>
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Blood Group
-        </div>
-        <input
-          formControlName="blood_group"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Blood Group"
-        />
-      
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Email
-        </div>
-        <input
-          formControlName="email"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Email"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Contact Number
-        </div>
-        <input
-          formControlName="contact_no"
-          type="number"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Contact Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Adhar Number
-        </div>
-        <input
-          formControlName="adhar"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Adhar Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language Speak
-        </div>
-        <input
-          formControlName="language_speak"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Language Speak"
-        />
+<div class="main-content">
+  <div class="glass-container">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="All Employee">
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language Write
-        </div>
-        <input
-          formControlName="language_write"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Language Write"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Address
-        </div>
-        <textarea
-          formControlName="address"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Address"
-        ></textarea>
+        <div class="main-contet">
 
+          <div class="glass-conainer">
 
+            <!-- HEADER -->
+            <div class="table-header mt-2 mb-0">
+            
 
+              <div class="search-box mb-2">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Search employee..." class="glass-input" [(ngModel)]="searchEmployee" />
+              </div>
+            </div>
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Designation
-        </div>
-        <select
-          formControlName="designation"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Designation</option>
-          <option *ngFor="let item of designation_list" [value]="item.id">
-            {{ item.designation_name }}
-          </option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Branch Name
-        </div>
-        <select
-          (change)="filter_field()"
-          formControlName="branch"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Branch</option>
-          <option *ngFor="let item of branch_list" [value]="item.id">
-            {{ item.branch_name }}
-          </option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Field Name
+            <!-- TABLE -->
+            <div class="table-wrapper">
+
+              <table *ngIf="employee_list.length > 0" class="modern-table">
+
+                <thead>
+                  <tr>
+                    <th>Reg No</th>
+                    <th>Employee</th>
+                    <th>Designation</th>
+                    <th>Field</th>
+                    <th>DOB</th>
+                    <th>Father</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of employee_list | search : searchEmployee">
+
+                    <td>{{ item.reg_id }}</td>
+
+                    <td>
+                      <div class="employee-cell">
+                        <img [src]="item.image ? base_url + item.image : 'assets/images/profile.png'" />
+                        <span>{{ item.name }}</span>
+                      </div>
+                    </td>
+
+                    <td>{{ item.designation_name }}</td>
+                    <td>{{ item.field_name }}</td>
+
+                    <td>
+                      {{ item.date_of_birth | date : "dd-MMM-yyyy" }}
+                    </td>
+
+                    <td>{{ item.father_name }}</td>
+
+                    <td>
+                      <span class="status-badge">
+                        {{ conv_status(item.status) }}
+                      </span>
+                    </td>
+
+                    <td class="text-center">
+                      <button class="action-btn" (click)="edit_employee(item)" data-bs-toggle="modal"
+                        data-bs-target="#edit_employee">
+                        <i class="fa-solid fa-pen"></i>
+                      </button>
+                    </td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+
+              <!-- EMPTY STATE -->
+              <div *ngIf="employee_list.length == 0" class="empty-state">
+                No Employees Found
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
-        <select
-          formControlName="field_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Field</option>
-          <option *ngFor="let item of field_list_filtered" [value]="item.id">
-            {{ item.field_name }}
-          </option>
-        </select>
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Joining
-        </div>
-        <input
-          formControlName="date_of_joining"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Date Of Joining"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          People Group
-        </div>
-        <input
-          formControlName="people_group"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter People Group"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Education Qualification
-        </div>
-        <input
-          formControlName="education_qualification"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Education Qualification"
-        />
-           
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Bank Name
-        </div>
-        <input
-          formControlName="bank_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Bank Name"
-        />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Account Name
-        </div>
-        <input
-          formControlName="account_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Account Name"
-        />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Account Number
-        </div>
-        <input
-          formControlName="account_number"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Account Number"
-        />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          IFSC
-        </div>
-        <input
-          formControlName="ifsc"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter IFSC"
-        />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          MICR
-        </div>
-        <input
-          formControlName="micr"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter MICR"
-        />
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mut Member
-        </div>
-        <select
-          formControlName="mut_member"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Mut Status</option>
-          <option value="1" >Yes</option>
-          <option value="2" >No</option>
-        </select>
-
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mut ID
-        </div>
-        <input
-          formControlName="mut_id"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Mut ID"
-        />
-
-
-
-
-
-
-      
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Father Name
-        </div>
-        <input
-          formControlName="father_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Father Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mother Name
-        </div>
-        <input
-          formControlName="mother_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Mother Name"
-        />
+      </mat-tab>
+      <mat-tab label="Add Employee">
+        <div class="mt-2">
         
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Marital Status
-        </div>
+          <form [formGroup]="user_form" class="flex flex-wrap" style="grid-gap: 3%">
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Registration Number
+            </div>
+            <input formControlName="reg_id" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Registration Number" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Full Name
+            </div>
+            <input formControlName="name" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Full name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Date Of Birth
+            </div>
+            <input formControlName="date_of_birth" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Gender
+            </div>
+            <select formControlName="gender" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Gender</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Blood Group
+            </div>
+            <input formControlName="blood_group" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Blood Group" />
 
-        <select
-          formControlName="martial_status"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Status</option>
-          <option value="unmarried">UnMarried</option>
-          <option value="married">Married</option>
-          <option value="divorced">Divorced</option>
-          <option value="widow/widower">Divorced</option>
-        </select>
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Name
-        </div>
-        <input
-          formControlName="spouse_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Marriage
-        </div>
-        <input
-          formControlName="date_of_marriage"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Occupation
-        </div>
-        <input
-          formControlName="spouse_occupation"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Occupation"
-        />
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Adhar
-        </div>
-        <input
-          formControlName="spouse_adhar"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Adhar"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          No of Children
-        </div>
-        <input
-        (input)="onNumberOfChildrenChange2()"
-        type="number"
-          formControlName="no_of_children"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="No. of Children"
-        />
-        
-       <table formArrayName="children2" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">S.No</th>
-              <th scope="col" class="px-6 py-3">Name</th>
-              <th scope="col" class="px-6 py-3">DOB</th>
-              <th scope="col" class="px-6 py-3">Gender</th>
-              <th scope="col" class="px-6 py-3">Education</th>
-              <th scope="col" class="px-6 py-3">Martial Status</th>
-              </tr>
-              <tr *ngFor="let child of children2.controls; let i = index" [formGroupName]="i" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                <td class="px-6 py-3">{{i + 1}}</td>
-          
-                <!-- Child Name input -->
-                <td class="px-6 py-3">
-                  <input
-                    type="text"
-                    formControlName="child_name"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    placeholder="Enter Name"
-                  />
-                </td>
-          
-                <!-- Date of Birth input -->
-                <td class="px-6 py-3">
-                  <input
-                    type="date"
-                    formControlName="dob"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                </td>
-          
-                <!-- Gender select -->
-                <td class="px-6 py-3">
-                  <select formControlName="gender" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </td>
-          
-                <!-- Education input -->
-                <td class="px-6 py-3">
-                  <input
-                    formControlName="education"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    placeholder="Enter Education"
-                  />
-                </td>
-          
-                <!-- Marital Status select -->
-                <td class="px-6 py-3">
-                  <select formControlName="marital_status" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
-                    <option value="" disabled>Select Status</option>
-                    <option value="unmarried">UnMarried</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widow/widower">Divorced</option>
-                  </select>
-                </td>
-              </tr>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Email
+            </div>
+            <input formControlName="email" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Email" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Contact Number
+            </div>
+            <input formControlName="contact_no" type="number" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Contact Number" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Adhar Number
+            </div>
+            <input formControlName="adhar" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Adhar Number" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Language Speak
+            </div>
+            <input formControlName="language_speak" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Language Speak" />
 
-       </table>
-        
-       
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Language Write
+            </div>
+            <input formControlName="language_write" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Language Write" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Address
+            </div>
+            <textarea formControlName="address" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Address"></textarea>
 
-        
-     
-        
-        
-        
-       
 
-    
-     
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Status
-        </div>
-        <select
-          formControlName="status"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Status</option>
-          <option value="1">Active</option>
-          <option value="2">InActive</option>
-          <option value="3">Resigned</option>
-          <option value="4">Deceased</option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Image
-        </div>
-        <input
-          formControlName="image"
-          (change)="onChangeImage($event)"
-          type="file"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Family Image
-        </div>
-        <input
-          formControlName="family_image"
-          (change)="onChangeImage2($event)"
-          type="file"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
 
-        <div class="w-full mt-3 flex justify-center">
-          <button
-            (click)="submit_user()"
-            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-          >
-            SUBMIT
-          </button>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Designation
+            </div>
+            <select formControlName="designation" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Designation</option>
+              <option *ngFor="let item of designation_list" [value]="item.id">
+                {{ item.designation_name }}
+              </option>
+            </select>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Branch Name
+            </div>
+            <select (change)="filter_field()" formControlName="branch"
+              class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Branch</option>
+              <option *ngFor="let item of branch_list" [value]="item.id">
+                {{ item.branch_name }}
+              </option>
+            </select>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Field Name
+            </div>
+
+            <select formControlName="field_name" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Field</option>
+              <option *ngFor="let item of field_list_filtered" [value]="item.id">
+                {{ item.field_name }}
+              </option>
+            </select>
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Date Of Joining
+            </div>
+            <input formControlName="date_of_joining" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Date Of Joining" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              People Group
+            </div>
+            <input formControlName="people_group" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter People Group" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Education Qualification
+            </div>
+            <input formControlName="education_qualification" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Education Qualification" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Bank Name
+            </div>
+            <input formControlName="bank_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Bank Name" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Account Name
+            </div>
+            <input formControlName="account_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Account Name" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Account Number
+            </div>
+            <input formControlName="account_number" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Account Number" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              IFSC
+            </div>
+            <input formControlName="ifsc" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter IFSC" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              MICR
+            </div>
+            <input formControlName="micr" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter MICR" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Mut Member
+            </div>
+            <select formControlName="mut_member" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Mut Status</option>
+              <option value="1">Yes</option>
+              <option value="2">No</option>
+            </select>
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Mut ID
+            </div>
+            <input formControlName="mut_id" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Mut ID" />
+
+
+
+
+
+
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Father Name
+            </div>
+            <input formControlName="father_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Father Name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Mother Name
+            </div>
+            <input formControlName="mother_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Mother Name" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Marital Status
+            </div>
+
+            <select formControlName="martial_status" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Status</option>
+              <option value="unmarried">UnMarried</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+              <option value="widow/widower">Divorced</option>
+            </select>
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Spouse Name
+            </div>
+            <input formControlName="spouse_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Spouse Name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Date Of Marriage
+            </div>
+            <input formControlName="date_of_marriage" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Spouse Occupation
+            </div>
+            <input formControlName="spouse_occupation" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Spouse Occupation" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Spouse Adhar
+            </div>
+            <input formControlName="spouse_adhar" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+              placeholder="Enter Spouse Adhar" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              No of Children
+            </div>
+            <input (input)="onNumberOfChildrenChange2()" type="number" formControlName="no_of_children"
+              class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="No. of Children" />
+
+            <table formArrayName="children2" class="modern-table">
+              <thead>
+
+                <tr class="">
+                  <th scope="col" class="px-3 py-2">S.No</th>
+                  <th scope="col" class="px-3 py-2">Name</th>
+                  <th scope="col" class="px-3 py-2">DOB</th>
+                  <th scope="col" class="px-3 py-2">Gender</th>
+                  <th scope="col" class="px-3 py-2">Education</th>
+                  <th scope="col" class="px-3 py-2">Martial Status</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let child of children2.controls; let i = index" [formGroupName]="i" class="">
+                  <td class="px-3 py-2">{{i + 1}}</td>
+
+                  <!-- Child Name input -->
+                  <td class="px-3 py-2">
+                    <input type="text" formControlName="child_name" class="w-full glass-input file-padding"
+                      placeholder="Enter Name" />
+                  </td>
+
+                  <!-- Date of Birth input -->
+                  <td class="px-3 py-2">
+                    <input type="date" formControlName="dob" class="w-full glass-input file-padding" />
+                  </td>
+
+                  <!-- Gender select -->
+                  <td class="px-3 py-2">
+                    <select formControlName="gender" class="w-full glass-select file-padding file-padding">
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </td>
+
+                  <!-- Education input -->
+                  <td class="px-3 py-2">
+                    <input formControlName="education" class="w-full glass-input file-padding"
+                      placeholder="Enter Education" />
+                  </td>
+
+                  <!-- Marital Status select -->
+                  <td class="px-3 py-2">
+                    <select formControlName="marital_status" class="w-full glass-select file-padding file-padding">
+                      <option value="" disabled>Select Status</option>
+                      <option value="unmarried">UnMarried</option>
+                      <option value="married">Married</option>
+                      <option value="divorced">Divorced</option>
+                      <option value="widow/widower">Divorced</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Status
+            </div>
+            <select formControlName="status" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+              <option value="" disabled>Select Status</option>
+              <option value="1">Active</option>
+              <option value="2">InActive</option>
+              <option value="3">Resigned</option>
+              <option value="4">Deceased</option>
+            </select>
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Image
+            </div>
+            <input formControlName="image" (change)="onChangeImage($event)" type="file"
+              class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding" />
+
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+              Family Image
+            </div>
+            <input formControlName="family_image" (change)="onChangeImage2($event)" type="file"
+              class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding" />
+
+            <div class="w-full mt-3 flex justify-center">
+              <button (click)="submit_user()"
+                class="glass-button">
+                SUBMIT
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
-  </mat-tab>
-  <!-- <mat-tab label="Third">
+      </mat-tab>
+      <!-- <mat-tab label="Third">
     
   </mat-tab> -->
-</mat-tab-group>
-<div
-  class="modal fade"
-  id="edit_employee"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-lg w-90"
-    style="max-width: 95%"
-    role="document"
-  >
-    <div class="modal-content">
-      <div
-        class="modal-header"
-        style="
-          background-color: darkblue;
+    </mat-tab-group>
+  </div>
+</div>
+<div class="modal fade" id="edit_employee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg w-90" style="max-width: 95%" role="document">
+    <div class="modal-content glass-container p-1" >
+      <div class="modal-header" style="
           padding: 10px 20px;
           color: white;
           font-weight: 600;
-        "
-      >
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+        ">
         <span class="modal-title fs-5">Edit Employee</span>
-        <button
-          type="button"
-          class="btn-close"
-          id="close_edit_employee"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" id="close_edit_employee" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
 
-      <div class="modal-body">
-        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <div class="modal-body" >
+        <mat-tab-group mat-stretch-tabs="false" class="glass-conatainer" mat-align-tabs="start">
           <mat-tab label="Employee Detail">
-        <form
-          [formGroup]="user_form_edit"
-          class="flex flex-wrap"
-          style="grid-gap: 3%"
-        >
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Registration Number
-        </div>
-        <input
-          formControlName="reg_id"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Registration Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Full Name
-        </div>
-        <input
-          formControlName="name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Full name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Birth
-        </div>
-        <input
-          formControlName="date_of_birth"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Gender
-        </div>
-        <select
-          formControlName="gender"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Gender</option>
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Blood Group
-        </div>
-        <input
-          formControlName="blood_group"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Blood Group"
-        />
-      
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Email
-        </div>
-        <input
-          formControlName="email"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Email"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Contact Number
-        </div>
-        <input
-          formControlName="contact_no"
-          type="number"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Contact Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Adhar Number
-        </div>
-        <input
-          formControlName="adhar"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Adhar Number"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language Speak
-        </div>
-        <input
-          formControlName="language_speak"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Language Speak"
-        />
+            <form [formGroup]="user_form_edit" class="flex flex-wrap" style="grid-gap: 3%;color: aliceblue;">
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Registration Number
+              </div>
+              <input formControlName="reg_id" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Registration Number" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Full Name
+              </div>
+              <input formControlName="name" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Full name" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Date Of Birth
+              </div>
+              <input formControlName="date_of_birth" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Gender
+              </div>
+              <select formControlName="gender" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Blood Group
+              </div>
+              <input formControlName="blood_group" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Blood Group" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Language Write
-        </div>
-        <input
-          formControlName="language_write"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Language Write"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Address
-        </div>
-        <textarea
-          formControlName="address"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Address"
-        ></textarea>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Email
+              </div>
+              <input formControlName="email" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Email" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Contact Number
+              </div>
+              <input formControlName="contact_no" type="number" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Contact Number" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Adhar Number
+              </div>
+              <input formControlName="adhar" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Adhar Number" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Language Speak
+              </div>
+              <input formControlName="language_speak" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Language Speak" />
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Language Write
+              </div>
+              <input formControlName="language_write" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Language Write" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Address
+              </div>
+              <textarea formControlName="address" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Address"></textarea>
 
 
 
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Designation
-        </div>
-        <select
-          formControlName="designation"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Designation</option>
-          <option *ngFor="let item of designation_list" [value]="item.id">
-            {{ item.designation_name }}
-          </option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Branch Name
-        </div>
-        <select
-          (change)="filter_field2()"
-          formControlName="branch"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Branch</option>
-          <option *ngFor="let item of branch_list" [value]="item.id">
-            {{ item.branch_name }}
-          </option>
-        </select>
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Field Name
-        </div>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Designation
+              </div>
+              <select formControlName="designation" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Designation</option>
+                <option *ngFor="let item of designation_list" [value]="item.id">
+                  {{ item.designation_name }}
+                </option>
+              </select>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Branch Name
+              </div>
+              <select (change)="filter_field2()" formControlName="branch"
+                class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Branch</option>
+                <option *ngFor="let item of branch_list" [value]="item.id">
+                  {{ item.branch_name }}
+                </option>
+              </select>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Field Name
+              </div>
 
-        <select
-          formControlName="field_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Field</option>
-          <option *ngFor="let item of field_list_filtered2" [value]="item.id">
-            {{ item.field_name }}
-          </option>
-        </select>
+              <select formControlName="field_name" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Field</option>
+                <option *ngFor="let item of field_list_filtered2" [value]="item.id">
+                  {{ item.field_name }}
+                </option>
+              </select>
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Joining
-        </div>
-        <input
-          formControlName="date_of_joining"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Date Of Joining"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          People Group
-        </div>
-        <input
-          formControlName="people_group"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter People Group"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Education Qualification
-        </div>
-        <input
-          formControlName="education_qualification"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Education Qualification"
-        />
-           
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Bank Name
-        </div>
-        <input
-          formControlName="bank_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Bank Name"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Date Of Joining
+              </div>
+              <input formControlName="date_of_joining" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Date Of Joining" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                People Group
+              </div>
+              <input formControlName="people_group" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter People Group" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Education Qualification
+              </div>
+              <input formControlName="education_qualification" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Education Qualification" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Account Name
-        </div>
-        <input
-          formControlName="account_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Account Name"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Bank Name
+              </div>
+              <input formControlName="bank_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Bank Name" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Account Number
-        </div>
-        <input
-          formControlName="account_number"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Account Number"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Account Name
+              </div>
+              <input formControlName="account_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Account Name" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          IFSC
-        </div>
-        <input
-          formControlName="ifsc"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter IFSC"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Account Number
+              </div>
+              <input formControlName="account_number" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Account Number" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          MICR
-        </div>
-        <input
-          formControlName="micr"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter MICR"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                IFSC
+              </div>
+              <input formControlName="ifsc" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter IFSC" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mut Member
-        </div>
-        <select
-          formControlName="mut_member"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Mut Status</option>
-          <option value="1" >Yes</option>
-          <option value="2" >No</option>
-        </select>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                MICR
+              </div>
+              <input formControlName="micr" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter MICR" />
 
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mut ID
-        </div>
-        <input
-          formControlName="mut_id"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Mut ID"
-        />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Mut Member
+              </div>
+              <select formControlName="mut_member" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Mut Status</option>
+                <option value="1">Yes</option>
+                <option value="2">No</option>
+              </select>
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Mut ID
+              </div>
+              <input formControlName="mut_id" class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="Enter Mut ID" />
 
 
 
 
 
 
-      
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Father Name
-        </div>
-        <input
-          formControlName="father_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Father Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Mother Name
-        </div>
-        <input
-          formControlName="mother_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Mother Name"
-        />
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Marital Status
-        </div>
 
-        <select
-          formControlName="martial_status"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Status</option>
-          <option value="unmarried">UnMarried</option>
-          <option value="married">Married</option>
-          <option value="divorced">Divorced</option>
-          <option value="widow/widower">Divorced</option>
-        </select>
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Name
-        </div>
-        <input
-          formControlName="spouse_name"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Name"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Date Of Marriage
-        </div>
-        <input
-          formControlName="date_of_marriage"
-          type="date"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Occupation
-        </div>
-        <input
-          formControlName="spouse_occupation"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Occupation"
-        />
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Spouse Adhar
-        </div>
-        <input
-          formControlName="spouse_adhar"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Enter Spouse Adhar"
-        />
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          No of Children
-        </div>
-        <input
-        (input)="onNumberOfChildrenChange()"
-        type="number"
-          formControlName="no_of_children"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="No. of Children"
-        />
-        
-       <table formArrayName="children" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">S.No</th>
-              <th scope="col" class="px-6 py-3">Name</th>
-              <th scope="col" class="px-6 py-3">DOB</th>
-              <th scope="col" class="px-6 py-3">Gender</th>
-              <th scope="col" class="px-6 py-3">Education</th>
-              <th scope="col" class="px-6 py-3">Martial Status</th>
-              </tr>
-              <tr *ngFor="let child of children.controls; let i = index" [formGroupName]="i" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                <td class="px-6 py-3">{{i + 1}}</td>
-          
-                <!-- Child Name input -->
-                <td class="px-6 py-3">
-                  <input
-                    type="text"
-                    formControlName="child_name"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    placeholder="Enter Name"
-                  />
-                </td>
-          
-                <!-- Date of Birth input -->
-                <td class="px-6 py-3">
-                  <input
-                    type="date"
-                    formControlName="dob"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                </td>
-          
-                <!-- Gender select -->
-                <td class="px-6 py-3">
-                  <select formControlName="gender" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </td>
-          
-                <!-- Education input -->
-                <td class="px-6 py-3">
-                  <input
-                    formControlName="education"
-                    class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    placeholder="Enter Education"
-                  />
-                </td>
-          
-                <!-- Marital Status select -->
-                <td class="px-6 py-3">
-                  <select formControlName="marital_status" class="w-full border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500">
-                    <option value="" disabled>Select Status</option>
-                    <option value="unmarried">UnMarried</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widow/widower">Divorced</option>
-                  </select>
-                </td>
-              </tr>
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Father Name
+              </div>
+              <input formControlName="father_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Father Name" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Mother Name
+              </div>
+              <input formControlName="mother_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Mother Name" />
 
-       </table>
-        
-     
-        
-        
-        
-       
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Marital Status
+              </div>
 
-    
-     
-        
-        <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-          Status
-        </div>
-        <select
-          formControlName="status"
-          class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-        >
-          <option value="" disabled>Select Status</option>
-          <option value="1">Active</option>
-          <option value="2">InActive</option>
-          <option value="3">Resigned</option>
-          <option value="4">Deceased</option>
-        </select>
-       
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Image
-          </div>
-          <input
-            formControlName="image"
-            (change)="onChangeImage3($event)"
-            type="file"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-          <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-            Family Image
-          </div>
-          <input
-            formControlName="family_image"
-            (change)="onChangeImage4($event)"
-            type="file"
-            class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-          />
-        </form>
-      
-      
-        <div class="w-full mt-3 flex justify-center">
-          <button
-          (click)="update_user()"
-            class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none"
-          >
-            SUBMIT
-          </button>
-        </div>
-        </mat-tab>
-        <mat-tab label="Documents">
-          <h2
-          class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
-        >
-          DOCUMENTS
-        </h2>
-        <div >
-          <form [formGroup]="documents_form" class="flex flex-wrap">
-            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-              Title
+              <select formControlName="martial_status" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Status</option>
+                <option value="unmarried">UnMarried</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widow/widower">Divorced</option>
+              </select>
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Spouse Name
+              </div>
+              <input formControlName="spouse_name" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Spouse Name" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Date Of Marriage
+              </div>
+              <input formControlName="date_of_marriage" type="date" class="sm:w-1/1_5 md:w-1/3_5 glass-input" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Spouse Occupation
+              </div>
+              <input formControlName="spouse_occupation" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Spouse Occupation" />
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Spouse Adhar
+              </div>
+              <input formControlName="spouse_adhar" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                placeholder="Enter Spouse Adhar" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                No of Children
+              </div>
+              <input (input)="onNumberOfChildrenChange()" min="0" type="number" formControlName="no_of_children"
+                class="sm:w-1/1_5 md:w-1/3_5 glass-input" placeholder="No. of Children" />
+
+              <table formArrayName="children"
+                class="modern-table">
+                <thead>
+
+                  <tr class="">
+                    <th scope="col" class="px-3 py-2">S.No</th>
+                    <th scope="col" class="px-3 py-2">Name</th>
+                    <th scope="col" class="px-3 py-2">DOB</th>
+                    <th scope="col" class="px-3 py-2">Gender</th>
+                    <th scope="col" class="px-3 py-2">Education</th>
+                    <th scope="col" class="px-3 py-2">Martial Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let child of children.controls; let i = index" [formGroupName]="i" class="">
+                    <td class="px-3 py-2">{{i + 1}}</td>
+  
+                    <!-- Child Name input -->
+                    <td class="px-3 py-2">
+                      <input type="text" formControlName="child_name" class="w-full glass-input file-padding"
+                        placeholder="Enter Name" />
+                    </td>
+  
+                    <!-- Date of Birth input -->
+                    <td class="px-3 py-2">
+                      <input type="date" formControlName="dob" class="w-full glass-input file-padding" />
+                    </td>
+  
+                    <!-- Gender select -->
+                    <td class="px-3 py-2">
+                      <select formControlName="gender" class="w-full glass-select file-padding">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </td>
+  
+                    <!-- Education input -->
+                    <td class="px-3 py-2">
+                      <input formControlName="education" class="w-full glass-input file-padding"
+                        placeholder="Enter Education" />
+                    </td>
+  
+                    <!-- Marital Status select -->
+                    <td class="px-3 py-2">
+                      <select formControlName="marital_status" class="w-full glass-select file-padding">
+                        <option value="" disabled>Select Status</option>
+                        <option value="unmarried">UnMarried</option>
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="widow/widower">Divorced</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+
+
+
+
+
+
+
+
+
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Status
+              </div>
+              <select formControlName="status" class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding">
+                <option value="" disabled>Select Status</option>
+                <option value="1">Active</option>
+                <option value="2">InActive</option>
+                <option value="3">Resigned</option>
+                <option value="4">Deceased</option>
+              </select>
+
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Image
+              </div>
+              <input formControlName="image" (change)="onChangeImage3($event)" type="file"
+                class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding" />
+              <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                Family Image
+              </div>
+              <input formControlName="family_image" (change)="onChangeImage4($event)" type="file"
+                class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding" />
+            </form>
+
+
+            <div class="w-full mt-3 flex justify-center">
+              <button (click)="update_user()"
+                class="glass-button">
+                SUBMIT
+              </button>
             </div>
-            <input
-              formControlName="title"
-              class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Enter Document Name"
-              />
-            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
-              File
-            </div>
-            <input
-              formControlName="file"
-              (change)="onChangeImage5($event)"
-              type="file"
-              class="sm:w-1/1_5 md:w-1/3_5 border border-gray-300 p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-            />
-            <div class="w-full flex justify-center">
-
-              <button   (click)="upload_document()"
-              class="button bg-indigo-500 text-white m-2 p-2 hover:bg-indigo-700 focus:outline-none">UPLOAD</button>
-            </div>
-              
-          </form>
-          <h2 
-          class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 dark:text-gray-200"
-          >
-            DOCUMENT LIST
-        </h2>
-        <table
-            *ngIf="document_list.length == 0"
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
-            <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-            <th scope="col" class="px-6 py-3">Title</th>
-            <th scope="col" class="px-6 py-3">File</th>
-            <th scope="col" class="text-center px-6 py-3">Action</th>
-            </tr>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-            >
-              <td colspan="8" scope="col" class="px-6 py-3">
-                No Records Found
-              </td>
-            </tr>
-          </table>
-          <table
-            *ngIf="document_list.length > 0"
-            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-          >
-            <tr
-              class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-            >
-              <th scope="col" class="px-6 py-3">Title</th>
-              <th scope="col" class="px-6 py-3">File</th>
-              <th scope="col" class="text-center px-6 py-3">Action</th>
-            </tr>
-            <tr
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-              *ngFor="let item of document_list | search : searchEmployee"
-            >
-              <td scope="col" class="px-6 py-3">{{ item.document_name }}</td>
-              <td scope="col" class="px-2 py-2">
-                <div
-                  class="flex flex-wrap align-items-center space-x-2"
-                  style="padding: 0px"
-                >
-                  <img
-                    class=""
-                    style="width: 50px;  height: 50px"
-                    src="{{
-                      item.url
-                        ? item.url.split('/').pop().split('.').pop()=='xlsx'?'assets/images/excel.png':item.url.split('/').pop().split('.').pop()=='pdf'?'assets/images/pdf.png':item.url.split('/').pop().split('.').pop()=='zip'?'assets/images/zip.png'
-                        : item.url:'assets/images/student_profile.png'
-                    }}"
-                  />
-                 
+          </mat-tab>
+          <mat-tab label="Documents">
+            <h2
+              class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 "
+              style="color: #dfdfdfc2;">
+              DOCUMENTS
+            </h2>
+            <div>
+              <form [formGroup]="documents_form" class="flex flex-wrap"  style="grid-gap: 3%;color: aliceblue;">
+                <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                  Title
                 </div>
-              </td>
-              
-              <td scope="col" class="text-center px-6 py-3">
-                <a
-                [href]="item.url"
-                target="_blank"
-                style="background: transparent; border: none;color:green;font-size: 20px;"
-              >
-              <i class="fa-solid fa-cloud-arrow-down"></i>
-            </a>
-                <button
-                  data-bs-toggle="modal"
-                  data-bs-target="#edit_employee"
-                  style="background: transparent; border: none;color:red;font-size: 20px;"
-                  (click)="delete_file(item)"
-                class="ml-4"
+                <input formControlName="title" class="sm:w-1/1_5 md:w-1/3_5 glass-input"
+                  placeholder="Enter Document Name" />
+                <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">
+                  File
+                </div>
+                <input formControlName="file" (change)="onChangeImage5($event)" type="file"
+                  class="sm:w-1/1_5 md:w-1/3_5 glass-select file-padding" />
+                <div class="w-full flex justify-center">
 
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-               
-              </td>
-            </tr>
-          </table>
-        </div>
+                  <button (click)="upload_document()"
+                    class="glass-button">UPLOAD</button>
+                </div>
+
+              </form>
+              <h2
+                class="w-full text-2xl md:text-3xl pl-2 my-2 border-l-4 font-sans font-bold border-blue-600 
+                " style="color: #dfdfdfc2;">
+                DOCUMENT LIST
+              </h2>
+              <table *ngIf="document_list.length == 0"
+                class="modern-table">
+                <thead>
+
+                  <tr class="">
+                    <th scope="col" class="px-3 py-2">Title</th>
+                    <th scope="col" class="px-3 py-2">File</th>
+                    <th scope="col" class="text-center px-3 py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="">
+                    <td colspan="8" scope="col" class="px-3 py-2">
+                      No Records Found
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table *ngIf="document_list.length > 0"
+                class="modern-table">
+                <thead>
+
+                  <tr class="">
+                    <th scope="col" class="px-3 py-2">Title</th>
+                    <th scope="col" class="px-3 py-2">File</th>
+                    <th scope="col" class="text-center px-3 py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="" *ngFor="let item of document_list | search : searchEmployee">
+                    <td scope="col" class="px-3 py-2">{{ item.document_name }}</td>
+                    <td scope="col" class="px-2 py-2">
+                      <div class="flex flex-wrap align-items-center space-x-2" style="padding: 0px">
+                        <img class="" style="width: 50px;  height: 50px" src="{{
+                        item.url
+                          ? item.url.split('/').pop().split('.').pop()=='xlsx'?'assets/images/excel.png':item.url.split('/').pop().split('.').pop()=='pdf'?'assets/images/pdf.png':item.url.split('/').pop().split('.').pop()=='zip'?'assets/images/zip.png'
+                          : item.url:'assets/images/student_profile.png'
+                      }}" />
+  
+                      </div>
+                    </td>
+  
+                    <td scope="col" class="text-center px-3 py-2">
+                      <a [href]="item.url" target="_blank"
+                        style="background: transparent; border: none;color:green;font-size: 20px;">
+                        <i class="fa-solid fa-cloud-arrow-down"></i>
+                      </a>
+                      <button data-bs-toggle="modal" data-bs-target="#edit_employee"
+                        style="background: transparent; border: none;color:red;font-size: 20px;"
+                        (click)="delete_file(item)" class="ml-4">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+  
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </mat-tab>
         </mat-tab-group>
       </div>
-      
+
     </div>
   </div>
 </div>
