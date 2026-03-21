@@ -1,6 +1,6 @@
-<div class="body_login" >
-  <div class="card">
-    <h2 class="card-title">
+<div class="body_login">
+  <div class="glass-container container">
+    <h2 class="card-title text-center">
       MEMBER LOGIN
     </h2>
     <form [formGroup]="adminLogin" style="display: flex;
@@ -8,28 +8,13 @@
         justify-content: center;
         flex-direction: column;">
 
-      <input
-      formControlName="username"
-    style="width: 300px;"
-
-      class="border border-gray-300 text-black p-2 m-2 rounded-lg focus:outline-none focus:border-blue-500"
-    placeholder="Enter Username"
-    />
-    <input
-    type="password"
-    formControlName="password"
-    style="width: 300px;"
-    class="border border-gray-300 text-black p-2 m-3 rounded-lg focus:outline-none focus:border-blue-500"
-    placeholder="Enter Password"
-    />
-    <button
-    (click)="loginAdmin()"
-    style="width: 300px;"
-    class="button bg-blue-700 text-white m-2 p-2 hover:bg-blue-900 focus:outline-none"
-  >
-    SUBMIT
-  </button>
-</form>
+      <input formControlName="username" style="width: 300px;" class="glass-input" placeholder="Enter Username" />
+      <input type="password" formControlName="password" style="width: 300px;" class="glass-input"
+        placeholder="Enter Password" />
+      <button (click)="loginAdmin()" style="width: 300px;" class="glass-button mt-2">
+        SUBMIT
+      </button>
+    </form>
 
   </div>
 

@@ -38,7 +38,13 @@ export class AdminLoginComponent implements OnInit {
     };
 
     if (!body.user_name) {
-      Swal.fire({ title: 'Please Enter Username', icon: 'info' });
+      Swal.fire({ title: 'Please Enter Username', icon: 'info' ,  showClass: {
+        popup: 'swal2-glass-popup'
+      },
+      hideClass: {
+        popup: ''
+      },
+      backdrop: 'rgba(0, 0, 0, 0.2)'});
     } else if (!body.password) {
       Swal.fire({ title: 'Please Enter Password', icon: 'info' });
     } else {
