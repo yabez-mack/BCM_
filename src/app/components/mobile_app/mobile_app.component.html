@@ -76,31 +76,31 @@
       <!-- Create Lyrics Tab -->
       <mat-tab label="Create">
         <div class="card-body">
-          <form [formGroup]="lyrics_form" class="flex flex-col sm:flex-row flex-wrap glass-form">
+          <form [formGroup]="lyrics_form"  class="flex flex-wrap" style="grid-gap: 3%;color: aliceblue;">
 
-            <div class="form-label">Song No.</div>
-            <input type="number" formControlName="serial_no" class="glass-input" placeholder="Enter Song No." />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Song No.</div>
+            <input type="number" formControlName="serial_no" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Song No." />
 
-            <div class="form-label">Song Name</div>
-            <input formControlName="name" class="glass-input" placeholder="Enter Song Name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Song Name</div>
+            <input formControlName="name" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Song Name" />
 
-            <div class="form-label">Image URL</div>
-            <input formControlName="image" class="glass-input" placeholder="Enter Image URL" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Image URL</div>
+            <input formControlName="image" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Image URL" />
 
-            <div class="form-label">Album Name</div>
-            <input formControlName="album" class="glass-input" placeholder="Enter Album Name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Album Name</div>
+            <input formControlName="album" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Album Name" />
 
-            <div class="form-label">Artist Name</div>
-            <input formControlName="artist" class="glass-input" placeholder="Enter Artist Name" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Artist Name</div>
+            <input formControlName="artist" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Artist Name" />
 
-            <div class="form-label">Language</div>
-            <input formControlName="language" class="glass-input" placeholder="Enter Language" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">Language</div>
+            <input formControlName="language" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Language" />
 
-            <div class="form-label">YouTube Video URL</div>
-            <input formControlName="video_url" class="glass-input" placeholder="Enter Video URL" />
+            <div class="sm:w-1/1_5 md:w-1/5 flex items-center justify-end">YouTube Video URL</div>
+            <input formControlName="video_url" class="glass-input sm:w-1/1_5 md:w-1/3_5 " placeholder="Enter Video URL" />
 
-            <div class="form-label w-full">Lyrics</div>
-            <textarea formControlName="song" class="glass-textarea" placeholder="Enter Song"></textarea>
+            <div class="form-label  w-full flex items-center justify-start ml-3">Lyrics</div>
+            <textarea formControlName="song" class="glass-textarea file-padding w-full" placeholder="Enter Song" style="min-height:100px"></textarea>
 
             <div class="form-actions w-full">
               <button (click)="submit_lyrics()" class="glass-button w-full sm:w-auto">SUBMIT</button>
